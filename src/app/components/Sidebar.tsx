@@ -12,6 +12,10 @@ export default function Sidebar() {
     const pose: YogaPose[] = [
         {
             id: 101,
+            name: "tree",
+            image: "tree.png"
+        },        {
+            id: 101,
             name: "warrior 1",
             image: "warrior1.png"
         },
@@ -24,10 +28,10 @@ export default function Sidebar() {
     return (
         <>
 
-            <div className="m-4 grid grid-cols-1 gap-2 w-[20%]">
+            <div className="m-4 grid grid-cols-1 gap-4 w-[20%]">
                 {pose.map((name: YogaPose, idx: number) => (
                     <>
-                        <div key={idx} className="min-h-[100px] rounded-2xl overflow-hidden  hover:bg-gray-200">
+                        <div key={idx} className="min-h-[100px] rounded-2xl overflow-hidden  hover:bg-gray-200 border-2 border-gray-800">
                             <Image
                                 src={`/pose/${name?.image}`}
                                 alt={name.name}
