@@ -3,7 +3,7 @@
 import { Sedan } from "next/font/google";
 import { Montserrat } from "next/font/google";
 import { YogaPoseDetailed } from "../interface/CustomInterface";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useTensorFlow from "../hooks/useTensorFlow";
 import useConvertTensorClass from "../hooks/useConvertTensorClass";
 
@@ -21,22 +21,52 @@ const advantagesFont = Montserrat(
 
 
 export default function MainBar(props: YogaPoseDetailed) {
-    const [pred, setPred] = useState<string>()
+    const [pred, setPred] = useState<string | null>(null)
+    const [poseSuccess, setPoseSuccess] = useState<boolean>(false)
+    const [poseMessage, setPoseMessage] = useState<string>()
 
     const excludeObjectContainer: number[] = [104]
 
+    const successMessage: string[] = ["Correct pose!", "Nailed it!", "Great form!", "Well done", "You got it!"]
+    const unsuccessMessage: string[] = ["Incorrect pose.", "Try once more.", "Keep practicing.", "Check your posture.", "Try another angle."]
 
 
-    async function handleTensordPredict(set:number) {
+    // Run Tensorflow Model and set class-name/pose 
+    async function handleTensordPredict(set: number) {
         const imgElement = document.getElementById('tfImg') as HTMLImageElement | null;
         const TFsrc = imgElement?.src;
-        const TFrun = await useTensorFlow(TFsrc,set)
-        const TFpred = useConvertTensorClass(TFrun,set)
-
-        console.log(TFpred);
+        const TFrun = await useTensorFlow(TFsrc, set)
+        const TFpred = useConvertTensorClass(TFrun, set)
+        // console.log(TFpred,props?.TFData?.class);
+        setPred(TFpred)
         
-
     }
+
+    // Generate Random Number
+    function randomNumber(len: number) {
+        return Math.floor(Math.random() * len)
+    }
+
+    // compare predicted and user selected class/pose
+    function checkTFPedictionWithUser() {
+        if (pred === props?.TFData?.class) {
+            setPoseSuccess(true)
+            
+            setPoseMessage(successMessage[randomNumber(successMessage.length)])
+        } else {
+            setPoseSuccess(false)
+            setPoseMessage(unsuccessMessage[randomNumber(unsuccessMessage.length)])
+        }
+    }
+
+    // executing checkTFPedictionWithUser when prediction available
+    useEffect(() => {
+        checkTFPedictionWithUser()
+    }, [pred])
+
+
+
+    
 
     return (
         <>
@@ -104,16 +134,27 @@ export default function MainBar(props: YogaPoseDetailed) {
                     </div>
 
                     <div className="col-span-3">
-                        <div className="flex flex-col border-[3px] border-text rounded-2xl w-full h-full   justify-start items-center">
+                        <div className="w-full h-full flex flex-col items-center justify-center border-[3px] border-text rounded-2xl">
 
                             {/* Status */}
                             <div className="mx-auto text-blue-500 font-semibold text-2xl">
                                 Turn on the camera
                             </div>
 
-                            <div onClick={() => handleTensordPredict(props.TFData.set)} className="bg-green-500 cursor-pointer text-white font-semibold rounded-2xl p-5">
+                            <div
+                                onClick={() => handleTensordPredict(props.TFData.set)}
+                                className="bg-green-500 cursor-pointer text-white font-semibold rounded-2xl p-2">
                                 Run Tensor
                             </div>
+
+                            <div className="mx-auto font-semibold text-2xl">
+                                <span className={`${poseSuccess ? "text-green-500" : "text-red-500"}`}>
+
+                                    {poseMessage && poseMessage}
+                                </span>
+                            </div>
+
+
                         </div>
                     </div>
 
