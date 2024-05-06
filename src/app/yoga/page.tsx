@@ -8,8 +8,8 @@ import MainBar from "../components/MainBar"
 export default function Yoga() {
     const [selectedPose, setSelectedPose] = useState<YogaPose>({
         id: 101,
-        name: "tree",
-        originalName: "Vrksasana",
+        name: "tree pose",
+        originalName: "vṛkṣāsana",
         image: "tree.png"
     })
 
