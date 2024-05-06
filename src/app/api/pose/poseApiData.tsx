@@ -15,7 +15,11 @@ const poseInfo: YogaPoseAPI[] = [
             "Posture Alignment: Tree pose encourages spinal elongation and shoulder opening, fostering healthy posture habits for improved spinal alignment and reduced discomfort."
         ],
         tutorial: "tree.gif",
-        image: "tree.png"
+        image: "tree.png",
+        TFData: {
+            class: "tree",
+            set: 1,
+        }
     },
     {
         id: 102,
@@ -30,7 +34,11 @@ const poseInfo: YogaPoseAPI[] = [
             "Grounding and Empowerment: Rooting down through the feet, Warrior 1 promotes a sense of grounding and inner strength."
         ],
         tutorial: "warrior1.gif",
-        image: "warrior1.png"
+        image: "warrior1.png",
+        TFData: {
+            class: "warrior1",
+            set: 1,
+        }
     },
     {
         id: 103,
@@ -45,7 +53,11 @@ const poseInfo: YogaPoseAPI[] = [
             "Energy Boost: Downward Dog increases blood flow to the brain, refreshing the body and mind, and providing an energy boost."
         ],
         tutorial: "downdog.gif",
-        image: "downdog.png"
+        image: "downdog.png",
+        TFData: {
+            class: "downdog",
+            set: 1,
+        }
     },
     {
         id: 104,
@@ -60,7 +72,11 @@ const poseInfo: YogaPoseAPI[] = [
             "Balancing Feminine Energy: Symbolizing the goddess archetype, this pose balances feminine energy, promoting self-love, nurturing, and grace."
         ],
         tutorial: "goddess.gif",
-        image: "goddess.png"
+        image: "goddess.png",
+        TFData: {
+            class: "goddess",
+            set: 2,
+        }
     },
 
 ];

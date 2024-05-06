@@ -13,6 +13,7 @@ interface YogaPoseDetailed {
     benefits: string[]
     tutorial: string
     image: string
+    TFData: {class:string,set:number}
 }
 
 
@@ -24,6 +25,7 @@ interface YogaPoseAPI {
     benefits: string[]
     tutorial: string
     image: string
+    TFData: {class:string,set:number}
 }
 
 
