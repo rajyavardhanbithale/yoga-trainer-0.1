@@ -5,6 +5,16 @@ interface YogaPose {
     image: string
 }
 
+interface YogaPoseDetailed {
+    id: number
+    name: string
+    originalName:string
+    description: string
+    benefits: string[]
+    tutorial: string
+    image: string
+}
+
 
 interface YogaPoseAPI {
     id: number
@@ -17,4 +27,4 @@ interface YogaPoseAPI {
 }
 
 
-export type {YogaPose,YogaPoseAPI}
+export type {YogaPose,YogaPoseAPI,YogaPoseDetailed}

@@ -1,7 +1,8 @@
 import Image from "next/image";
-import {YogaPose} from "../interface/CustomInterface";
+
 import { Sedan } from "next/font/google";
 import { Montserrat } from "next/font/google";
+import { YogaPoseDetailed } from "../interface/CustomInterface";
 
 const titleFont = Sedan(
     {
@@ -16,7 +17,7 @@ const advantagesFont = Montserrat(
 );
 
 
-export default function MainBar(props: YogaPose) {
+export default function MainBar(props: YogaPoseDetailed) {
     console.log(props);
 
     const adv = [
@@ -40,7 +41,7 @@ export default function MainBar(props: YogaPose) {
                             <div>{props.originalName}</div>
                         </div>
                         <span className={`${titleFont.className} text-xl capitalize font-semibold  text-center`}>
-                            "The tree pose, also known as vṛkṣāsana, is a yoga pose that helps to improve balance and stretches the body from head to toe"
+                            "{props.description}"
                         </span>
                     </div>
                 </div>
@@ -57,7 +58,7 @@ export default function MainBar(props: YogaPose) {
                     <div className="sm:col-span-1 min-h-[400px]">
                         <div className="flex justify-center h-full">
 
-                            <Image src={"/pose/tutorial/tree.gif"}
+                            <Image src={`/pose/tutorial/${props.tutorial}`}
                                 height={0}
                                 width={0}
                                 alt={"123"}

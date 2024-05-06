@@ -1,10 +1,13 @@
 
 import { NextResponse } from 'next/server'
- 
-type ResponseData = {
-  message: string
-}
- 
+import { poseInfo } from './poseApiData';
+
+
+
+
 export async function GET(res: Request) {
-  return NextResponse.json({ message: "Hello World" });
+  const response = poseInfo
+
+  
+  return NextResponse.json(response);
 }

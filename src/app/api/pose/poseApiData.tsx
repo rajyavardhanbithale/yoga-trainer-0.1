@@ -1,7 +1,7 @@
 import { YogaPoseAPI } from "@/app/interface/CustomInterface";
 
 
-const pose: YogaPoseAPI[] = [
+const poseInfo: YogaPoseAPI[] = [
     {
         id: 101,
         name: "tree pose",
@@ -64,3 +64,6 @@ const pose: YogaPoseAPI[] = [
     },
 
 ];
+
+
+export  {poseInfo}
