@@ -1,7 +1,7 @@
 'use client'
 
 import Image from "next/image"
-import YogaPose from "../interface/CustomInterface"
+import {YogaPose} from "../interface/CustomInterface"
 import { useState } from "react";
 
 

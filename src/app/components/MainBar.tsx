@@ -1,5 +1,5 @@
 import Image from "next/image";
-import YogaPose from "../interface/CustomInterface";
+import {YogaPose} from "../interface/CustomInterface";
 import { Sedan } from "next/font/google";
 import { Montserrat } from "next/font/google";
 
@@ -86,8 +86,15 @@ export default function MainBar(props: YogaPose) {
                             ))}
                         </div>
                     </div>
+
                     <div className="col-span-3">
-                       
+                        <div className="w-full h-full flex  justify-start items-center">
+
+                                {/* Status */}
+                                <div className="mx-auto text-blue-500 font-semibold text-2xl">
+                                    Turn on the camera
+                                </div>
+                        </div>
                     </div>                    
                     
                     {/* <div className="col-span-3">
