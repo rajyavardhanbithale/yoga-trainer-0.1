@@ -37,9 +37,9 @@ export default function MainBar(props: YogaPoseDetailed) {
         const TFsrc = imgElement?.src;
         const TFrun = await useTensorFlow(TFsrc, set)
         const TFpred = useConvertTensorClass(TFrun, set)
-        // console.log(TFpred,props?.TFData?.class);
+        console.log(TFpred);
         setPred(TFpred)
-        
+
     }
 
     // Generate Random Number
@@ -51,9 +51,11 @@ export default function MainBar(props: YogaPoseDetailed) {
     function checkTFPedictionWithUser() {
         if (pred === props?.TFData?.class) {
             setPoseSuccess(true)
+            console.log("yes");
             
             setPoseMessage(successMessage[randomNumber(successMessage.length)])
         } else {
+            console.log("no");
             setPoseSuccess(false)
             setPoseMessage(unsuccessMessage[randomNumber(unsuccessMessage.length)])
         }
@@ -62,11 +64,50 @@ export default function MainBar(props: YogaPoseDetailed) {
     // executing checkTFPedictionWithUser when prediction available
     useEffect(() => {
         checkTFPedictionWithUser()
-    }, [pred])
+    }, [pred,setPred])
 
 
+    const audioFiles = [
+        'audio/tree/seg1.wav',
+        'audio/tree/seg2.wav',
+        'audio/tree/seg3.wav',
+        'audio/tree/seg4.wav',
+        'audio/tree/seg5.wav',
+    ];
 
-    
+    const [currentAudio, setCurrentAudio] = useState(null);
+
+    useEffect(() => {
+        // Function to handle audio ended event
+        const handleAudioEnded = () => {
+            const nextAudio = getRandomAudio();
+            playAudio(nextAudio);
+        };
+
+        // Add event listener for audio ended event
+        if (currentAudio) {
+            currentAudio.addEventListener('ended', handleAudioEnded);
+        }
+
+        // Cleanup function to remove event listener
+        return () => {
+            if (currentAudio) {
+                currentAudio.removeEventListener('ended', handleAudioEnded);
+            }
+        };
+    }, [currentAudio]);
+
+    const getRandomAudio = () => {
+        const randomIndex = Math.floor(Math.random() * audioFiles.length);
+        return audioFiles[randomIndex];
+    };
+
+    const playAudio = (audio) => {
+        const audioElement = new Audio(audio);
+        setCurrentAudio(audioElement);
+        audioElement.play();
+    };
+
 
     return (
         <>
@@ -146,6 +187,7 @@ export default function MainBar(props: YogaPoseDetailed) {
                                 className="bg-green-500 cursor-pointer text-white font-semibold rounded-2xl p-2">
                                 Run Tensor
                             </div>
+                            <button onClick={() => playAudio(getRandomAudio())}>Play Random Audio</button>
 
                             <div className="mx-auto font-semibold text-2xl">
                                 <span className={`${poseSuccess ? "text-green-500" : "text-red-500"}`}>
