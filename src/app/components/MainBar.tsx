@@ -6,6 +6,7 @@ import { YogaPoseDetailed } from "../interface/CustomInterface";
 import { useEffect, useState } from "react";
 import useTensorFlow from "../hooks/useTensorFlow";
 import useConvertTensorClass from "../hooks/useConvertTensorClass";
+import { IoVolumeMediumOutline } from "react-icons/io5";
 
 const titleFont = Sedan(
     {
@@ -21,9 +22,11 @@ const advantagesFont = Montserrat(
 
 
 export default function MainBar(props: YogaPoseDetailed) {
-    const [pred, setPred] = useState<string | null>(null)
+    const [pred, setPred] = useState<string | undefined>()
     const [poseSuccess, setPoseSuccess] = useState<boolean>(false)
     const [poseMessage, setPoseMessage] = useState<string>()
+    const [audioManage, setAudioManage] = useState(false);
+    const [audioBenefits, setAudioBenefits] = useState<HTMLAudioElement | null>(null);
 
     const excludeObjectContainer: number[] = [104]
 
@@ -52,7 +55,7 @@ export default function MainBar(props: YogaPoseDetailed) {
         if (pred === props?.TFData?.class) {
             setPoseSuccess(true)
             console.log("yes");
-            
+
             setPoseMessage(successMessage[randomNumber(successMessage.length)])
         } else {
             console.log("no");
@@ -62,51 +65,48 @@ export default function MainBar(props: YogaPoseDetailed) {
     }
 
     // executing checkTFPedictionWithUser when prediction available
-    useEffect(() => {
-        checkTFPedictionWithUser()
-    }, [pred,setPred])
+    // useEffect(() => {
+    //     checkTFPedictionWithUser()
+    // }, [pred, setPred])
 
-
-    const audioFiles = [
-        'audio/tree/seg1.wav',
-        'audio/tree/seg2.wav',
-        'audio/tree/seg3.wav',
-        'audio/tree/seg4.wav',
-        'audio/tree/seg5.wav',
-    ];
-
-    const [currentAudio, setCurrentAudio] = useState(null);
 
     useEffect(() => {
-        // Function to handle audio ended event
-        const handleAudioEnded = () => {
-            const nextAudio = getRandomAudio();
-            playAudio(nextAudio);
-        };
-
-        // Add event listener for audio ended event
-        if (currentAudio) {
-            currentAudio.addEventListener('ended', handleAudioEnded);
-        }
-
-        // Cleanup function to remove event listener
-        return () => {
-            if (currentAudio) {
-                currentAudio.removeEventListener('ended', handleAudioEnded);
+        if (audioManage) {
+            if (audioBenefits) {
+                audioBenefits.play();
             }
-        };
-    }, [currentAudio]);
+        } else {
+            if (audioBenefits) {
+                audioBenefits.pause();
+                audioBenefits.currentTime = 0;
+            }
+        }
+    }, [audioManage, audioBenefits]);
 
-    const getRandomAudio = () => {
-        const randomIndex = Math.floor(Math.random() * audioFiles.length);
-        return audioFiles[randomIndex];
-    };
-
-    const playAudio = (audio) => {
+    const playAudio = (audio: string) => {
         const audioElement = new Audio(audio);
-        setCurrentAudio(audioElement);
-        audioElement.play();
+        setAudioBenefits(audioElement);
     };
+
+    const stopAudio = () => {
+        if (audioBenefits) {
+            audioBenefits.pause();
+            audioBenefits.currentTime = 0;
+        }
+    };
+
+    const handlePlayNarrator = (narrationType: string) => {
+        setAudioManage(!audioManage);
+
+        if (!audioManage && narrationType === "benefits") {
+            playAudio('/audio/tree/benefits.mp3');
+            console.log("play");
+        } else {
+            stopAudio();
+            console.log("stop");
+        }
+    };
+
 
 
     return (
@@ -158,9 +158,16 @@ export default function MainBar(props: YogaPoseDetailed) {
                 <div className="grid grid-cols-7 my-6 p-5 gap-10">
                     <div className="col-span-4">
                         <div className={`flex flex-col ${advantagesFont.className}`}>
-                            <span className="text-2xl font-semibold capitalize my-2">
-                                benefits of {props.originalName}
-                            </span>
+
+                            <div className="text-2xl font-semibold capitalize my-2">
+                                <span>
+                                    benefits of {props.originalName}
+                                </span>
+                                <span onClick={() => handlePlayNarrator('benefits')} className="inline-flex align-middle mx-2 rounded-2xl bg-slate-100 hover:bg-slate-200 duration-300 cursor-pointer ">
+                                    <IoVolumeMediumOutline className="text-4xl font-bold p-1" />
+                                </span>
+                            </div>
+
                             {props?.benefits?.map((text, idx) => (
                                 <div key={idx}>
                                     <span className="text-xl font-semibold">
@@ -187,7 +194,7 @@ export default function MainBar(props: YogaPoseDetailed) {
                                 className="bg-green-500 cursor-pointer text-white font-semibold rounded-2xl p-2">
                                 Run Tensor
                             </div>
-                            <button onClick={() => playAudio(getRandomAudio())}>Play Random Audio</button>
+                            {/* <button onClick={() => playAudio(getRandomAudio())}>Play Random Audio</button> */}
 
                             <div className="mx-auto font-semibold text-2xl">
                                 <span className={`${poseSuccess ? "text-green-500" : "text-red-500"}`}>
