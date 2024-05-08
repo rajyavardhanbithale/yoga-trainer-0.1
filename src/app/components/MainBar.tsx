@@ -27,7 +27,7 @@ export default function MainBar(props: YogaPoseDetailed) {
     const [poseSuccess, setPoseSuccess] = useState<boolean>(false)
     const [poseMessage, setPoseMessage] = useState<string>()
     const [audioStatus, setAudioStatus] = useState<boolean>(true)
-    const [audioSource,setAudioSource] = useState<string>()
+    const [audioSource, setAudioSource] = useState<string>()
     const { play, stop, isPlaying } = useAudioManager();
 
     const excludeObjectContainer: Array<number> = [104]
@@ -52,7 +52,7 @@ export default function MainBar(props: YogaPoseDetailed) {
         return Math.floor(Math.random() * len)
     }
 
-  
+
     // compare predicted and user selected class/pose
     function checkTFPedictionWithUser() {
         if (pred === props?.TFData?.class) {
@@ -73,18 +73,19 @@ export default function MainBar(props: YogaPoseDetailed) {
     // }, [pred, setPred])
     // const { play, stop, isPlaying } = useAudioManager('benefits.mp3');
 
+    console.log(props?.audioData);
 
-    function playAudio(source:string){
-        
-        if(audioStatus){
+
+    function playAudio(source: string) {
+        stop()
+
+        if (audioStatus) {
             play(source)
-        }else{
-            stop()
         }
         console.log(audioStatus);
-        
-        // setAudioStatus(!audioStatus)
-        
+
+        setAudioStatus(!audioStatus)
+
     }
 
     // console.log(props?.audioData);
@@ -98,38 +99,59 @@ export default function MainBar(props: YogaPoseDetailed) {
                     {/* Title */}
                     <div className="grid grid-cols-1 justify-center place-items-center gap-2">
                         <div className={`${titleFont.className} flex items-center text-4xl font-semibold capitalize`}>
-                            <div>{props.name}</div>
+                            <div>{props?.name}</div>
                             <div className="h-1.5 w-1.5 bg-text rounded-full mx-3"></div>
-                            <div>{props.originalName}</div>
+                            <div>{props?.originalName}</div>
                         </div>
                         <span className={`${titleFont.className} text-xl capitalize font-semibold  text-center`}>
-                            "{props.description}"
+                            "{props?.description}"
                         </span>
                     </div>
                 </div>
 
 
-                <div className="grid xl:grid-cols-2 md:grid-cols-1 p-5 gap-10">
+                <div className="grid xl:grid-cols-11 md:grid-cols-1 p-5 gap-10">
+
                     {/* Source */}
-                    <div className="sm:col-span-1 min-h-[400px]">
+                    <div className="sm:col-span-5 min-h-[400px]">
                         {/* <div className="bg-gray-800 w-full h-full rounded-2xl"></div> */}
-                        <div className="flex justify-center h-full max-h-[400px] border-[3px] rounded-2xl border-text">
+                        <div className="flex justify-center h-full max-h-[400px] ">
 
                             <img id="tfImg" src="warr.webp"
-                                alt={props.name}
-                                className={`w-3/4 ${excludeObjectContainer.includes(props.id) ? "object-scale-down" : "object-cover"} down object-center h-auto rounded-2xl`}
+                                alt={props?.name}
+                                className={`w-3/4 ${excludeObjectContainer.includes(props?.id) ? "object-scale-down" : "object-cover"} down object-center h-auto rounded-2xl`}
                             >
                             </img>
                         </div>
                     </div>
 
-                    {/* Tutorial */}
+                    {/* Controller */}
                     <div className="sm:col-span-1 min-h-[400px]">
-                        <div className="flex justify-center h-full max-h-[400px] border-[3px] rounded-2xl border-text">
+                        <div className="flex text-center flex-col justify-center items-center align-middle h-full max-h-[400px] gap-8">
+                            <div>
+                                <span className="text-xl">Narrator</span>
+                                <span onClick={() => playAudio(props?.audioData?.mainAudio)} className="inline-flex justify-center w-full  align-middle mx-2 rounded-2xl bg-slate-100 hover:bg-slate-200 duration-300 cursor-pointer ">
+                                    <IoVolumeMediumOutline className="text-4xl font-bold p-1" />
+                                </span>
+                            </div>
+
+                            <div>
+                                <span className="text-xl">Tips</span>
+                                <span onClick={() => playAudio(props?.audioData?.mainAudio)} className="inline-flex justify-center w-full  align-middle mx-2 rounded-2xl bg-slate-100 hover:bg-slate-200 duration-300 cursor-pointer ">
+                                    <IoVolumeMediumOutline className="text-4xl font-bold p-1" />
+                                </span>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    {/* Tutorial */}
+                    <div className="sm:col-span-5 min-h-[400px]">
+                        <div className="flex justify-center h-full max-h-[400px] ">
 
                             <img src={`/pose/tutorial/${props?.tutorial}`}
-                                alt={props.name}
-                                className={`w-3/4 ${excludeObjectContainer.includes(props.id) ? "object-scale-down" : "object-cover"} down object-center h-auto rounded-2xl`}
+                                alt={props?.name}
+                                className={`w-3/4 ${excludeObjectContainer.includes(props?.id) ? "object-scale-down" : "object-cover"} down object-center h-auto rounded-2xl`}
                             >
                             </img>
                         </div>
@@ -143,12 +165,12 @@ export default function MainBar(props: YogaPoseDetailed) {
 
                             <div className="text-2xl font-semibold capitalize my-2">
                                 <span>
-                                    benefits of {props.originalName}
+                                    benefits of {props?.originalName}
                                 </span>
 
                                 {/* onClick={() => handlePlayNarrator('benefits')} */}
 
-                                <span onClick={() => playAudio('benefits.mp3')} className="inline-flex align-middle mx-2 rounded-2xl bg-slate-100 hover:bg-slate-200 duration-300 cursor-pointer ">
+                                <span onClick={() => playAudio(props?.audioData?.benefits)} className="inline-flex align-middle mx-2 rounded-2xl bg-slate-100 hover:bg-slate-200 duration-300 cursor-pointer ">
                                     <IoVolumeMediumOutline className="text-4xl font-bold p-1" />
                                 </span>
                             </div>

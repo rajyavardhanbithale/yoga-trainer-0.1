@@ -22,6 +22,9 @@ function useAudioManager() {
         }
     };
 
+
+
+
     useEffect(() => {
         if (audio) {
             audio.addEventListener('ended', () => {
