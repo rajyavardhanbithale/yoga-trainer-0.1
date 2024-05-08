@@ -73,10 +73,10 @@ export default function MainBar(props: YogaPoseDetailed) {
     // }, [pred, setPred])
     // const { play, stop, isPlaying } = useAudioManager('benefits.mp3');
 
-    console.log(props?.audioData);
+    
 
 
-    function playAudio(source: string) {
+    function playAudio(source: (string | Array<string>)) {
         stop()
 
         if (audioStatus) {
@@ -137,7 +137,7 @@ export default function MainBar(props: YogaPoseDetailed) {
 
                             <div>
                                 <span className="text-xl">Tips</span>
-                                <span onClick={() => playAudio(props?.audioData?.mainAudio)} className="inline-flex justify-center w-full  align-middle mx-2 rounded-2xl bg-slate-100 hover:bg-slate-200 duration-300 cursor-pointer ">
+                                <span onClick={() => playAudio(props?.audioData?.narratorSegment)} className="inline-flex justify-center w-full  align-middle mx-2 rounded-2xl bg-slate-100 hover:bg-slate-200 duration-300 cursor-pointer ">
                                     <IoVolumeMediumOutline className="text-4xl font-bold p-1" />
                                 </span>
                             </div>
