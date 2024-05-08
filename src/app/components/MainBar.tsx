@@ -2,11 +2,11 @@
 
 import { Sedan } from "next/font/google";
 import { Montserrat } from "next/font/google";
-import { YogaPoseDetailed } from "../interface/CustomInterface";
+import { AudioState, YogaPoseDetailed } from "../interface/CustomInterface";
 import { useEffect, useState } from "react";
 import useTensorFlow from "../hooks/useTensorFlow";
 import useConvertTensorClass from "../hooks/useConvertTensorClass";
-import { IoVolumeMediumOutline } from "react-icons/io5";
+import { IoVolumeMediumOutline, IoVolumeMuteOutline } from "react-icons/io5";
 import useAudioManager from "../hooks/useAudioPlayer";
 
 const titleFont = Sedan(
@@ -27,7 +27,8 @@ export default function MainBar(props: YogaPoseDetailed) {
     const [poseSuccess, setPoseSuccess] = useState<boolean>(false)
     const [poseMessage, setPoseMessage] = useState<string>()
     const [audioStatus, setAudioStatus] = useState<boolean>(true)
-    const [audioSource, setAudioSource] = useState<string>()
+    const [audioState, setAudioState] = useState<string>()
+
     const { play, stop, isPlaying } = useAudioManager();
 
     const excludeObjectContainer: Array<number> = [104]
@@ -73,14 +74,17 @@ export default function MainBar(props: YogaPoseDetailed) {
     // }, [pred, setPred])
     // const { play, stop, isPlaying } = useAudioManager('benefits.mp3');
 
-    
 
 
-    function playAudio(source: (string | Array<string>)) {
+
+    function playAudio(source: (string | Array<string>), state: (string)) {
         stop()
 
         if (audioStatus) {
             play(source)
+            setAudioState(state)
+        }else{
+            setAudioState("")
         }
         console.log(audioStatus);
 
@@ -88,8 +92,7 @@ export default function MainBar(props: YogaPoseDetailed) {
 
     }
 
-    // console.log(props?.audioData);
-
+    console.log(audioState);
 
 
     return (
@@ -130,15 +133,29 @@ export default function MainBar(props: YogaPoseDetailed) {
                         <div className="flex text-center flex-col justify-center items-center align-middle h-full max-h-[400px] gap-8">
                             <div>
                                 <span className="text-xl">Narrator</span>
-                                <span onClick={() => playAudio(props?.audioData?.mainAudio)} className="inline-flex justify-center w-full  align-middle mx-2 rounded-2xl bg-slate-100 hover:bg-slate-200 duration-300 cursor-pointer ">
-                                    <IoVolumeMediumOutline className="text-4xl font-bold p-1" />
+                                <span onClick={() => playAudio(props?.audioData?.mainAudio, "narrator")} className="inline-flex justify-center w-full  align-middle mx-2 rounded-2xl bg-slate-100 hover:bg-slate-200 duration-300 cursor-pointer ">
+                                    {audioState === "narrator" ? (
+                                        <IoVolumeMediumOutline className="text-4xl font-bold p-1" />
+
+                                    ) : (
+
+                                        <IoVolumeMuteOutline className="text-4xl font-bold p-1" />
+                                    )}
+
                                 </span>
                             </div>
 
                             <div>
                                 <span className="text-xl">Tips</span>
-                                <span onClick={() => playAudio(props?.audioData?.narratorSegment)} className="inline-flex justify-center w-full  align-middle mx-2 rounded-2xl bg-slate-100 hover:bg-slate-200 duration-300 cursor-pointer ">
-                                    <IoVolumeMediumOutline className="text-4xl font-bold p-1" />
+                                <span onClick={() => playAudio(props?.audioData?.narratorSegment, "tips")} className="inline-flex justify-center w-full  align-middle mx-2 rounded-2xl bg-slate-100 hover:bg-slate-200 duration-300 cursor-pointer ">
+                                {audioState === "tips" ? (
+                                        <IoVolumeMediumOutline className="text-4xl font-bold p-1" />
+
+                                    ) : (
+
+                                        <IoVolumeMuteOutline className="text-4xl font-bold p-1" />
+                                    )}
+
                                 </span>
                             </div>
 
@@ -170,8 +187,15 @@ export default function MainBar(props: YogaPoseDetailed) {
 
                                 {/* onClick={() => handlePlayNarrator('benefits')} */}
 
-                                <span onClick={() => playAudio(props?.audioData?.benefits)} className="inline-flex align-middle mx-2 rounded-2xl bg-slate-100 hover:bg-slate-200 duration-300 cursor-pointer ">
-                                    <IoVolumeMediumOutline className="text-4xl font-bold p-1" />
+                                <span onClick={() => playAudio(props?.audioData?.benefits, "benefits")} className="inline-flex align-middle mx-2 rounded-2xl bg-slate-100 hover:bg-slate-200 duration-300 cursor-pointer ">
+                                {audioState === "benefits" ? (
+                                        <IoVolumeMediumOutline className="text-4xl font-bold p-1" />
+
+                                    ) : (
+
+                                        <IoVolumeMuteOutline className="text-4xl font-bold p-1" />
+                                    )}
+
                                 </span>
                             </div>
 
