@@ -1,6 +1,6 @@
 
 function useConvertTensorClass(val: string, set: number) {
-    const set1:string[] = ["downdog", "tree", "warrior1"]
+    const set1: Array<string>  = ["downdog", "tree", "warrior1"]
 
     const arr = val.split(',');
     const numericArr = arr.map(parseFloat);

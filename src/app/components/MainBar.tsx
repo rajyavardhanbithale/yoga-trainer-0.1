@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import useTensorFlow from "../hooks/useTensorFlow";
 import useConvertTensorClass from "../hooks/useConvertTensorClass";
 import { IoVolumeMediumOutline } from "react-icons/io5";
+import useAudioManager from "../hooks/useAudioPlayer";
 
 const titleFont = Sedan(
     {
@@ -25,13 +26,14 @@ export default function MainBar(props: YogaPoseDetailed) {
     const [pred, setPred] = useState<string | undefined>()
     const [poseSuccess, setPoseSuccess] = useState<boolean>(false)
     const [poseMessage, setPoseMessage] = useState<string>()
-    const [audioManage, setAudioManage] = useState(false);
-    const [audioBenefits, setAudioBenefits] = useState<HTMLAudioElement | null>(null);
+    const [audioStatus, setAudioStatus] = useState<boolean>(true)
+    const [audioSource,setAudioSource] = useState<string>()
+    const { play, stop, isPlaying } = useAudioManager();
 
-    const excludeObjectContainer: number[] = [104]
+    const excludeObjectContainer: Array<number> = [104]
 
-    const successMessage: string[] = ["Correct pose!", "Nailed it!", "Great form!", "Well done", "You got it!"]
-    const unsuccessMessage: string[] = ["Incorrect pose.", "Try once more.", "Keep practicing.", "Check your posture.", "Try another angle."]
+    const successMessage: Array<string> = ["Correct pose!", "Nailed it!", "Great form!", "Well done", "You got it!"]
+    const unsuccessMessage: Array<string> = ["Incorrect pose.", "Try once more.", "Keep practicing.", "Check your posture.", "Try another angle."]
 
 
     // Run Tensorflow Model and set class-name/pose 
@@ -50,6 +52,7 @@ export default function MainBar(props: YogaPoseDetailed) {
         return Math.floor(Math.random() * len)
     }
 
+  
     // compare predicted and user selected class/pose
     function checkTFPedictionWithUser() {
         if (pred === props?.TFData?.class) {
@@ -68,44 +71,23 @@ export default function MainBar(props: YogaPoseDetailed) {
     // useEffect(() => {
     //     checkTFPedictionWithUser()
     // }, [pred, setPred])
+    // const { play, stop, isPlaying } = useAudioManager('benefits.mp3');
 
 
-    useEffect(() => {
-        if (audioManage) {
-            if (audioBenefits) {
-                audioBenefits.play();
-            }
-        } else {
-            if (audioBenefits) {
-                audioBenefits.pause();
-                audioBenefits.currentTime = 0;
-            }
+    function playAudio(source:string){
+        
+        if(audioStatus){
+            play(source)
+        }else{
+            stop()
         }
-    }, [audioManage, audioBenefits]);
+        console.log(audioStatus);
+        
+        // setAudioStatus(!audioStatus)
+        
+    }
 
-    const playAudio = (audio: string) => {
-        const audioElement = new Audio(audio);
-        setAudioBenefits(audioElement);
-    };
-
-    const stopAudio = () => {
-        if (audioBenefits) {
-            audioBenefits.pause();
-            audioBenefits.currentTime = 0;
-        }
-    };
-
-    const handlePlayNarrator = (narrationType: string) => {
-        setAudioManage(!audioManage);
-
-        if (!audioManage && narrationType === "benefits") {
-            playAudio('/audio/tree/benefits.mp3');
-            console.log("play");
-        } else {
-            stopAudio();
-            console.log("stop");
-        }
-    };
+    // console.log(props?.audioData);
 
 
 
@@ -163,7 +145,10 @@ export default function MainBar(props: YogaPoseDetailed) {
                                 <span>
                                     benefits of {props.originalName}
                                 </span>
-                                <span onClick={() => handlePlayNarrator('benefits')} className="inline-flex align-middle mx-2 rounded-2xl bg-slate-100 hover:bg-slate-200 duration-300 cursor-pointer ">
+
+                                {/* onClick={() => handlePlayNarrator('benefits')} */}
+
+                                <span onClick={() => playAudio('benefits.mp3')} className="inline-flex align-middle mx-2 rounded-2xl bg-slate-100 hover:bg-slate-200 duration-300 cursor-pointer ">
                                     <IoVolumeMediumOutline className="text-4xl font-bold p-1" />
                                 </span>
                             </div>

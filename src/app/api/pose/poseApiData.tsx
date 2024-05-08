@@ -19,6 +19,11 @@ const poseInfo: YogaPoseAPI[] = [
         TFData: {
             class: "tree",
             set: 1,
+        },
+        audioData:{
+            mainAudio: "tree.mp3",
+            benefits: "benefits.mp3",
+            narratorSegment:["seg0.mp3","seg1.mp3","seg2.mp3","seg3.mp3","seg4.mp3"]
         }
     },
     {
@@ -38,6 +43,11 @@ const poseInfo: YogaPoseAPI[] = [
         TFData: {
             class: "warrior1",
             set: 1,
+        },
+        audioData:{
+            mainAudio: "tree.mp3",
+            benefits: "benefits.mp3",
+            narratorSegment:["seg0.mp3","seg1.mp3","seg2.mp3","seg3.mp3","seg4.mp3"]
         }
     },
     {
@@ -57,6 +67,11 @@ const poseInfo: YogaPoseAPI[] = [
         TFData: {
             class: "downdog",
             set: 1,
+        },
+        audioData:{
+            mainAudio: "tree.mp3",
+            benefits: "benefits.mp3",
+            narratorSegment:["seg0.mp3","seg1.mp3","seg2.mp3","seg3.mp3","seg4.mp3"]
         }
     },
     {
@@ -76,6 +91,11 @@ const poseInfo: YogaPoseAPI[] = [
         TFData: {
             class: "goddess",
             set: 2,
+        },
+        audioData:{
+            mainAudio: "tree.mp3",
+            benefits: "benefits.mp3",
+            narratorSegment:["seg0.mp3","seg1.mp3","seg2.mp3","seg3.mp3","seg4.mp3"]
         }
     },
 

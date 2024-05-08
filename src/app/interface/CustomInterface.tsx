@@ -1,32 +1,49 @@
 interface YogaPose {
     id: number
     name: string
-    originalName:string
+    originalName: string
     image: string
 }
 
 interface YogaPoseDetailed {
     id: number
     name: string
-    originalName:string
+    originalName: string
     description: string
-    benefits: string[]
+    benefits: Array<string>
     tutorial: string
     image: string
-    TFData: {class:string,set:number}
+    TFData: { 
+        class: string 
+        set: number 
+    }
+    audioData:{
+        mainAudio: string
+        benefits: string
+        narratorSegment: Array<string>
+    }
+
 }
 
 
 interface YogaPoseAPI {
     id: number
     name: string
-    originalName:string
+    originalName: string
     description: string
-    benefits: string[]
+    benefits: Array<string>
     tutorial: string
     image: string
-    TFData: {class:string,set:number}
+    TFData: { 
+        class: string 
+        set: number 
+    }
+    audioData:{
+        mainAudio: string
+        benefits: string
+        narratorSegment: Array<string>
+    }
 }
 
 
-export type {YogaPose,YogaPoseAPI,YogaPoseDetailed}
+export type { YogaPose, YogaPoseAPI, YogaPoseDetailed }

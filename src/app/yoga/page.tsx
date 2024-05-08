@@ -51,6 +51,7 @@ export default function Yoga() {
                     tutorial={passPoseData?.tutorial}
                     image={passPoseData?.image}
                     TFData={passPoseData?.TFData}
+                    audioData={passPoseData?.audioData}
                 ></MainBar>
             </div>
 
