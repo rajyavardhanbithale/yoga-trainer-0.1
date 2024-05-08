@@ -45,9 +45,9 @@ const poseInfo: YogaPoseAPI[] = [
             set: 1,
         },
         audioData:{
-            mainAudio: "tree.mp3",
+            mainAudio: "warrior1.mp3",
             benefits: "benefits.mp3",
-            narratorSegment:["seg0.mp3","seg1.mp3","seg2.mp3","seg3.mp3","seg4.mp3"]
+            narratorSegment:["seg0.mp3","seg1.mp3","seg2.mp3","seg3.mp3","seg4.mp3","seg5.mp3"]
         }
     },
     {

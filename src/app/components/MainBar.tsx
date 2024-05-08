@@ -2,7 +2,7 @@
 
 import { Sedan } from "next/font/google";
 import { Montserrat } from "next/font/google";
-import { AudioState, YogaPoseDetailed } from "../interface/CustomInterface";
+import { YogaPoseDetailed } from "../interface/CustomInterface";
 import { useEffect, useState } from "react";
 import useTensorFlow from "../hooks/useTensorFlow";
 import useConvertTensorClass from "../hooks/useConvertTensorClass";
@@ -28,16 +28,17 @@ export default function MainBar(props: YogaPoseDetailed) {
     const [poseMessage, setPoseMessage] = useState<string>()
     const [audioStatus, setAudioStatus] = useState<boolean>(true)
     const [audioState, setAudioState] = useState<string>()
+    const [playbackSpeed, setPlaybackSpeed] = useState<number | string>("slower")
+    const [dropdown, setDropdown] = useState<boolean>(false)
 
     const { play, stop, isPlaying } = useAudioManager();
 
     const excludeObjectContainer: Array<number> = [104]
-
     const successMessage: Array<string> = ["Correct pose!", "Nailed it!", "Great form!", "Well done", "You got it!"]
     const unsuccessMessage: Array<string> = ["Incorrect pose.", "Try once more.", "Keep practicing.", "Check your posture.", "Try another angle."]
 
 
-    // Run Tensorflow Model and set class-name/pose 
+    // Run Tensorflow Model and set className-name/pose 
     async function handleTensordPredict(set: number) {
         const imgElement = document.getElementById('tfImg') as HTMLImageElement | null;
         const TFsrc = imgElement?.src;
@@ -54,7 +55,7 @@ export default function MainBar(props: YogaPoseDetailed) {
     }
 
 
-    // compare predicted and user selected class/pose
+    // compare predicted and user selected className/pose
     function checkTFPedictionWithUser() {
         if (pred === props?.TFData?.class) {
             setPoseSuccess(true)
@@ -81,9 +82,9 @@ export default function MainBar(props: YogaPoseDetailed) {
         stop()
 
         if (audioStatus) {
-            play(source)
+            play(source, props?.TFData?.class)
             setAudioState(state)
-        }else{
+        } else {
             setAudioState("")
         }
         console.log(audioStatus);
@@ -92,7 +93,7 @@ export default function MainBar(props: YogaPoseDetailed) {
 
     }
 
-    console.log(audioState);
+
 
 
     return (
@@ -148,7 +149,7 @@ export default function MainBar(props: YogaPoseDetailed) {
                             <div>
                                 <span className="text-xl">Tips</span>
                                 <span onClick={() => playAudio(props?.audioData?.narratorSegment, "tips")} className="inline-flex justify-center w-full  align-middle mx-2 rounded-2xl bg-slate-100 hover:bg-slate-200 duration-300 cursor-pointer ">
-                                {audioState === "tips" ? (
+                                    {audioState === "tips" ? (
                                         <IoVolumeMediumOutline className="text-4xl font-bold p-1" />
 
                                     ) : (
@@ -157,6 +158,30 @@ export default function MainBar(props: YogaPoseDetailed) {
                                     )}
 
                                 </span>
+                            </div>
+
+                            <div>
+                                <span className="text-xl">Voice Speed</span>
+                                <div className="relative">
+                                    <button 
+                                    onClick={() => setDropdown(!dropdown)} 
+                                    className="text-text font-medium rounded-lg  px-5 py-2.5 text-center inline-flex items-center capitalize" type="button">{playbackSpeed}</button>
+
+
+                                    {dropdown &&
+
+                                        <div className="absolute top-full left-1/2 transform -translate-x-1/2  rounded-lg shadow animate-bounce ">
+                                            <ul className="py-0.5 px-2 rounded-xl bg-slate-200 capitalize">
+                                                <li className="py-0.5 px-2 rounded-xl hover:bg-slate-300 duration-500 cursor-pointer">slowest</li>
+                                                <li className="py-0.5 px-2 rounded-xl hover:bg-slate-300 duration-500 cursor-pointer">slow</li>
+                                                <li className="py-0.5 px-2 rounded-xl hover:bg-slate-300 duration-500 cursor-pointer">fine</li>
+                                                <li className="py-0.5 px-2 rounded-xl hover:bg-slate-300 duration-500 cursor-pointer">fast</li>
+                                                <li className="py-0.5 px-2 rounded-xl hover:bg-slate-300 duration-500 cursor-pointer">fastest</li>
+
+                                            </ul>
+                                        </div>
+                                    }
+                                </div>
                             </div>
 
                         </div>
@@ -188,7 +213,7 @@ export default function MainBar(props: YogaPoseDetailed) {
                                 {/* onClick={() => handlePlayNarrator('benefits')} */}
 
                                 <span onClick={() => playAudio(props?.audioData?.benefits, "benefits")} className="inline-flex align-middle mx-2 rounded-2xl bg-slate-100 hover:bg-slate-200 duration-300 cursor-pointer ">
-                                {audioState === "benefits" ? (
+                                    {audioState === "benefits" ? (
                                         <IoVolumeMediumOutline className="text-4xl font-bold p-1" />
 
                                     ) : (

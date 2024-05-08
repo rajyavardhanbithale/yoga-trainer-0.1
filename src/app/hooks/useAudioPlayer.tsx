@@ -7,8 +7,9 @@ function useAudioManager() {
     const [isPlaying, setIsPlaying] = useState<boolean>(false)
 
     const [audioArr, setAudioArr] = useState<Array<string>>()
+    const [audioClass, setAudioClass] = useState<string>()
 
-    const play = (audioUrl: (string | Array<string>)) => {
+    const play = (audioUrl: (string | Array<string>), audioClass?: string) => {
         let newAudioURL: string
 
         const playAudio = (newAudioURL:string) => {
@@ -21,13 +22,15 @@ function useAudioManager() {
 
         if (Array.isArray(audioUrl)) {
             setAudioArr(audioUrl)
-            newAudioURL = '/audio/tree/' + audioUrl[Math.floor(Math.random() * audioUrl.length)]
+            setAudioClass(audioClass)
+            newAudioURL = `/audio/${audioClass}/` + audioUrl[Math.floor(Math.random() * audioUrl.length)]
             
             playAudio(newAudioURL)
             console.log(newAudioURL)
 
         } else {
-            newAudioURL = '/audio/tree/' + audioUrl
+            setAudioClass(audioClass)
+            newAudioURL = `/audio/${audioClass}/` + audioUrl
             playAudio(newAudioURL)
         }
 
@@ -48,7 +51,7 @@ function useAudioManager() {
             audio.addEventListener('ended', () => {
                 setIsPlaying(false)
                 if (Array.isArray(audioArr)){
-                    play(audioArr)
+                    play(audioArr,audioClass)
                     
                 }
             })
