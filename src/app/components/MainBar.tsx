@@ -5,10 +5,10 @@ import { Montserrat } from "next/font/google";
 import { YogaPoseDetailed } from "../interface/CustomInterface";
 import { useEffect, useRef, useState } from "react";
 import useTensorFlow from "../hooks/useTensorFlow";
-import useConvertTensorClass from "../hooks/useConvertTensorClass";
 import { IoVolumeMediumOutline, IoVolumeMuteOutline } from "react-icons/io5";
 import useAudioManager from "../hooks/useAudioPlayer";
 import DropdownSelect from "./helper/DropdownSelect";
+import useConvertTensorClass from "../hooks/useConvertTensorClass";
 
 const titleFont = Sedan(
     {
@@ -24,7 +24,6 @@ const advantagesFont = Montserrat(
 
 
 export default function MainBar(props: YogaPoseDetailed) {
-    const [pred, setPred] = useState<string | undefined>()
     const [poseSuccess, setPoseSuccess] = useState<boolean>(false)
     const [poseMessage, setPoseMessage] = useState<string>()
     const [audioStatus, setAudioStatus] = useState<boolean>(true)
@@ -33,10 +32,12 @@ export default function MainBar(props: YogaPoseDetailed) {
     const [dropdown, setDropdown] = useState<boolean>(false)
     const videoRef = useRef(null)
     const [capturedFrame, setCapturedFrame] = useState<string | null>(null);
+    const [predAssumption, setPredAssumption] = useState<string>()
 
 
     const { play, stop, isPlaying } = useAudioManager();
     const { predictTensor } = useTensorFlow();
+    const { getPredctionClass } = useConvertTensorClass(0.80)
 
     const excludeObjectContainer: Array<number> = [104]
     const successMessage: Array<string> = ["Correct pose!", "Nailed it!", "Great form!", "Well done", "You got it!"]
@@ -56,8 +57,6 @@ export default function MainBar(props: YogaPoseDetailed) {
         } else {
             setAudioState("")
         }
-        console.log(audioStatus);
-
         setAudioStatus(!audioStatus)
     }
     useEffect(() => {
@@ -65,21 +64,40 @@ export default function MainBar(props: YogaPoseDetailed) {
     }, [playbackSpeed, setPlaybackSpeed])
 
 
-    // capturing frames from input source
-    const handleCaptureFrame = () => {
-
+    // capturing frames from input video source
+    // creating a canvas and then attaching video reference height, width
+    // using useRef hook to get the input source features
+    // feeding the canvas content (Base64 encoded image) to tensor for predict (predictTensor function)
+    const handleCaptureFrame = async () => {
         const video: (any | null) = videoRef.current
         const canvas = document.createElement('canvas')
         const ctx: (CanvasRenderingContext2D | null) = canvas.getContext('2d')
+
         canvas.height = video.videoHeight
         canvas.width = video.videoWidth
-        ctx?.drawImage(video, 0, 0)
-        const image = canvas.toDataURL()
-        setCapturedFrame(image);
-        predictTensor(image, props?.TFData?.set)
 
+        ctx?.drawImage(video, 0, 0)
+
+        const image = canvas.toDataURL()
+
+        setCapturedFrame(image);
+        const runTensor:string = await predictTensor(image, props?.TFData?.set)
+
+        if (runTensor !==undefined){
+            setPredAssumption(runTensor)
+        }
     }
 
+    useEffect(() => {
+ 
+        if (predAssumption) {
+                const predClass = getPredctionClass(predAssumption,props?.TFData?.set)
+            
+
+            console.log("pred",predClass)
+        }
+
+    }, [predAssumption])
 
 
     return (
@@ -112,8 +130,8 @@ export default function MainBar(props: YogaPoseDetailed) {
                                 controls
                                 height={1280}
                                 width={720}
-                                className="rounded-2xl"
-                                />
+
+                            />
                         </div>
                     </div>
 

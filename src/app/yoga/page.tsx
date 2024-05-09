@@ -29,8 +29,6 @@ export default function Yoga() {
         const filter = typeof data === 'string' ? [] : (data as YogaPoseAPI[]).filter((item: YogaPoseAPI) => item.id === selectedPose);
         setPassPoseData(filter[0])
     }, [selectedPose, data])
-
-    // console.log(passPoseData);
     
 
     return (

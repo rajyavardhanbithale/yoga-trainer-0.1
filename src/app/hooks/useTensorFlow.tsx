@@ -3,7 +3,7 @@ import * as tf from '@tensorflow/tfjs';
 
 function useTensorFlow() {
 
-    const predictTensor = async (pred_image: string, set: number) => {
+    const predictTensor = async (pred_image: string, set: number): Promise<string> => {
         // Loading Model
         const model = await tf.loadGraphModel(`/set${set}/model.json`)
 
@@ -27,6 +27,7 @@ function useTensorFlow() {
 
         console.log(pred.print());
         
+
         return val1.toString()
     }
 

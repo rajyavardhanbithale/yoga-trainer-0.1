@@ -38,7 +38,7 @@ function useAudioManager() {
             newAudioURL = `/audio/${audioClass}/` + audioUrl[Math.floor(Math.random() * audioUrl.length)]
             
             playAudio(newAudioURL)
-            console.log(newAudioURL)
+
 
         } else {
             setAudioClass(audioClass)

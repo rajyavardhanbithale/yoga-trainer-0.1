@@ -1,38 +1,49 @@
 
-function useConvertTensorClass(val: string, set: number) {
-    const threshold:number = 0.80
+function useConvertTensorClass(threshold_num: number) {
 
-    const set1: Array<string>  = ["downdog", "tree", "warrior1"]
+    // To be implemented
+    const threshold: number = threshold_num
 
-    const arr = val.split(',')
-    const numericArr = arr.map(parseFloat);
-    const nonZeroCount = numericArr.filter(num => num !== 0).length;
-    
-    let pred:number
+    const setClass = (set:number,index:number) => {
+        switch (set){
+            case 1:
+                const set1: Array<string> = ["downdog", "tree", "warrior1"]
+                return set1[index]
 
-    console.log(nonZeroCount)
-    
-    // Extracting Index
-    if (nonZeroCount == 2) {
-        // const min = Math.min(...numericArr.filter(num => num !== 0));
-        // const minIndex = numericArr.indexOf(min);
-        // pred =  minIndex 
-        pred =  -1
-    } else if (nonZeroCount === 1) {
-        const max = Math.max(...numericArr)
-        const maxIndex = numericArr.indexOf(max)
-
-        pred = threshold <= max ? maxIndex : -1
-    } else {
-        pred = -1;
-    }
-    
-    
-    // Returning Values based on class and index
-    if (set === 1){
-        return set1[pred]
+            default:
+                return "none"
+        }
     }
 
+
+    const getPredctionClass = (predAssumption: string, set: number) => {
+        const arr = predAssumption.split(',')
+        const numericArr = arr.map(parseFloat);
+
+
+        const getNonZeroIndex = numericArr.filter(item => item !== 0).length
+
+        switch (getNonZeroIndex) {
+            case 1:
+                const max = Math.max(...numericArr)
+                const maxIndex = numericArr.indexOf(max)
+                return setClass(set,maxIndex)
+
+            case 2:
+                const min = Math.min(...numericArr.filter(item => item !== 0))
+                const minIndex = numericArr.indexOf(min)
+                return setClass(set,minIndex)
+
+            case 3:
+                return -1
+
+            default:
+                return -1
+
+        }
+    }
+
+    return { getPredctionClass }
 }
 
 export default useConvertTensorClass
