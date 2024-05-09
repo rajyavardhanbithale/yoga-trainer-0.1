@@ -3,9 +3,9 @@
 import { Sedan } from "next/font/google";
 import { Montserrat } from "next/font/google";
 import { YogaPoseDetailed } from "../interface/CustomInterface";
-import { useEffect, useState } from "react";
-// import useTensorFlow from "../hooks/useTensorFlow";
-// import useConvertTensorClass from "../hooks/useConvertTensorClass";
+import { useEffect, useRef, useState } from "react";
+import useTensorFlow from "../hooks/useTensorFlow";
+import useConvertTensorClass from "../hooks/useConvertTensorClass";
 import { IoVolumeMediumOutline, IoVolumeMuteOutline } from "react-icons/io5";
 import useAudioManager from "../hooks/useAudioPlayer";
 import DropdownSelect from "./helper/DropdownSelect";
@@ -31,57 +31,25 @@ export default function MainBar(props: YogaPoseDetailed) {
     const [audioState, setAudioState] = useState<string>()
     const [playbackSpeed, setPlaybackSpeed] = useState<string>("fine")
     const [dropdown, setDropdown] = useState<boolean>(false)
+    const videoRef = useRef(null)
+    const [capturedFrame, setCapturedFrame] = useState<string | null>(null);
+
 
     const { play, stop, isPlaying } = useAudioManager();
+    const { predictTensor } = useTensorFlow();
 
     const excludeObjectContainer: Array<number> = [104]
     const successMessage: Array<string> = ["Correct pose!", "Nailed it!", "Great form!", "Well done", "You got it!"]
     const unsuccessMessage: Array<string> = ["Incorrect pose.", "Try once more.", "Keep practicing.", "Check your posture.", "Try another angle."]
 
 
-    // Run Tensorflow Model and set className-name/pose 
-    // async function handleTensordPredict(set: number) {
-    //     const imgElement = document.getElementById('tfImg') as HTMLImageElement | null;
-    //     const TFsrc = imgElement?.src;
-    //     const TFrun = await useTensorFlow(TFsrc, set)
-    //     const TFpred = useConvertTensorClass(TFrun, set)
-    //     console.log(TFpred);
-    //     setPred(TFpred)
-
-    // }
-
-    // Generate Random Number
-    function randomNumber(len: number) {
-        return Math.floor(Math.random() * len)
-    }
-
-
-    // compare predicted and user selected className/pose
-    function checkTFPedictionWithUser() {
-        if (pred === props?.TFData?.class) {
-            setPoseSuccess(true)
-            console.log("yes");
-
-            setPoseMessage(successMessage[randomNumber(successMessage.length)])
-        } else {
-            console.log("no");
-            setPoseSuccess(false)
-            setPoseMessage(unsuccessMessage[randomNumber(unsuccessMessage.length)])
-        }
-    }
-
-    // executing checkTFPedictionWithUser when prediction available
-    // useEffect(() => {
-    //     checkTFPedictionWithUser()
-    // }, [pred, setPred])
-    // const { play, stop, isPlaying } = useAudioManager('benefits.mp3');
 
 
     // manages playback for audio narration 
     // toggle function, stops the playback and the play audio according to source and state
     // when playback speed changes the audio source will be terminated (useEffect)
     function playAudio(source: (string | Array<string>), state: (string)) {
-        stop() 
+        stop()
         if (audioStatus) {
             play(source, props?.TFData?.class, playbackSpeed)
             setAudioState(state)
@@ -95,7 +63,24 @@ export default function MainBar(props: YogaPoseDetailed) {
     useEffect(() => {
         stop()
     }, [playbackSpeed, setPlaybackSpeed])
-    
+
+
+    // capturing frames from input source
+    const handleCaptureFrame = () => {
+
+        const video: (any | null) = videoRef.current
+        const canvas = document.createElement('canvas')
+        const ctx: (CanvasRenderingContext2D | null) = canvas.getContext('2d')
+        canvas.height = video.videoHeight
+        canvas.width = video.videoWidth
+        ctx?.drawImage(video, 0, 0)
+        const image = canvas.toDataURL()
+        setCapturedFrame(image);
+        predictTensor(image, props?.TFData?.set)
+
+    }
+
+
 
     return (
         <>
@@ -122,11 +107,18 @@ export default function MainBar(props: YogaPoseDetailed) {
                         {/* <div className="bg-gray-800 w-full h-full rounded-2xl"></div> */}
                         <div className="flex justify-center h-full max-h-[400px] ">
 
-                            <img id="tfImg" src="warr.webp"
+                            {/* <img id="tfImg" src="warr.webp"
                                 alt={props?.name}
                                 className={`w-3/4 ${excludeObjectContainer.includes(props?.id) ? "object-scale-down" : "object-cover"} down object-center h-auto rounded-2xl`}
                             >
-                            </img>
+                            </img> */}
+
+                            <video
+                                ref={videoRef}
+                                src="tree.mp4"
+                                controls
+                                height={1280}
+                                width={720} />
                         </div>
                     </div>
 
@@ -239,6 +231,7 @@ export default function MainBar(props: YogaPoseDetailed) {
 
                             <div
                                 // onClick={() => handleTensordPredict(props.TFData.set)}
+                                onClick={handleCaptureFrame}
                                 className="bg-green-500 cursor-pointer text-white font-semibold rounded-2xl p-2">
                                 Run Tensor
                             </div>
@@ -255,13 +248,21 @@ export default function MainBar(props: YogaPoseDetailed) {
                         </div>
                     </div>
 
+
+
                     {/* <div className="col-span-3">
                         <iframe width="560" height="315" src="https://www.youtube.com/embed/Fr5kiIygm0c?si=6Vq3zX_dktVZj0I3" title="YouTube video player" frameBorder="0"  referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
                     </div> */}
                 </div>
 
-
+                {capturedFrame &&
+                    <div>
+                        <img src={capturedFrame} alt="cap frm" className="hidden" height={500} width={500} />
+                    </div>
+                }
             </div>
+
+
         </>
     )
 }
