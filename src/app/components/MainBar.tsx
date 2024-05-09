@@ -32,7 +32,8 @@ export default function MainBar(props: YogaPoseDetailed) {
     const [dropdown, setDropdown] = useState<boolean>(false)
     const videoRef = useRef(null)
     const [capturedFrame, setCapturedFrame] = useState<string | null>(null);
-    const [predAssumption, setPredAssumption] = useState<string>()
+    const [predAssumption, setPredAssumption] = useState<string | null>()
+    const [predFinal, setPredFinal] = useState<string>()
 
 
     const { play, stop, isPlaying } = useAudioManager();
@@ -40,8 +41,8 @@ export default function MainBar(props: YogaPoseDetailed) {
     const { getPredctionClass } = useConvertTensorClass(0.80)
 
     const excludeObjectContainer: Array<number> = [104]
-    const successMessage: Array<string> = ["Correct pose!", "Nailed it!", "Great form!", "Well done", "You got it!"]
-    const unsuccessMessage: Array<string> = ["Incorrect pose.", "Try once more.", "Keep practicing.", "Check your posture.", "Try another angle."]
+    const successMessageList: Array<string> = ["Correct pose!", "Nailed it!", "Great form!", "Well done", "You got it!"]
+    const unsuccessMessageList: Array<string> = ["Incorrect pose.", "Try once more.", "Keep practicing.", "Check your posture.", "Try another angle."]
 
 
 
@@ -69,6 +70,8 @@ export default function MainBar(props: YogaPoseDetailed) {
     // using useRef hook to get the input source features
     // feeding the canvas content (Base64 encoded image) to tensor for predict (predictTensor function)
     const handleCaptureFrame = async () => {
+        setPredAssumption(null)
+
         const video: (any | null) = videoRef.current
         const canvas = document.createElement('canvas')
         const ctx: (CanvasRenderingContext2D | null) = canvas.getContext('2d')
@@ -89,12 +92,21 @@ export default function MainBar(props: YogaPoseDetailed) {
     }
 
     useEffect(() => {
- 
+        const random = (length:number) => {
+            return Math.floor(Math.random()*length)
+        }
         if (predAssumption) {
                 const predClass = getPredctionClass(predAssumption,props?.TFData?.set)
-            
-
-            console.log("pred",predClass)
+                setPredFinal(predClass)
+                console.log("pred = ",predClass);
+                
+                if(props?.TFData?.class === predClass){
+                    setPoseSuccess(true)
+                    setPoseMessage(successMessageList[random(successMessageList.length)])
+                }else{
+                    setPoseSuccess(false)
+                    setPoseMessage(unsuccessMessageList[random(unsuccessMessageList.length)])
+                }
         }
 
     }, [predAssumption])
@@ -238,7 +250,9 @@ export default function MainBar(props: YogaPoseDetailed) {
                             {/* Status */}
                             <div className="mx-auto text-blue-500 font-semibold text-2xl">
                                 Turn on the camera
-                            </div>
+                            </div> 
+                            
+                    
 
                             <div
                                 onClick={handleCaptureFrame}

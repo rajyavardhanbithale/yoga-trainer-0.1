@@ -35,10 +35,10 @@ function useConvertTensorClass(threshold_num: number) {
                 return setClass(set,minIndex)
 
             case 3:
-                return -1
+                return "none"
 
             default:
-                return -1
+                return "none"
 
         }
     }
