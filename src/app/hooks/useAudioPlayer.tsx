@@ -19,7 +19,7 @@ function useAudioManager() {
     const [audioClass, setAudioClass] = useState<string>()
     const [playbackSpeed, setPlaybackSpeed] = useState<string>()
 
-    const play = (audioUrl: (string | Array<string>),audioClass: string,playbackSpeed:string) => {
+    const play = (source: (string | Array<string>),audioClass: string,playbackSpeed:string) => {
         let newAudioURL: string
         setPlaybackSpeed(playbackSpeed)
 
@@ -32,17 +32,17 @@ function useAudioManager() {
         }
 
 
-        if (Array.isArray(audioUrl)) {
-            setAudioArr(audioUrl)
+        if (Array.isArray(source)) {
+            setAudioArr(source)
             setAudioClass(audioClass)
-            newAudioURL = `/audio/${audioClass}/` + audioUrl[Math.floor(Math.random() * audioUrl.length)]
+            newAudioURL = `/audio/${audioClass}/` + source[Math.floor(Math.random() * source.length)]
             
             playAudio(newAudioURL)
 
 
         } else {
             setAudioClass(audioClass)
-            newAudioURL = `/audio/${audioClass}/` + audioUrl
+            newAudioURL = `/audio/${audioClass}/` + source
             playAudio(newAudioURL)
         }
 

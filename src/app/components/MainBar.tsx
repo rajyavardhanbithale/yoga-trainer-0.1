@@ -85,6 +85,7 @@ export default function MainBar(props: YogaPoseDetailed) {
 
         setCapturedFrame(image);
         const runTensor:string = await predictTensor(image, props?.TFData?.set)
+            
 
         if (runTensor !==undefined){
             setPredAssumption(runTensor)
@@ -101,11 +102,17 @@ export default function MainBar(props: YogaPoseDetailed) {
                 console.log("pred = ",predClass);
                 
                 if(props?.TFData?.class === predClass){
+                    const randomIndex: number = random(successMessageList.length)
+                    play(`seg${randomIndex}.mp3`, 'user/pose/valid', 'slow')
                     setPoseSuccess(true)
-                    setPoseMessage(successMessageList[random(successMessageList.length)])
+                    setPoseMessage(successMessageList[randomIndex])
+                    console.log(successMessageList[randomIndex],randomIndex);
+                    
                 }else{
+                    const randomIndex: number = random(successMessageList.length)
+                    play(`seg${randomIndex}.mp3`, 'user/pose/invalid', 'slow')
                     setPoseSuccess(false)
-                    setPoseMessage(unsuccessMessageList[random(unsuccessMessageList.length)])
+                    setPoseMessage(unsuccessMessageList[randomIndex])
                 }
         }
 
