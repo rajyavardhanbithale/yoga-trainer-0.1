@@ -29,7 +29,7 @@ export default function MainBar(props: YogaPoseDetailed) {
     const [poseMessage, setPoseMessage] = useState<string>()
     const [audioStatus, setAudioStatus] = useState<boolean>(true)
     const [audioState, setAudioState] = useState<string>()
-    const [playbackSpeed, setPlaybackSpeed] = useState<number | string>("slower")
+    const [playbackSpeed, setPlaybackSpeed] = useState<string>("fine")
     const [dropdown, setDropdown] = useState<boolean>(false)
 
     const { play, stop, isPlaying } = useAudioManager();
@@ -77,15 +77,13 @@ export default function MainBar(props: YogaPoseDetailed) {
     // const { play, stop, isPlaying } = useAudioManager('benefits.mp3');
 
 
-    console.log(playbackSpeed,dropdown);
-    
-
-
+    // manages playback for audio narration 
+    // toggle function, stops the playback and the play audio according to source and state
+    // when playback speed changes the audio source will be terminated (useEffect)
     function playAudio(source: (string | Array<string>), state: (string)) {
-        stop()
-
+        stop() 
         if (audioStatus) {
-            play(source, props?.TFData?.class)
+            play(source, props?.TFData?.class, playbackSpeed)
             setAudioState(state)
         } else {
             setAudioState("")
@@ -93,11 +91,11 @@ export default function MainBar(props: YogaPoseDetailed) {
         console.log(audioStatus);
 
         setAudioStatus(!audioStatus)
-
     }
-
-
-
+    useEffect(() => {
+        stop()
+    }, [playbackSpeed, setPlaybackSpeed])
+    
 
     return (
         <>
