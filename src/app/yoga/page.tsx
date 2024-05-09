@@ -38,10 +38,10 @@ export default function Yoga() {
 
             <div className="flex flex-row">
 
-                <Sidebar 
+                {/* <Sidebar 
                     setSelectedPose={setSelectedPose}
                     pose = {data}
-                    ></Sidebar>
+                    ></Sidebar> */}
                 <MainBar
                     id={passPoseData?.id}
                     name={passPoseData?.name}

@@ -4,10 +4,11 @@ import { Sedan } from "next/font/google";
 import { Montserrat } from "next/font/google";
 import { YogaPoseDetailed } from "../interface/CustomInterface";
 import { useEffect, useState } from "react";
-import useTensorFlow from "../hooks/useTensorFlow";
-import useConvertTensorClass from "../hooks/useConvertTensorClass";
+// import useTensorFlow from "../hooks/useTensorFlow";
+// import useConvertTensorClass from "../hooks/useConvertTensorClass";
 import { IoVolumeMediumOutline, IoVolumeMuteOutline } from "react-icons/io5";
 import useAudioManager from "../hooks/useAudioPlayer";
+import DropdownSelect from "./helper/DropdownSelect";
 
 const titleFont = Sedan(
     {
@@ -39,15 +40,15 @@ export default function MainBar(props: YogaPoseDetailed) {
 
 
     // Run Tensorflow Model and set className-name/pose 
-    async function handleTensordPredict(set: number) {
-        const imgElement = document.getElementById('tfImg') as HTMLImageElement | null;
-        const TFsrc = imgElement?.src;
-        const TFrun = await useTensorFlow(TFsrc, set)
-        const TFpred = useConvertTensorClass(TFrun, set)
-        console.log(TFpred);
-        setPred(TFpred)
+    // async function handleTensordPredict(set: number) {
+    //     const imgElement = document.getElementById('tfImg') as HTMLImageElement | null;
+    //     const TFsrc = imgElement?.src;
+    //     const TFrun = await useTensorFlow(TFsrc, set)
+    //     const TFpred = useConvertTensorClass(TFrun, set)
+    //     console.log(TFpred);
+    //     setPred(TFpred)
 
-    }
+    // }
 
     // Generate Random Number
     function randomNumber(len: number) {
@@ -76,6 +77,8 @@ export default function MainBar(props: YogaPoseDetailed) {
     // const { play, stop, isPlaying } = useAudioManager('benefits.mp3');
 
 
+    console.log(playbackSpeed,dropdown);
+    
 
 
     function playAudio(source: (string | Array<string>), state: (string)) {
@@ -163,23 +166,14 @@ export default function MainBar(props: YogaPoseDetailed) {
                             <div>
                                 <span className="text-xl">Voice Speed</span>
                                 <div className="relative">
-                                    <button 
-                                    onClick={() => setDropdown(!dropdown)} 
-                                    className="text-text font-medium rounded-lg  px-5 py-2.5 text-center inline-flex items-center capitalize" type="button">{playbackSpeed}</button>
+                                    <button
+                                        onClick={() => setDropdown(!dropdown)}
+                                        className="bg-slate-200 rounded-xl text-text font-medium px-5 py-1.5 text-center inline-flex items-center capitalize">{playbackSpeed}</button>
 
 
                                     {dropdown &&
+                                        <DropdownSelect playbackSpeed={setPlaybackSpeed} dropdown={setDropdown} />
 
-                                        <div className="absolute top-full left-1/2 transform -translate-x-1/2  rounded-lg shadow animate-bounce ">
-                                            <ul className="py-0.5 px-2 rounded-xl bg-slate-200 capitalize">
-                                                <li className="py-0.5 px-2 rounded-xl hover:bg-slate-300 duration-500 cursor-pointer">slowest</li>
-                                                <li className="py-0.5 px-2 rounded-xl hover:bg-slate-300 duration-500 cursor-pointer">slow</li>
-                                                <li className="py-0.5 px-2 rounded-xl hover:bg-slate-300 duration-500 cursor-pointer">fine</li>
-                                                <li className="py-0.5 px-2 rounded-xl hover:bg-slate-300 duration-500 cursor-pointer">fast</li>
-                                                <li className="py-0.5 px-2 rounded-xl hover:bg-slate-300 duration-500 cursor-pointer">fastest</li>
-
-                                            </ul>
-                                        </div>
                                     }
                                 </div>
                             </div>
@@ -246,7 +240,7 @@ export default function MainBar(props: YogaPoseDetailed) {
                             </div>
 
                             <div
-                                onClick={() => handleTensordPredict(props.TFData.set)}
+                                // onClick={() => handleTensordPredict(props.TFData.set)}
                                 className="bg-green-500 cursor-pointer text-white font-semibold rounded-2xl p-2">
                                 Run Tensor
                             </div>
