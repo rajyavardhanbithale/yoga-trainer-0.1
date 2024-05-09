@@ -12,13 +12,13 @@ export default function Yoga() {
     const [data, setData] = useState<YogaPoseAPI[] | string>('');
 
     const [passPoseData,setPassPoseData] = useState<any>()
-
+    const { fetchAPI } =  useFetch()
+    
     const url = '/api/pose';
     useEffect(() => {
         const fetchData = async () => {
-            const result = await useFetch(url) as YogaPoseAPI[] | string;
-
-            setData(result)
+            const response = await fetchAPI(url) as YogaPoseAPI[] | string
+            setData(response)
             
         };
         fetchData();

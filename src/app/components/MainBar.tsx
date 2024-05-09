@@ -94,7 +94,7 @@ export default function MainBar(props: YogaPoseDetailed) {
                             <div>{props?.originalName}</div>
                         </div>
                         <span className={`${titleFont.className} text-xl capitalize font-semibold  text-center`}>
-                            "{props?.description}"
+                            &quot;{props?.description}&quot;
                         </span>
                     </div>
                 </div>
@@ -106,19 +106,14 @@ export default function MainBar(props: YogaPoseDetailed) {
                     <div className="sm:col-span-5 min-h-[400px]">
                         {/* <div className="bg-gray-800 w-full h-full rounded-2xl"></div> */}
                         <div className="flex justify-center h-full max-h-[400px] ">
-
-                            {/* <img id="tfImg" src="warr.webp"
-                                alt={props?.name}
-                                className={`w-3/4 ${excludeObjectContainer.includes(props?.id) ? "object-scale-down" : "object-cover"} down object-center h-auto rounded-2xl`}
-                            >
-                            </img> */}
-
                             <video
                                 ref={videoRef}
                                 src="tree.mp4"
                                 controls
                                 height={1280}
-                                width={720} />
+                                width={720}
+                                className="rounded-2xl"
+                                />
                         </div>
                     </div>
 
@@ -194,8 +189,6 @@ export default function MainBar(props: YogaPoseDetailed) {
                                     benefits of {props?.originalName}
                                 </span>
 
-                                {/* onClick={() => handlePlayNarrator('benefits')} */}
-
                                 <span onClick={() => playAudio(props?.audioData?.benefits, "benefits")} className="inline-flex align-middle mx-2 rounded-2xl bg-slate-100 hover:bg-slate-200 duration-300 cursor-pointer ">
                                     {audioState === "benefits" ? (
                                         <IoVolumeMediumOutline className="text-4xl font-bold p-1" />
@@ -230,12 +223,10 @@ export default function MainBar(props: YogaPoseDetailed) {
                             </div>
 
                             <div
-                                // onClick={() => handleTensordPredict(props.TFData.set)}
                                 onClick={handleCaptureFrame}
                                 className="bg-green-500 cursor-pointer text-white font-semibold rounded-2xl p-2">
                                 Run Tensor
                             </div>
-                            {/* <button onClick={() => playAudio(getRandomAudio())}>Play Random Audio</button> */}
 
                             <div className="mx-auto font-semibold text-2xl">
                                 <span className={`${poseSuccess ? "text-green-500" : "text-red-500"}`}>
@@ -247,12 +238,6 @@ export default function MainBar(props: YogaPoseDetailed) {
 
                         </div>
                     </div>
-
-
-
-                    {/* <div className="col-span-3">
-                        <iframe width="560" height="315" src="https://www.youtube.com/embed/Fr5kiIygm0c?si=6Vq3zX_dktVZj0I3" title="YouTube video player" frameBorder="0"  referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
-                    </div> */}
                 </div>
 
                 {capturedFrame &&
