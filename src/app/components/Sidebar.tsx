@@ -29,7 +29,7 @@ export default function Sidebar(props: any) {
                             onClick={() => handleSelectYogaPose(name)}
                             className={`min-h-[100px] rounded-2xl overflow-hidden hover:bg-gray-200 border-[3px] ${highlight === name.id ? "border-blue-500 shadow-2xl" : "border-gray-600"}`}>
                             <Image
-                                src={`/pose/image/${name?.image}`}
+                                src={`/pose/image/webp/${name?.image}`}
                                 alt={name?.name}
                                 width={0}
                                 height={0}

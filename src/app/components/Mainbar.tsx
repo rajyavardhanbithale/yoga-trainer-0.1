@@ -143,7 +143,7 @@ export default function MainBar(props: YogaPoseDetailed) {
                         <div className="flex justify-center h-full max-h-[400px] ">
                             <video
                                 ref={videoRef}
-                                src="tree.mp4"
+                                src="test/tree.mp4"
                                 controls
                                 height={1280}
                                 width={720}
