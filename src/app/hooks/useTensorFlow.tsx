@@ -25,13 +25,13 @@ function useTensorFlow() {
         // Disposing model to free memory 
         model.dispose()
 
-        console.log(pred.print());
+        console.log(val1.toString());
         
 
         return val1.toString()
     }
 
-    console.log("Tensorflow Init... OK")
+    // console.log("Tensorflow Init... OK")
 
     return {predictTensor} 
 

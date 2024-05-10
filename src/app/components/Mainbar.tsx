@@ -32,9 +32,9 @@ export default function MainBar(props: YogaPoseDetailed) {
     const [dropdown, setDropdown] = useState<boolean>(false)
     const videoRef = useRef(null)
     const [capturedFrame, setCapturedFrame] = useState<string | null>(null);
-    const [predAssumption, setPredAssumption] = useState<string | null>()
+    const [predAssumption, setPredAssumption] = useState<Array<string> | null>()
     const [predFinal, setPredFinal] = useState<string>()
-
+    const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null);
 
     const { playNarratorAudio, playUserAudio, stopAudio } = useAudioManager();
     const { predictTensor } = useTensorFlow();
@@ -44,12 +44,9 @@ export default function MainBar(props: YogaPoseDetailed) {
     const successMessageList: Array<string> = ["Correct pose!", "Nailed it!", "Great form!", "Well done", "You got it!"]
     const unsuccessMessageList: Array<string> = ["Incorrect pose.", "Try once more.", "Keep practicing.", "Check your posture.", "Try another angle."]
 
-
-
-
     // manages playback for audio narration 
     // toggle function, stops the playback and the play audio according to source and state
-    // when playback speed changes the audio source will be terminated (useEffect)
+    // when playback speed changes the audio source will be terminated ('useEffect')
     function playAudio(source: (string | Array<string>), state: (string)) {
         stopAudio()
         if (audioStatus) {
@@ -67,8 +64,8 @@ export default function MainBar(props: YogaPoseDetailed) {
 
     // capturing frames from input video source
     // creating a canvas and then attaching video reference height, width
-    // using useRef hook to get the input source features
-    // feeding the canvas content (Base64 encoded image) to tensor for predict (predictTensor function)
+    // using 'useRef' hook to get the input source features
+    // feeding the canvas content (Base64 encoded image) to tensor for predict ('predictTensor' function)
     const handleCaptureFrame = async () => {
         setPredAssumption(null)
 
@@ -80,41 +77,68 @@ export default function MainBar(props: YogaPoseDetailed) {
         canvas.width = video.videoWidth
 
         ctx?.drawImage(video, 0, 0)
-
         const image = canvas.toDataURL()
 
         setCapturedFrame(image);
-        const runTensor:string = await predictTensor(image, props?.TFData?.set)
+        const runTensor: Array<string> = [await predictTensor(image, props?.TFData?.set), '' + Math.random() * 3]
         setPredAssumption(runTensor)
 
     }
 
-    useEffect(() => {
-        const random = (length:number) => {
-            return Math.floor(Math.random()*length)
-        }
-        if (predAssumption) {
-                // const predAssumptionNew = predAssumption[0]
-                const predClass = getPredctionClass(predAssumption,props?.TFData?.set)
-                setPredFinal(predClass)
-                console.log("pred = ",predClass,predAssumption);
-                
-                if(props?.TFData?.class === predClass){
-                    const randomIndex: number = random(successMessageList.length)
-                    playUserAudio(`seg${randomIndex}.mp3`, 'user/pose/valid', 'slow')
-                    setPoseSuccess(true)
-                    setPoseMessage(successMessageList[randomIndex])
-                    console.log(successMessageList[randomIndex],randomIndex);
-                    
-                }else{
-                    const randomIndex: number = random(successMessageList.length)
-                    playUserAudio(`seg${randomIndex}.mp3`, 'user/pose/invalid', 'slow')
-                    setPoseSuccess(false)
-                    setPoseMessage(unsuccessMessageList[randomIndex])
-                }
+    // in the below function get 'getPredctionClass' output the yoga pose class based on tensor prediction values
+    // when the prediction class is available, if the pose matches the provided pose if output success else output an unsuccess
+    // while setting the user (success - unsuccess) message, it picks the random value form the custom defined array of messages 
+    const handleInteractTensor = () => {
+        const random = (length: number) => {
+            return Math.floor(Math.random() * length)
         }
 
+        if (predAssumption) {
+
+            const predClass = getPredctionClass(predAssumption[0], props?.TFData?.set)
+            setPredFinal(predClass)
+
+            if (props?.TFData?.class === predClass) {
+                const randomIndex: number = random(successMessageList.length)
+                playUserAudio(`seg${randomIndex}.mp3`, 'user/pose/valid', 'slow')
+                setPoseSuccess(true)
+                setPoseMessage(successMessageList[randomIndex])
+                console.log(successMessageList[randomIndex], randomIndex);
+
+            } else {
+                const randomIndex: number = random(successMessageList.length)
+                playUserAudio(`seg${randomIndex}.mp3`, 'user/pose/invalid', 'slow')
+                setPoseSuccess(false)
+                setPoseMessage(unsuccessMessageList[randomIndex])
+            }
+        }
+    }
+
+    // 'handleInteractTensor' function will be executed when the 'predAssumption' value is available
+    useEffect(() => {
+        handleInteractTensor()
     }, [predAssumption])
+
+
+    // when the asynchronous 'runTensor' function is called, it execute the 'handleCaptureFrame'
+    // the function itself run in every n second
+    const runTensor = () => {
+        console.log('Stated');
+        const id = setInterval(async () => {
+            setPredAssumption(null)
+            console.log('STG');
+            console.log('===================================================');
+            await handleCaptureFrame()
+        }, 5000);
+        setIntervalId(id);
+    }
+
+    // 'stopTensor' will clear the interval id and stop the 'runTensor' function
+    const stopTensor = () => {
+        if (intervalId) {
+            clearInterval(intervalId)
+        }
+    }
 
 
     return (
@@ -255,14 +279,21 @@ export default function MainBar(props: YogaPoseDetailed) {
                             {/* Status */}
                             <div className="mx-auto text-blue-500 font-semibold text-2xl">
                                 Turn on the camera
-                            </div> 
-                            
-                    
+                            </div>
+
+
 
                             <div
-                                onClick={handleCaptureFrame}
+                                // onClick={handleCaptureFrame}
+                                onClick={runTensor}
                                 className="bg-green-500 cursor-pointer text-white font-semibold rounded-2xl p-2">
                                 Run Tensor
+                            </div>
+
+                            <div
+                                onClick={stopTensor}
+                                className="bg-red-500 cursor-pointer text-white font-semibold rounded-2xl p-2">
+                                Stop Tensor
                             </div>
 
                             <div className="mx-auto font-semibold text-2xl">
