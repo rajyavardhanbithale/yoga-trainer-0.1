@@ -36,6 +36,8 @@ Find your center with RAGE InnerBalance: Your AI-Powered Yoga Partner!
 
 
 </p>
+<h3 align="center">This project is currently in the development stage.</h3>
+<br/>
 </div>
 
 
@@ -114,7 +116,6 @@ After installing the dependencies, you can start the development server by runni
       npm run dev
       ```
 
-_For more examples, please refer to the [Documentation](https://example.com)_
  ## Roadmap
 
 - [x] Make prediction faster
@@ -146,7 +147,7 @@ Don't forget to give the project a star! Thanks again!
   <img src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Gmail">
 </a>
 
-## Thanks
+
 ## Thanks
 At last, I would like to express my gratitude to Vercel for hosting and providing wonderful cloud services.
 
