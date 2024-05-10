@@ -36,7 +36,7 @@ export default function MainBar(props: YogaPoseDetailed) {
     const [predFinal, setPredFinal] = useState<string>()
 
 
-    const { play, stop, isPlaying } = useAudioManager();
+    const { playNarratorAudio, playUserAudio, stopAudio } = useAudioManager();
     const { predictTensor } = useTensorFlow();
     const { getPredctionClass } = useConvertTensorClass(0.80)
 
@@ -51,9 +51,9 @@ export default function MainBar(props: YogaPoseDetailed) {
     // toggle function, stops the playback and the play audio according to source and state
     // when playback speed changes the audio source will be terminated (useEffect)
     function playAudio(source: (string | Array<string>), state: (string)) {
-        stop()
+        stopAudio()
         if (audioStatus) {
-            play(source, props?.TFData?.class, playbackSpeed)
+            playNarratorAudio(source, props?.TFData?.class, playbackSpeed)
             setAudioState(state)
         } else {
             setAudioState("")
@@ -61,7 +61,7 @@ export default function MainBar(props: YogaPoseDetailed) {
         setAudioStatus(!audioStatus)
     }
     useEffect(() => {
-        stop()
+        stopAudio()
     }, [playbackSpeed, setPlaybackSpeed])
 
 
@@ -85,11 +85,8 @@ export default function MainBar(props: YogaPoseDetailed) {
 
         setCapturedFrame(image);
         const runTensor:string = await predictTensor(image, props?.TFData?.set)
-            
+        setPredAssumption(runTensor)
 
-        if (runTensor !==undefined){
-            setPredAssumption(runTensor)
-        }
     }
 
     useEffect(() => {
@@ -97,20 +94,21 @@ export default function MainBar(props: YogaPoseDetailed) {
             return Math.floor(Math.random()*length)
         }
         if (predAssumption) {
+                // const predAssumptionNew = predAssumption[0]
                 const predClass = getPredctionClass(predAssumption,props?.TFData?.set)
                 setPredFinal(predClass)
-                console.log("pred = ",predClass);
+                console.log("pred = ",predClass,predAssumption);
                 
                 if(props?.TFData?.class === predClass){
                     const randomIndex: number = random(successMessageList.length)
-                    play(`seg${randomIndex}.mp3`, 'user/pose/valid', 'slow')
+                    playUserAudio(`seg${randomIndex}.mp3`, 'user/pose/valid', 'slow')
                     setPoseSuccess(true)
                     setPoseMessage(successMessageList[randomIndex])
                     console.log(successMessageList[randomIndex],randomIndex);
                     
                 }else{
                     const randomIndex: number = random(successMessageList.length)
-                    play(`seg${randomIndex}.mp3`, 'user/pose/invalid', 'slow')
+                    playUserAudio(`seg${randomIndex}.mp3`, 'user/pose/invalid', 'slow')
                     setPoseSuccess(false)
                     setPoseMessage(unsuccessMessageList[randomIndex])
                 }

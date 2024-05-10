@@ -19,13 +19,14 @@ function useAudioManager() {
     const [audioClass, setAudioClass] = useState<string>()
     const [playbackSpeed, setPlaybackSpeed] = useState<string>()
 
-    const play = (source: (string | Array<string>),audioClass: string,playbackSpeed:string) => {
+    const playNarratorAudio = (source: (string | Array<string>),audioClass: string,playbackSpeed:string) => {
         let newAudioURL: string
         setPlaybackSpeed(playbackSpeed)
 
         const playAudio = (newAudioURL:string) => {
             const newAudio = new Audio(newAudioURL)
             newAudio.play()
+            newAudio.volume = 0.8
             newAudio.playbackRate = playbackSpeedMap[playbackSpeed]
             setAudio(newAudio)
             setIsPlaying(true)
@@ -48,12 +49,27 @@ function useAudioManager() {
 
     }
 
-    const stop = () => {
+    const stopAudio = () => {
         if (audio) {
             audio.pause()
             audio.currentTime = 0
             setIsPlaying(false)
         }
+    }
+
+    const playUserAudio = (source: (string | Array<string>),audioClass: string,playbackSpeed:string) => {
+        let newAudioURL: string
+        setPlaybackSpeed(playbackSpeed)
+
+        const playAudio = (newAudioURL:string) => {
+            const newAudio = new Audio(newAudioURL)
+            newAudio.play()
+            newAudio.volume = 1
+            newAudio.playbackRate = playbackSpeedMap[playbackSpeed]
+        }
+        setAudioClass(audioClass)
+        newAudioURL = `/audio/${audioClass}/` + source
+        playAudio(newAudioURL)
     }
 
 
@@ -63,19 +79,21 @@ function useAudioManager() {
             audio.addEventListener('ended', () => {
                 setIsPlaying(false)
                 if (Array.isArray(audioArr)){
-                    play(audioArr,audioClass,playbackSpeed)
+
+                    playNarratorAudio(audioArr,audioClass,playbackSpeed)
                     
                 }
+   
             })
             return () => {
                 audio.removeEventListener('ended', () => {
-                    setIsPlaying(false)
+
                 })
             }
         }
     }, [audio])
 
-    return { play, stop, isPlaying }
+    return { playNarratorAudio, playUserAudio, stopAudio, isPlaying }
 }
 
 
