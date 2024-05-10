@@ -126,8 +126,8 @@ export default function MainBar(props: YogaPoseDetailed) {
         console.log('Stated');
         const id = setInterval(async () => {
             setPredAssumption(null)
-            console.log('STG');
-            console.log('===================================================');
+            console.log('STG')
+            console.log('===================================================')
             await handleCaptureFrame()
         }, 5000);
         setIntervalId(id);
