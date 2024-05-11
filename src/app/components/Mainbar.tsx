@@ -10,6 +10,7 @@ import useAudioManager from "../hooks/useAudioPlayer";
 import DropdownSelect from "./helper/DropdownSelect";
 import useConvertTensorClass from "../hooks/useConvertTensorClass";
 import Benefits from "./helper/Benefits";
+import { IoIosArrowDown } from "react-icons/io";
 
 const titleFont = Sedan(
     {
@@ -29,10 +30,11 @@ export default function MainBar(props: YogaPoseDetailed) {
     const [capturedFrame, setCapturedFrame] = useState<string | null>(null);
     const [predAssumption, setPredAssumption] = useState<Array<string> | null>()
     const [predFinal, setPredFinal] = useState<string>()
-    const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null);
+    const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null)
+    const [load, setLoad] = useState<boolean>(false) // Load Assets Button
 
     const { playNarratorAudio, playUserAudio, stopAudio } = useAudioManager();
-    const { predictTensor } = useTensorFlow();
+    const { loadTensorModel, predictTensor, isModelLoaded } = useTensorFlow();
     const { getPredctionClass } = useConvertTensorClass(0.80)
 
     const excludeObjectContainer: Array<number> = [104]
@@ -62,6 +64,7 @@ export default function MainBar(props: YogaPoseDetailed) {
     // using 'useRef' hook to get the input source features
     // feeding the canvas content (Base64 encoded image) to tensor for predict ('predictTensor' function)
     const handleCaptureFrame = async () => {
+        setLoad(false)
         setPredAssumption(null)
 
         const video: (any | null) = videoRef.current
@@ -75,7 +78,7 @@ export default function MainBar(props: YogaPoseDetailed) {
         const image = canvas.toDataURL()
 
         setCapturedFrame(image);
-        const runTensor: Array<string> = [await predictTensor(image, props?.TFData?.set), '' + Math.random() * 3]
+        const runTensor: Array<string> = [await predictTensor(image), '' + Math.random() * 3]
         setPredAssumption(runTensor)
 
     }
@@ -84,6 +87,7 @@ export default function MainBar(props: YogaPoseDetailed) {
     // when the prediction class is available, if the pose matches the provided pose if output success else output an unsuccess
     // while setting the user (success - unsuccess) message, it picks the random value form the custom defined array of messages 
     const handleInteractTensor = () => {
+
         const random = (length: number) => {
             return Math.floor(Math.random() * length)
         }
@@ -119,11 +123,12 @@ export default function MainBar(props: YogaPoseDetailed) {
     // the function itself run in every n second
     const runTensor = () => {
         console.log('Stated');
+        setLoad(true)
         const id = setInterval(async () => {
             setPredAssumption(null)
             console.log('STG')
-            console.log('===================================================')
             await handleCaptureFrame()
+
         }, 5000);
         setIntervalId(id);
     }
@@ -134,6 +139,16 @@ export default function MainBar(props: YogaPoseDetailed) {
             clearInterval(intervalId)
         }
     }
+
+    const loadAssetsTensor = async () => {
+        setLoad(true)
+        const ltm = await loadTensorModel(props?.TFData?.set)
+        if (ltm) {
+            setLoad(false)
+        }
+    }
+
+
 
 
     return (
@@ -155,10 +170,8 @@ export default function MainBar(props: YogaPoseDetailed) {
 
 
                 <div className="grid xl:grid-cols-11 md:grid-cols-2 p-5 gap-10">
-
                     {/* Source */}
                     <div className="sm:col-span-5 min-h-[400px]">
-                        {/* <div className="bg-gray-800 w-full h-full rounded-2xl"></div> */}
                         <div className="flex justify-center h-full max-h-[400px] ">
                             <video
                                 ref={videoRef}
@@ -191,7 +204,7 @@ export default function MainBar(props: YogaPoseDetailed) {
                                 </span>
                             </div>
 
-                            <div className="flex flex-col xl:w-full w-1/2">
+                            <div className="flex flex-col xl:w-full w-[25%]">
                                 <span className="text-xl">Tips</span>
                                 <span
                                     onClick={() => playAudio(props?.audioData?.narratorSegment, "tips")}
@@ -210,9 +223,13 @@ export default function MainBar(props: YogaPoseDetailed) {
                             <div>
                                 <span className="text-xl">Voice Speed</span>
                                 <div className="relative">
-                                    <button
+                                    <div
                                         onClick={() => setDropdown(!dropdown)}
-                                        className="text-button-text bg-secondary hover:brightness-75 rounded-xl  font-medium px-5 py-1.5 text-center inline-flex items-center capitalize">{playbackSpeed}</button>
+                                        className="text-button-text bg-secondary hover:brightness-75 rounded-xl  font-medium px-5 py-1.5 text-center inline-flex items-center capitalize">
+
+                                        {playbackSpeed}
+                                        <IoIosArrowDown className="ml-2" />
+                                    </div>
 
 
                                     {dropdown &&
@@ -251,33 +268,32 @@ export default function MainBar(props: YogaPoseDetailed) {
                     <div className="col-span-3">
                         <div className="w-full h-full flex flex-col items-center justify-center border-[3px] border-text rounded-2xl">
 
-                            {/* Status */}
-                            <div className="mx-auto text-blue-500 font-semibold text-2xl">
-                                Turn on the camera
-                            </div>
+                            {load ? (
+                                <>
+                                    <div className="animate-jump-in animate-ease-out duration-500">
+                                        <div className="loader"></div>
+                                    </div>
+
+                                </>
+                            ) : (
+                                !load && !isModelLoaded ? (
+                                    <div
+                                        onClick={loadAssetsTensor}
+                                        className="px-5 py-3 text-xl text-button-text font-semibold bg-primary 
+                                rounded-tr-xl rounded-bl-xl  
+                                hover:rounded-tl-2xl hover:rounded-br-2xl 
+                                hover:rounded-tr-none hover:rounded-bl-none 
+                                shadow-xl hover:shadow-xl
+                                duration-500 cursor-pointer">
+                                        Load Assets
+                                    </div>
+                                ) : (
+                                    <span>start</span>
+                                )
 
 
 
-                            <div
-                                // onClick={handleCaptureFrame}
-                                onClick={runTensor}
-                                className="bg-green-500 cursor-pointer text-white font-semibold rounded-2xl p-2">
-                                Run Tensor
-                            </div>
-
-                            <div
-                                onClick={stopTensor}
-                                className="bg-red-500 cursor-pointer text-white font-semibold rounded-2xl p-2">
-                                Stop Tensor
-                            </div>
-
-                            <div className="mx-auto font-semibold text-2xl">
-                                <span className={`${poseSuccess ? "text-green-500" : "text-red-500"}`}>
-
-                                    {poseMessage && poseMessage}
-                                </span>
-                            </div>
-
+                            )}
 
                         </div>
                     </div>
