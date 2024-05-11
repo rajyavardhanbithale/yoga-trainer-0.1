@@ -5,7 +5,7 @@ function useTensorFlow() {
 
     const predictTensor = async (pred_image: string, set: number): Promise<string> => {
         // Loading Model
-        const model = await tf.loadGraphModel(`/set${set}/model.json`)
+        const model = await tf.loadGraphModel(`/model/set${set}/model.json`)
 
         // resizing image according to trained CNN model input shape
         let image = new Image(250, 250)
