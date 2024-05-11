@@ -31,14 +31,14 @@ export default function Sidebar(props: any) {
 
     function toggleDarkMode() {
         console.log("prsd");
-    const body = document.querySelector('body');
-    const dataTheme = body.getAttribute('data-theme');
+        const body = document.querySelector('body') as HTMLElement
+        const dataTheme = body.getAttribute('data-theme')
 
-    if (dataTheme === 'dark') {
-        body.setAttribute('data-theme', 'light');
-    } else {
-        body.setAttribute('data-theme', 'dark');
-    }
+        if (dataTheme === 'dark') {
+            body.setAttribute('data-theme', 'light')
+        } else {
+            body.setAttribute('data-theme', 'dark')
+        }
     }
 
     return (
@@ -61,7 +61,7 @@ export default function Sidebar(props: any) {
                 <div className="mx-4  grid grid-cols-1 gap-4 overflow-y-auto  sidebar_scrollable">
                     <span
                         onClick={toggleDarkMode}
-                        className="text-2xl text-center mt-6 bg-secondary p-3 rounded-2xl font-semibold text-text sticky top-3 z-50 shadow-lg">
+                        className="text-2xl text-center mt-6 bg-secondary p-3 rounded-2xl font-semibold text-button-text sticky top-3 z-50 shadow-lg">
                         Select Pose
                     </span>
                     {pose && pose?.map((name: YogaPose, idx: number) => (

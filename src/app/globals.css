@@ -4,17 +4,19 @@
 
 :root {
   --text: #101519;
-  --background: #f1f4f6;
-  --primary: #245770;
-  --secondary: #71bbe0;
-  --accent: #1883b9;
+  --background: hsl(240, 9%, 95%);
+  --primary: #094067;
+  --secondary: #3da9fc;
+  --accent: hsl(206, 66%, 60%);
+  --button-text: #fffffe;
 }
 [data-theme="dark"] {
-  --text: #e5ebef;
-  --background: #0a1216;
-  --primary: #8ec1da;
-  --secondary: #1f688c;
-  --accent: #46b2e7;
+  --text: #ffffff;
+  --background: #16161a;
+  --primary: #094067;
+  --secondary: #3da9fc;
+  --accent: #56a2dc;
+  --button-text: #fffffe;
 }
 
 

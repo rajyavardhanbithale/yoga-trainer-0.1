@@ -19,6 +19,7 @@ const config: Config = {
         'primary': 'var(--primary)',
         'secondary': 'var(--secondary)',
         'accent': 'var(--accent)',
+        'button-text': 'var(--button-text)',
        },
     },
   },

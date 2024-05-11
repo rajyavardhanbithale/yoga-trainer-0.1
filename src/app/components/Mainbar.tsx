@@ -9,6 +9,7 @@ import { IoVolumeMediumOutline, IoVolumeMuteOutline } from "react-icons/io5";
 import useAudioManager from "../hooks/useAudioPlayer";
 import DropdownSelect from "./helper/DropdownSelect";
 import useConvertTensorClass from "../hooks/useConvertTensorClass";
+import Benefits from "./helper/Benefits";
 
 const titleFont = Sedan(
     {
@@ -16,12 +17,6 @@ const titleFont = Sedan(
         weight: ["400"]
     }
 );
-const advantagesFont = Montserrat(
-    {
-        subsets: ["latin"],
-    }
-);
-
 
 export default function MainBar(props: YogaPoseDetailed) {
     const [poseSuccess, setPoseSuccess] = useState<boolean>(false)
@@ -159,7 +154,7 @@ export default function MainBar(props: YogaPoseDetailed) {
                 </div>
 
 
-                <div className="grid xl:grid-cols-11 md:grid-cols-1 p-5 gap-10">
+                <div className="grid xl:grid-cols-11 md:grid-cols-2 p-5 gap-10">
 
                     {/* Source */}
                     <div className="sm:col-span-5 min-h-[400px]">
@@ -177,11 +172,14 @@ export default function MainBar(props: YogaPoseDetailed) {
                     </div>
 
                     {/* Controller */}
-                    <div className="sm:col-span-1 min-h-[400px]">
-                        <div className="flex text-center flex-col justify-center items-center align-middle h-full w-full max-h-[400px] gap-8">
+                    <div className="xl:col-span-1 col-span-5  xl:min-h-[400px] max-w-full">
+                        <div className="w-full h-full flex xl:flex-col justify-center items-center align-middle text-center gap-8 mt-auto">
+
                             <div>
                                 <span className="text-xl">Narrator</span>
-                                <span onClick={() => playAudio(props?.audioData?.mainAudio, "narrator")} className="inline-flex justify-center w-1/2  align-middle  rounded-2xl bg-secondary hover:brightness-75 duration-300 cursor-pointer ">
+                                <span
+                                    onClick={() => playAudio(props?.audioData?.mainAudio, "narrator")}
+                                    className="text-button-text inline-flex justify-center w-1/2  align-middle  rounded-2xl bg-secondary hover:brightness-75 duration-300 cursor-pointer ">
                                     {audioState === "narrator" ? (
                                         <IoVolumeMediumOutline className="text-4xl font-bold p-1" />
 
@@ -193,9 +191,11 @@ export default function MainBar(props: YogaPoseDetailed) {
                                 </span>
                             </div>
 
-                            <div className="flex flex-col w-full">
+                            <div className="flex flex-col xl:w-full w-1/2">
                                 <span className="text-xl">Tips</span>
-                                <span onClick={() => playAudio(props?.audioData?.narratorSegment, "tips")} className="inline-flex justify-center w-1/2 mx-auto align-middle  rounded-2xl bg-secondary hover:brightness-75 duration-300 cursor-pointer ">
+                                <span
+                                    onClick={() => playAudio(props?.audioData?.narratorSegment, "tips")}
+                                    className="text-button-text inline-flex justify-center w-1/2 mx-auto align-middle  rounded-2xl bg-secondary hover:brightness-75 duration-300 cursor-pointer ">
                                     {audioState === "tips" ? (
                                         <IoVolumeMediumOutline className="text-4xl font-bold p-1" />
 
@@ -212,7 +212,7 @@ export default function MainBar(props: YogaPoseDetailed) {
                                 <div className="relative">
                                     <button
                                         onClick={() => setDropdown(!dropdown)}
-                                        className="bg-secondary hover:brightness-75 rounded-xl text-text font-medium px-5 py-1.5 text-center inline-flex items-center capitalize">{playbackSpeed}</button>
+                                        className="text-button-text bg-secondary hover:brightness-75 rounded-xl  font-medium px-5 py-1.5 text-center inline-flex items-center capitalize">{playbackSpeed}</button>
 
 
                                     {dropdown &&
@@ -240,38 +240,13 @@ export default function MainBar(props: YogaPoseDetailed) {
 
 
                 <div className="grid grid-cols-7 my-6 p-5 gap-10">
-                    <div className="col-span-4">
-                        <div className={`flex flex-col ${advantagesFont.className}`}>
-
-                            <div className="text-2xl font-semibold capitalize my-2">
-                                <span>
-                                    benefits of {props?.originalName}
-                                </span>
-
-                                <span onClick={() => playAudio(props?.audioData?.benefits, "benefits")} className="inline-flex align-middle mx-2 rounded-2xl bg-slate-100 hover:bg-slate-200 duration-300 cursor-pointer ">
-                                    {audioState === "benefits" ? (
-                                        <IoVolumeMediumOutline className="text-4xl font-bold p-1" />
-
-                                    ) : (
-
-                                        <IoVolumeMuteOutline className="text-4xl font-bold p-1" />
-                                    )}
-
-                                </span>
-                            </div>
-
-                            {props?.benefits?.map((text, idx) => (
-                                <div key={idx} className="mb-1">
-                                    <span className="text-lg font-semibold">
-                                        {text.split(":")[0]} -
-                                    </span>
-                                    <span className="text-lg leading-relaxed tracking-wide">
-                                        {text.split(":")[1]}
-                                    </span>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
+                    <Benefits
+                        originalName={props?.originalName}
+                        playAudio={playAudio}
+                        audioClass={props?.audioData?.benefits}
+                        audioState={audioState}
+                        benefits={props?.benefits}
+                    />
 
                     <div className="col-span-3">
                         <div className="w-full h-full flex flex-col items-center justify-center border-[3px] border-text rounded-2xl">
