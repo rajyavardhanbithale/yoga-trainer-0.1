@@ -119,12 +119,12 @@ const poseInfo: YogaPoseAPI[] = [
         audioData: {
             mainAudio: "mountain.mp3",
             benefits: "benefits.mp3",
-            narratorSegment: ["seg0.mp3", "seg1.mp3", "seg2.mp3", "seg3.mp3", "seg4.mp3", "seg4.mp3"]
+            narratorSegment: ["seg0.mp3", "seg1.mp3", "seg2.mp3", "seg3.mp3", "seg4.mp3", "seg5.mp3"]
         }
     },
 
     {
-        id: 105,
+        id: 106,
         name: "warrior II",
         originalName: "Vīrabhadrāsana II",
         description: "Warrior II pose also known as Vīrabhadrāsana II is the second of three related powerful standing postures that improve strength and flexibility.",
@@ -142,14 +142,11 @@ const poseInfo: YogaPoseAPI[] = [
             set: 2, 
         },
         audioData: { //mp3
-            mainAudio: "", 
-            benefits: "",
-            narratorSegment: []
+            mainAudio: "warrior2.mp3", 
+            benefits: "benefits.mp3",
+            narratorSegment: ["seg0.mp3", "seg1.mp3", "seg2.mp3", "seg3.mp3", "seg4.mp3", "seg4.mp3","seg4.mp3"]
         }
     },
-
-
-
 
 ];
 

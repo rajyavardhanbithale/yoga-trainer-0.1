@@ -143,7 +143,7 @@ export default function MainBar(props: YogaPoseDetailed) {
 
     return (
         <>
-            <div className="lg:w-[78%] xl:w-[88%] mt-5 sidebar_scrollable">
+            <div className="lg:w-[78%] xl:w-[88%] mt-5 sidebar_scrollable text-text">
                 <div className="m-4 mx-4">
                     {/* Title */}
                     <div className="grid grid-cols-1 justify-center place-items-center gap-2">
@@ -178,10 +178,10 @@ export default function MainBar(props: YogaPoseDetailed) {
 
                     {/* Controller */}
                     <div className="sm:col-span-1 min-h-[400px]">
-                        <div className="flex text-center flex-col justify-center items-center align-middle h-full max-h-[400px] gap-8">
+                        <div className="flex text-center flex-col justify-center items-center align-middle h-full w-full max-h-[400px] gap-8">
                             <div>
                                 <span className="text-xl">Narrator</span>
-                                <span onClick={() => playAudio(props?.audioData?.mainAudio, "narrator")} className="inline-flex justify-center w-full  align-middle mx-2 rounded-2xl bg-slate-100 hover:bg-slate-200 duration-300 cursor-pointer ">
+                                <span onClick={() => playAudio(props?.audioData?.mainAudio, "narrator")} className="inline-flex justify-center w-1/2  align-middle  rounded-2xl bg-secondary hover:brightness-75 duration-300 cursor-pointer ">
                                     {audioState === "narrator" ? (
                                         <IoVolumeMediumOutline className="text-4xl font-bold p-1" />
 
@@ -193,9 +193,9 @@ export default function MainBar(props: YogaPoseDetailed) {
                                 </span>
                             </div>
 
-                            <div>
+                            <div className="flex flex-col w-full">
                                 <span className="text-xl">Tips</span>
-                                <span onClick={() => playAudio(props?.audioData?.narratorSegment, "tips")} className="inline-flex justify-center w-full  align-middle mx-2 rounded-2xl bg-slate-100 hover:bg-slate-200 duration-300 cursor-pointer ">
+                                <span onClick={() => playAudio(props?.audioData?.narratorSegment, "tips")} className="inline-flex justify-center w-1/2 mx-auto align-middle  rounded-2xl bg-secondary hover:brightness-75 duration-300 cursor-pointer ">
                                     {audioState === "tips" ? (
                                         <IoVolumeMediumOutline className="text-4xl font-bold p-1" />
 
@@ -212,7 +212,7 @@ export default function MainBar(props: YogaPoseDetailed) {
                                 <div className="relative">
                                     <button
                                         onClick={() => setDropdown(!dropdown)}
-                                        className="bg-slate-200 rounded-xl text-text font-medium px-5 py-1.5 text-center inline-flex items-center capitalize">{playbackSpeed}</button>
+                                        className="bg-secondary hover:brightness-75 rounded-xl text-text font-medium px-5 py-1.5 text-center inline-flex items-center capitalize">{playbackSpeed}</button>
 
 
                                     {dropdown &&
@@ -261,11 +261,11 @@ export default function MainBar(props: YogaPoseDetailed) {
                             </div>
 
                             {props?.benefits?.map((text, idx) => (
-                                <div key={idx}>
-                                    <span className="text-xl font-semibold">
+                                <div key={idx} className="mb-1">
+                                    <span className="text-lg font-semibold">
                                         {text.split(":")[0]} -
                                     </span>
-                                    <span className="text-lg">
+                                    <span className="text-lg leading-relaxed tracking-wide">
                                         {text.split(":")[1]}
                                     </span>
                                 </div>

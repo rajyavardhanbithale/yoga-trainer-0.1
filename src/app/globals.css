@@ -3,20 +3,21 @@
 @tailwind utilities;
 
 :root {
-  --text: #050a0a;
-  --background: #f8fafc;
-  --primary: #3ca6cd;
-  --secondary: #7ecbe7;
-  --accent: #4abee8;
-  --scollbar: #3b2646;
+  --text: #101519;
+  --background: #f1f4f6;
+  --primary: #245770;
+  --secondary: #71bbe0;
+  --accent: #1883b9;
 }
-:root[data-theme="dark"] {
-  --text: #f5fafa;
-  --background: #030507;
-  --primary: #329cc3;
-  --secondary: #186581;
-  --accent: #178bb5;
+[data-theme="dark"] {
+  --text: #e5ebef;
+  --background: #0a1216;
+  --primary: #8ec1da;
+  --secondary: #1f688c;
+  --accent: #46b2e7;
 }
+
+
 
 
 *{
@@ -26,6 +27,10 @@
 
 body{
   overflow: hidden;
+  background: var(--background);
+  transition: 1s;
+
+
 }
 
 
@@ -63,3 +68,6 @@ body{
 ::-webkit-scrollbar-corner {
   background: transparent;
 }
+
+
+
