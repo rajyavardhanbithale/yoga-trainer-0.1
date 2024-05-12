@@ -43,7 +43,7 @@ Find your center with RAGE InnerBalance: Your AI-Powered Yoga Partner!
 
  ## About The Project
 
-![Screenshort](images/preview/proto2-new.png)
+![Screenshort](images/preview/proto-3-new.png)
 
 
 **Welcome** to my project! I'am developed a platform using **TensorFlow** and **Keras** for **deep learning-based yoga guidance**. Users select a pose, perform it while their webcam feed sends images to our **CNN model** for **real-time** feedback. Our narrator provides tips, enhancing the experience. Built with Next.js, Tailwind CSS, and TensorFlow.js, it's user-friendly and continuously evolving with an expanding selection of poses."
