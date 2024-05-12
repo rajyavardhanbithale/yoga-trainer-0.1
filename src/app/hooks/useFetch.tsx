@@ -1,5 +1,5 @@
 import axios from "axios"
-import { YogaPoseAPI } from "../interface/CustomInterface"
+import { YogaPoseAPI } from "../../../types"
 
 const useFetch = () => {
     const error: string = "error in fetching api"

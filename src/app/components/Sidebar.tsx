@@ -1,7 +1,7 @@
 'use client'
 
 import Image from "next/image"
-import { YogaPose } from "../interface/CustomInterface"
+import { YogaPose } from "../../../types"
 import { useState } from "react";
 import { ToastContainer, toast, Zoom, } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';

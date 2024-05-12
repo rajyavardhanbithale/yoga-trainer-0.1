@@ -2,7 +2,7 @@
 
 import { Sedan } from "next/font/google";
 import Typewriter from 'typewriter-effect';
-import { YogaPoseDetailed } from "../interface/CustomInterface";
+import { YogaPoseDetailed } from "../../../types";
 import { useEffect, useRef, useState } from "react";
 import useTensorFlow from "../hooks/useTensorFlow";
 import { IoVolumeMediumOutline, IoVolumeMuteOutline } from "react-icons/io5";
@@ -11,6 +11,7 @@ import DropdownSelect from "./helper/DropdownSelect";
 import useConvertTensorClass from "../hooks/useConvertTensorClass";
 import Benefits from "./helper/Benefits";
 import { IoIosArrowDown } from "react-icons/io";
+import MusicSelection from "./helper/MusicSelection";
 
 const titleFont = Sedan(
     {
@@ -239,6 +240,11 @@ export default function MainBar(props: YogaPoseDetailed) {
 
                                     }
                                 </div>
+                            </div>
+
+                            <div>
+                                <span className="text-xl mb-1">Relax Music</span>
+                                <MusicSelection></MusicSelection>
                             </div>
 
                         </div>

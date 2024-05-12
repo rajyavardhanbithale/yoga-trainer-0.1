@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import Sidebar from "../components/Sidebar"
-import { YogaPoseAPI, YogaPoseDetailed } from "../interface/CustomInterface"
+import { YogaPoseAPI, YogaPoseDetailed } from "../../../types"
 import MainBar from "../components/Mainbar"
 
 import useFetch from "../hooks/useFetch"
