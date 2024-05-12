@@ -40,7 +40,6 @@ body{
 }
 
 
-/* HTML: <div class="loader"></div> */
 .loader {
   width: 60px;
   aspect-ratio: 1.154;
@@ -75,7 +74,6 @@ body{
 
 
 /* Scrollbar  */
-
 ::-webkit-scrollbar {
   width: 7px;
   height: 7px;

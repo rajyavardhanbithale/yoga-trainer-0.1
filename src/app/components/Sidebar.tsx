@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import { YogaPose } from "../interface/CustomInterface"
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ToastContainer, toast, Zoom, } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -17,17 +17,16 @@ export default function Sidebar(props: any) {
         setGrayedOut(selectedPose.id)
         setHighlight(selectedPose.id)
         props.setSelectedPose(selectedPose.id)
+        notify()
     }
 
     const selectionMessage: Array<string> = ["👍 Great choice! Awesome!", "🌟 Fantastic pick! You're on fire!", "🙌 Amazing selection! Keep it up!", "💪 Superb choice! You're crushing it!", "🔥 Brilliant pick! You're unstoppable!", "🎉 Impressive choice! Keep that momentum!", "🌟 Terrific pick! You're a star!", "🌺 Splendid selection! You're in your element!", "🌟 Marvelous pick! Keep up the magic!"]
-    const notify = () => toast(
-        selectionMessage[Math.floor(Math.random() * selectionMessage.length)],
-        { progressStyle: { color: "green" } }
+    const notify = () => toast.success(
+        '  '+selectionMessage[Math.floor(Math.random() * selectionMessage.length)]
+     
     )
 
-    useEffect(() => {
-        notify()
-    }, [highlight])
+
 
     function toggleDarkMode() {
         console.log("prsd");

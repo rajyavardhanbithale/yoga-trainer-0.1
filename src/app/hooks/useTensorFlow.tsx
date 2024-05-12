@@ -4,17 +4,22 @@ import { useState } from 'react';
 
 function useTensorFlow() {
     const [isModelLoaded, setIsModelLoaded] = useState<boolean>(false)
+    const [model, setModel] =  useState<any>()
 
-    let model:any;
     // Loading Model
     const loadTensorModel = async (set: number) => {
-        model = await tf.loadGraphModel(`/model/set${set}/model.json`)
-
-        if (model) {
+        const model_tensor = await tf.loadGraphModel(`/model/set${set}/model.json`)
+        
+        if (model_tensor) {
             setIsModelLoaded(true)
+            setModel(model_tensor)
             return true
+
+        }else {
+            console.error('Failed to load model.');
+            return false;
         }
-        model.dispose()
+        // model.dispose()
     }
 
     const predictTensor = async (pred_image: string): Promise<string> => {
@@ -35,7 +40,7 @@ function useTensorFlow() {
         const val1 = pred.dataSync()
 
         // Disposing model to free memory 
-        model.dispose()
+        // model.dispose()
 
         console.log(val1.toString());
 
@@ -45,7 +50,13 @@ function useTensorFlow() {
 
     // console.log("Tensorflow Init... OK")
 
-    return { loadTensorModel, predictTensor, isModelLoaded }
+    const finishTensor = () => {
+        if (model){
+            model.dispose()
+        }
+    }
+
+    return { loadTensorModel, predictTensor, finishTensor, isModelLoaded }
 
 }
 

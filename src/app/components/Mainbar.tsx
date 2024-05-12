@@ -1,7 +1,7 @@
 'use client'
 
 import { Sedan } from "next/font/google";
-import { Montserrat } from "next/font/google";
+import Typewriter from 'typewriter-effect';
 import { YogaPoseDetailed } from "../interface/CustomInterface";
 import { useEffect, useRef, useState } from "react";
 import useTensorFlow from "../hooks/useTensorFlow";
@@ -34,7 +34,7 @@ export default function MainBar(props: YogaPoseDetailed) {
     const [load, setLoad] = useState<boolean>(false) // Load Assets Button
 
     const { playNarratorAudio, playUserAudio, stopAudio } = useAudioManager();
-    const { loadTensorModel, predictTensor, isModelLoaded } = useTensorFlow();
+    const { loadTensorModel, predictTensor, finishTensor, isModelLoaded } = useTensorFlow();
     const { getPredctionClass } = useConvertTensorClass(0.80)
 
     const excludeObjectContainer: Array<number> = [104]
@@ -128,8 +128,8 @@ export default function MainBar(props: YogaPoseDetailed) {
             setPredAssumption(null)
             console.log('STG')
             await handleCaptureFrame()
-
-        }, 5000);
+            setLoad(false)
+        }, 2000);
         setIntervalId(id);
     }
 
@@ -138,8 +138,12 @@ export default function MainBar(props: YogaPoseDetailed) {
         if (intervalId) {
             clearInterval(intervalId)
         }
+        // finishTensor()
+        setPredAssumption(null)
     }
 
+    // below function load the dl model to client side
+    // with loading animation
     const loadAssetsTensor = async () => {
         setLoad(true)
         const ltm = await loadTensorModel(props?.TFData?.set)
@@ -149,15 +153,13 @@ export default function MainBar(props: YogaPoseDetailed) {
     }
 
 
-
-
     return (
         <>
             <div className="lg:w-[78%] xl:w-[88%] mt-5 sidebar_scrollable text-text">
                 <div className="m-4 mx-4">
                     {/* Title */}
                     <div className="grid grid-cols-1 justify-center place-items-center gap-2">
-                        <div className={`${titleFont.className} flex items-center text-4xl font-semibold capitalize`}>
+                        <div className={`${titleFont.className} flex flex-col xl:flex-row items-center text-4xl font-semibold capitalize gap-1`}>
                             <div>{props?.name}</div>
                             <div className="h-1.5 w-1.5 bg-text rounded-full mx-3"></div>
                             <div>{props?.originalName}</div>
@@ -277,18 +279,50 @@ export default function MainBar(props: YogaPoseDetailed) {
                                 </>
                             ) : (
                                 !load && !isModelLoaded ? (
-                                    <div
-                                        onClick={loadAssetsTensor}
-                                        className="px-5 py-3 text-xl text-button-text font-semibold bg-primary 
-                                rounded-tr-xl rounded-bl-xl  
-                                hover:rounded-tl-2xl hover:rounded-br-2xl 
-                                hover:rounded-tr-none hover:rounded-bl-none 
-                                shadow-xl hover:shadow-xl
-                                duration-500 cursor-pointer">
-                                        Load Assets
-                                    </div>
+                                    <>
+                                        <div
+                                            onClick={loadAssetsTensor}
+                                            className="px-5 py-3 text-xl text-button-text font-semibold bg-primary rounded-tr-xl rounded-bl-xl  hover:rounded-tl-2xl hover:rounded-br-2xl hover:rounded-tr-none hover:rounded-bl-none shadow-xl hover:shadow-xl duration-500 cursor-pointer">
+                                            Load Assets
+                                        </div>
+
+
+
+                                    </>
                                 ) : (
-                                    <span>start</span>
+                                    predAssumption ? (
+                                        <>
+                                            <div className="flex flex-col-reverse h-auto justify-evenly  items-center gap-5">
+
+                                                <div
+                                                    onClick={stopTensor}
+                                                    className="w-fit px-5 py-3 text-xl text-button-text font-semibold bg-accent rounded-tr-xl rounded-bl-xl  hover:rounded-tl-2xl hover:rounded-br-2xl hover:rounded-tr-none hover:rounded-bl-none shadow-xl hover:shadow-xl duration-500 cursor-pointer">
+                                                    Stop
+                                                </div>
+
+                                                {poseMessage &&
+                                                    <div className={`${!poseSuccess ? "text-[#ea1537]" : "text-[#00b499]"} text-3xl font-semibold tracking-wider`}>
+                                                        <Typewriter
+                                                            options={{
+                                                                strings: [poseMessage],
+                                                                autoStart: true,
+                                                                delay: 40,
+                                                                deleteSpeed: 999999
+                                                            }}
+                                                        />
+                                                    </div>
+                                                }
+                                            </div>
+
+
+                                        </>
+                                    ) : (
+                                        <div
+                                            onClick={runTensor}
+                                            className="px-5 py-3 text-xl text-button-text font-semibold bg-accent rounded-tr-xl rounded-bl-xl  hover:rounded-tl-2xl hover:rounded-br-2xl hover:rounded-tr-none hover:rounded-bl-none shadow-xl hover:shadow-xl duration-500 cursor-pointer">
+                                            Start
+                                        </div>
+                                    )
                                 )
 
 
