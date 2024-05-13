@@ -24,6 +24,11 @@ const poseInfo: YogaPoseAPI[] = [
             mainAudio: "tree.mp3",
             benefits: "benefits.mp3",
             narratorSegment: ["seg0.mp3", "seg1.mp3", "seg2.mp3", "seg3.mp3", "seg4.mp3"]
+        },
+        videoData:{
+            tutorialURL: "https://youtu.be/Fr5kiIygm0c",
+            tutorialIFRAME: "https://www.youtube.com/embed/Fr5kiIygm0c",
+            tutorialSource: "yt"
         }
     },
     {
@@ -48,6 +53,11 @@ const poseInfo: YogaPoseAPI[] = [
             mainAudio: "warrior1.mp3",
             benefits: "benefits.mp3",
             narratorSegment: ["seg0.mp3", "seg1.mp3", "seg2.mp3", "seg3.mp3", "seg4.mp3", "seg5.mp3"]
+        },
+        videoData:{
+            tutorialURL: "https://youtu.be/NytDpa2r34g",
+            tutorialIFRAME: "https://www.youtube.com/embed/NytDpa2r34g",
+            tutorialSource: "yt"
         }
     },
     {
@@ -72,6 +82,11 @@ const poseInfo: YogaPoseAPI[] = [
             mainAudio: "downdog.mp3",
             benefits: "benefits.mp3",
             narratorSegment: ["seg0.mp3", "seg1.mp3", "seg2.mp3", "seg3.mp3", "seg4.mp3", "seg5.mp3"]
+        },
+        videoData:{
+            tutorialURL: "https://youtu.be/EC7RGJ975iM",
+            tutorialIFRAME: "https://www.youtube.com/embed/EC7RGJ975iM",
+            tutorialSource: "yt"
         }
     },
     {
@@ -96,6 +111,11 @@ const poseInfo: YogaPoseAPI[] = [
             mainAudio: "goddess.mp3",
             benefits: "benefits.mp3",
             narratorSegment: ["seg0.mp3", "seg1.mp3", "seg2.mp3", "seg3.mp3", "seg4.mp3", "seg5.mp3"]
+        },
+        videoData:{
+            tutorialURL: "https://youtu.be/cekN3sdUNso",
+            tutorialIFRAME: "https://www.youtube.com/embed/cekN3sdUNso",
+            tutorialSource: "yt"
         }
     },
     {
@@ -120,9 +140,13 @@ const poseInfo: YogaPoseAPI[] = [
             mainAudio: "mountain.mp3",
             benefits: "benefits.mp3",
             narratorSegment: ["seg0.mp3", "seg1.mp3", "seg2.mp3", "seg3.mp3", "seg4.mp3", "seg5.mp3"]
+        },
+        videoData:{
+            tutorialURL: "https://youtu.be/0mPNlC0vD6s",
+            tutorialIFRAME: "https://www.youtube.com/embed/0mPNlC0vD6s",
+            tutorialSource: "yt"
         }
     },
-
     {
         id: 106,
         name: "warrior II",
@@ -141,10 +165,15 @@ const poseInfo: YogaPoseAPI[] = [
             class: "warrior2", 
             set: 2, 
         },
-        audioData: { //mp3
+        audioData: { 
             mainAudio: "warrior2.mp3", 
             benefits: "benefits.mp3",
             narratorSegment: ["seg0.mp3", "seg1.mp3", "seg2.mp3", "seg3.mp3", "seg4.mp3", "seg4.mp3","seg4.mp3"]
+        },
+        videoData:{
+            tutorialURL: "https://youtu.be/Mn6RSIRCV3w",
+            tutorialIFRAME: "https://www.youtube.com/embed/Mn6RSIRCV3w",
+            tutorialSource: "yt"
         }
     },
 

@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react"
 import Sidebar from "../components/Sidebar"
 import { YogaPoseAPI, YogaPoseDetailed } from "../../../types"
-import MainBar from "../components/Mainbar"
+import MainBar from "../components/Mainbar/Mainbar"
 
 import useFetch from "../hooks/useFetch"
 import SidebarSkeleton from "../components/skeleton/SidebarSkeleton"
@@ -68,6 +68,7 @@ export default function Yoga() {
                             image={passPoseData?.image}
                             TFData={passPoseData?.TFData}
                             audioData={passPoseData?.audioData}
+                            videoData={passPoseData?.videoData}
                         ></MainBar>
                     </>
                 )}

@@ -13,14 +13,19 @@ interface YogaPoseDetailed {
     benefits: Array<string>
     tutorial: string
     image: string
-    TFData: { 
-        class: string 
-        set: number 
+    TFData: {
+        class: string
+        set: number
     }
-    audioData:{
+    audioData: {
         mainAudio: string
         benefits: string
         narratorSegment: Array<string>
+    }
+    videoData:{
+        tutorialURL: string
+        tutorialIFRAME: string
+        tutorialSource: string
     }
 
 }
@@ -34,14 +39,19 @@ interface YogaPoseAPI {
     benefits: Array<string>
     tutorial: string
     image: string
-    TFData: { 
-        class: string 
-        set: number 
+    TFData: {
+        class: string
+        set: number
     }
-    audioData:{
+    audioData: {
         mainAudio: string
         benefits: string
         narratorSegment: Array<string>
+    }
+    videoData:{
+        tutorialURL: string
+        tutorialIFRAME: string
+        tutorialSource: string
     }
 }
 
@@ -52,14 +62,27 @@ interface AmbientMusic {
     keyword: Array<string>
 }
 
-interface PoseMessage{
+interface PoseMessage {
     isSuccess: Boolean
     poseMessage: string | undefined
 }
 
-interface AudioState{
+interface AudioState {
     status: Boolean
-    state: string 
-    playbackSpeed: string 
+    state: string
+    playbackSpeed: string
 }
-export type { YogaPose, YogaPoseAPI, YogaPoseDetailed, AmbientMusic, PoseMessage, AudioState }
+
+interface UserSectionSelection {
+    active: string
+}
+
+export type {
+    YogaPose,
+    YogaPoseAPI,
+    YogaPoseDetailed,
+    AmbientMusic,
+    PoseMessage,
+    AudioState,
+    UserSectionSelection
+}

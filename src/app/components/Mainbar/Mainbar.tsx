@@ -1,43 +1,42 @@
 'use client'
 
-import { Sedan } from "next/font/google";
-import Typewriter from 'typewriter-effect';
-import { AudioState, PoseMessage, YogaPoseDetailed } from "../../../types";
 import { useEffect, useRef, useState } from "react";
-import useTensorFlow from "../hooks/useTensorFlow";
+import Typewriter from 'typewriter-effect';
 import { IoVolumeMediumOutline, IoVolumeMuteOutline } from "react-icons/io5";
-import useAudioManager from "../hooks/useAudioPlayer";
-import DropdownSelect from "./helper/DropdownSelect";
-import useConvertTensorClass from "../hooks/useConvertTensorClass";
-import Benefits from "./helper/Benefits";
 import { IoIosArrowDown } from "react-icons/io";
+
+import useAudioManager from "../../hooks/useAudioPlayer";
+import useConvertTensorClass from "../../hooks/useConvertTensorClass";
+import useTensorFlow from "../../hooks/useTensorFlow";
+
+import DropdownSelect from "./helper/DropdownSelect";
+import Benefits from "./helper/Benefits";
 import MusicSelection from "./helper/MusicSelection";
 
-const titleFont = Sedan(
-    {
-        subsets: ["latin"],
-        weight: ["400"]
-    }
-);
+import { successMessageList, unsuccessMessageList } from "../UserMessage/UserMessage";
+import { AudioState, PoseMessage, UserSectionSelection, YogaPoseDetailed } from "../../../../types";
+import Title from "./helper/Title";
+import UserSelection from "./helper/UserSelection";
+
 
 export default function MainBar(props: YogaPoseDetailed) {
     const [poseMessage, setPoseMessage] = useState<PoseMessage>()
-    const [audioState, setAudioState] = useState<AudioState>({status:true,state:"",playbackSpeed:"fine"})
+    const [audioState, setAudioState] = useState<AudioState>({ status: true, state: "", playbackSpeed: "fine" })
     const [dropdown, setDropdown] = useState<boolean>(false)
-    const videoRef = useRef(null)
     const [capturedFrame, setCapturedFrame] = useState<string | null>(null);
     const [predAssumption, setPredAssumption] = useState<Array<string> | null>()
-    const [predFinal, setPredFinal] = useState<string>()
     const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null)
     const [load, setLoad] = useState<boolean>(false) // Load Assets Button
+   
+
+    const videoRef = useRef(null)
 
     const { playNarratorAudio, playUserAudio, stopAudio } = useAudioManager();
     const { loadTensorModel, predictTensor, finishTensor, isModelLoaded } = useTensorFlow();
     const { getPredctionClass } = useConvertTensorClass(0.80)
 
     const excludeObjectContainer: Array<number> = [104]
-    const successMessageList: Array<string> = ["Correct pose!", "Nailed it!", "Great form!", "Well done", "You got it!"]
-    const unsuccessMessageList: Array<string> = ["Incorrect pose.", "Try once more.", "Keep practicing.", "Check your posture.", "Try another angle."]
+
 
     // manages playback for audio narration 
     // toggle function, stops the playback and the play audio according to source and state
@@ -46,11 +45,11 @@ export default function MainBar(props: YogaPoseDetailed) {
         stopAudio()
         if (audioState.status) {
             playNarratorAudio(source, props?.TFData?.class, audioState?.playbackSpeed)
-            setAudioState(prevState => ({...prevState,state:state}))
+            setAudioState(prevState => ({ ...prevState, state: state }))
         } else {
-            setAudioState(prevState => ({...prevState,state:""}))
+            setAudioState(prevState => ({ ...prevState, state: "" }))
         }
-        setAudioState(prevState => ({...prevState,status:!audioState.status}))
+        setAudioState(prevState => ({ ...prevState, status: !audioState.status }))
     }
     useEffect(() => {
         stopAudio()
@@ -80,7 +79,7 @@ export default function MainBar(props: YogaPoseDetailed) {
         setPredAssumption(runTensor)
 
         console.log(runTensor);
-        
+
 
     }
 
@@ -88,16 +87,12 @@ export default function MainBar(props: YogaPoseDetailed) {
     // when the prediction class is available, if the pose matches the provided pose if output success else output an unsuccess
     // while setting the user (success - unsuccess) message, it picks the random value form the custom defined array of messages 
     const handleInteractTensor = () => {
-
         const random = (length: number) => {
             return Math.floor(Math.random() * length)
         }
-
         if (predAssumption) {
 
             const predClass = getPredctionClass(predAssumption[0], props?.TFData?.set)
-            setPredFinal(predClass)
-
             if (props?.TFData?.class === predClass) {
                 const randomIndex: number = random(successMessageList.length)
                 playUserAudio(`seg${randomIndex}.mp3`, 'user/pose/valid', 'slow')
@@ -155,20 +150,9 @@ export default function MainBar(props: YogaPoseDetailed) {
     return (
         <>
             <div className="lg:w-[78%] xl:w-[88%] mt-5 sidebar_scrollable text-text">
-                <div className="m-4 mx-4">
-                    {/* Title */}
-                    <div className="grid grid-cols-1 justify-center place-items-center gap-2">
-                        <div className={`${titleFont.className} flex flex-col xl:flex-row items-center text-4xl font-semibold capitalize gap-1`}>
-                            <div>{props?.name}</div>
-                            <div className="h-1.5 w-1.5 bg-text rounded-full mx-3"></div>
-                            <div>{props?.originalName}</div>
-                        </div>
-                        <span className={`${titleFont.className} text-xl capitalize font-semibold  text-center`}>
-                            &quot;{props?.description}&quot;
-                        </span>
-                    </div>
+                <div className="m-4 mt-2 mx-2">
+                    <Title name={props?.name} originalName={props?.originalName} description={props.description} />
                 </div>
-
 
                 <div className="grid xl:grid-cols-11 md:grid-cols-2 p-5 gap-10">
                     {/* Source */}
@@ -262,24 +246,18 @@ export default function MainBar(props: YogaPoseDetailed) {
                 </div>
 
 
-                <div className="grid grid-cols-7 my-6 p-5 gap-10">
-                    <div className="col-span-4 grid-row-2">
-                        <div className="grid grid-cols-6 row-span-1 max-h-[200px]">
-                            <div className="col-span-1 hover_border text-nowrap py-2 cursor-pointer brightness-95 text-start rounded-t-xl text-xl font-semibold">Benefits</div>
-                            <div className="col-span-1 hover_border text-nowrap py-2 cursor-pointer brightness-95 text-start rounded-t-xl text-xl font-semibold">Tutorial Video</div>
-                            <div className="col-span-1 hover_border text-nowrap py-2 cursor-pointer brightness-95 text-start rounded-t-xl text-xl font-semibold">Read More</div>
+                <div className="grid grid-cols-7 my-3 p-5 gap-10">
+                    <div className="col-span-4 grid-row-2 h-[400px]">
+                        <UserSelection
+                            originalName={props?.originalName}
+                            playAudio={playAudio}
+                            audioClass={props?.audioData?.benefits}
+                            audioState={audioState?.state}
+                            benefits={props?.benefits}
 
-                        </div>
+                            videoData={props?.videoData}
 
-                        <div className="row-span-1">
-                            <Benefits
-                                originalName={props?.originalName}
-                                playAudio={playAudio}
-                                audioClass={props?.audioData?.benefits}
-                                audioState={audioState?.state}
-                                benefits={props?.benefits}
-                            />
-                        </div>
+                        />
                     </div>
 
                     <div className="col-span-3">

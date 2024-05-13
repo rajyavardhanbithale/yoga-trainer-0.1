@@ -117,7 +117,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--scollbar);
+  background: var(--primary);
   height: 10px;
   border-radius: 93px;
 }
@@ -137,17 +137,40 @@ body {
 
 .hover_border {
   border-bottom-width: 4px;
-  width: 0%;
+  
   border-color: var(--secondary);
 }
 
 
 .hover_border:hover {
-  width: 90%;
-  animation: slideInHover 0.5s linear;
+  width: 80%;
+  animation: slideInHover 0.5s ease-in-out;
 }
 
 @keyframes slideInHover {
+  0% {
+    width: 0%;
+  }
+
+  100% {
+    width: 80%;
+  }
+}
+
+
+.hover_border_side {
+  border-bottom-width: 4px;
+  
+  border-color: var(--secondary);
+}
+
+
+.hover_border_side:hover {
+  width: 90%;
+  animation: slideInHoverSide 0.5s ease-in-out;
+}
+
+@keyframes slideInHoverSide {
   0% {
     width: 0%;
   }

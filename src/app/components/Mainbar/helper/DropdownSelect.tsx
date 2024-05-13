@@ -1,4 +1,4 @@
-import { AudioState } from "../../../../types"
+import { AudioState } from "../../../../../types"
 
 
 export default function DropdownSelect(props: any) {

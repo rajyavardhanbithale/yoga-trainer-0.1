@@ -34,16 +34,18 @@ export default function Benefits(props: any) {
                     </span>
                 </div>
 
-                {props?.benefits?.map((text: string, idx: number) => (
-                    <div key={idx} className="mb-1">
-                        <span className="text-lg font-semibold">
-                            {text.split(":")[0]} -
-                        </span>
-                        <span className="text-lg leading-relaxed tracking-wide">
-                            {text.split(":")[1]}
-                        </span>
-                    </div>
-                ))}
+                <div className="overflow-y-auto sidebar_scrollable h-[270px]">
+                    {props?.benefits?.map((text: string, idx: number) => (
+                        <div key={idx} className="mb-1">
+                            <span className="text-lg font-semibold">
+                                {text.split(":")[0]} -
+                            </span>
+                            <span className="text-lg leading-relaxed tracking-wide">
+                                {text.split(":")[1]}
+                            </span> 
+                        </div>
+                    ))}
+                </div>
             </div>
 
         </>

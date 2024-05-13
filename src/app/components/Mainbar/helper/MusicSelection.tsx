@@ -2,7 +2,7 @@ import useFetch from "@/app/hooks/useFetch";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
-import { AmbientMusic } from "../../../../types";
+import { AmbientMusic } from "../../../../../types";
 import useAudioManager from "@/app/hooks/useAudioPlayer";
 
 
@@ -48,7 +48,7 @@ export default function MusicSelection() {
         <div
             onMouseEnter={() => handleHover(true)}
             onMouseLeave={() => handleHover(false)}
-            className="relative flex">
+            className="relative flex -z-50">
             <label
 
                 className="relative mx-auto inline-flex items-center cursor-pointer"
