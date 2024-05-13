@@ -5,7 +5,7 @@ import Benefits from "./Benefits";
 import { IoChevronBackCircleOutline } from "react-icons/io5";
 
 export default function UserSelection(props: any) {
-    const [userSelection, setUserSelection] = useState<UserSectionSelection>({active:"benefits"})
+    const [userSelection, setUserSelection] = useState<UserSectionSelection>({ active: "benefits" })
     return (
         <>
 
@@ -22,9 +22,15 @@ export default function UserSelection(props: any) {
                         Tutorial Video
                     </div>
                     <div
-                        onClick={() => setUserSelection({ ...userSelection, active: "read" })}
-                        className={`col-span-1 hover_border text-nowrap py-2 cursor-pointer brightness-95 text-start rounded-t-xl  ${userSelection?.active === "read" ? "w-[80%]" : "w-0"}`}>
-                        RAGE AI Chat
+                        onClick={() => setUserSelection({ ...userSelection, active: "pa" })}
+                        className={`col-span-1 hover_border text-nowrap py-2 cursor-pointer brightness-95 text-start rounded-t-xl  ${userSelection?.active === "pa" ? "w-[80%]" : "w-0"}`}>
+                        Pose Analysis
+                    </div> 
+                    
+                    <div
+                        onClick={() => setUserSelection({ ...userSelection, active: "ac" })}
+                        className={`col-span-1 hover_border text-nowrap py-2 cursor-pointer brightness-95 text-start rounded-t-xl  ${userSelection?.active === "ac" ? "w-[80%]" : "w-0"}`}>
+                        Accuracy Chart
                     </div>
 
                 </div>
@@ -44,7 +50,7 @@ export default function UserSelection(props: any) {
 
             {userSelection?.active === "video" &&
                 <>
-               
+
                     <div
                         onClick={() => setUserSelection({ ...userSelection, active: "benefits" })}
                         className="z-50 absolute w-8 h-8 bg-secondary m-5 rounded-xl animate-pulse hover:animate-none ">
@@ -60,6 +66,24 @@ export default function UserSelection(props: any) {
                 </>
 
             }
+
+            {userSelection?.active === "pa" &&
+                <div className="w-full h-[90%] flex flex-col gap-5 justify-center align-middle items-center  ">
+                    <div className="ai-loader"></div>
+
+                    <div className="text-3xl text-text font-semibold"> Pose Analysis, Coming Soon ... </div>
+                </div>
+
+            }
+            {userSelection?.active === "ac" &&
+                <div className="w-full h-[90%] flex flex-col gap-5 justify-center align-middle items-center  ">
+                    <div className="ai-loader"></div>
+
+                    <div className="text-3xl text-text font-semibold"> Accuracy Chart, Coming Soon ... </div>
+                </div>
+
+            }
+
 
         </>
     )

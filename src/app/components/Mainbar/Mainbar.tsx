@@ -1,22 +1,25 @@
 'use client'
 
-import { useEffect, useRef, useState } from "react";
+import {  useEffect, useRef, useState } from "react";
 import Typewriter from 'typewriter-effect';
 import { IoVolumeMediumOutline, IoVolumeMuteOutline } from "react-icons/io5";
 import { IoIosArrowDown } from "react-icons/io";
 
 import useAudioManager from "../../hooks/useAudioPlayer";
 import useConvertTensorClass from "../../hooks/useConvertTensorClass";
-import useTensorFlow from "../../hooks/useTensorFlow";
 
 import DropdownSelect from "./helper/DropdownSelect";
-import Benefits from "./helper/Benefits";
 import MusicSelection from "./helper/MusicSelection";
 
 import { successMessageList, unsuccessMessageList } from "../UserMessage/UserMessage";
-import { AudioState, PoseMessage, UserSectionSelection, YogaPoseDetailed } from "../../../../types";
+import { AudioState, PoseMessage, YogaPoseDetailed } from "../../../../types";
 import Title from "./helper/Title";
 import UserSelection from "./helper/UserSelection";
+
+
+
+import useTensorFlow from "@/app/hooks/useTensorFlow";
+
 
 
 export default function MainBar(props: YogaPoseDetailed) {
@@ -24,18 +27,19 @@ export default function MainBar(props: YogaPoseDetailed) {
     const [audioState, setAudioState] = useState<AudioState>({ status: true, state: "", playbackSpeed: "fine" })
     const [dropdown, setDropdown] = useState<boolean>(false)
     const [capturedFrame, setCapturedFrame] = useState<string | null>(null);
-    const [predAssumption, setPredAssumption] = useState<Array<string> | null>()
+    const [predAssumption, setPredAssumption] = useState<string | null>()
     const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null)
     const [load, setLoad] = useState<boolean>(false) // Load Assets Button
-   
+
 
     const videoRef = useRef(null)
+    const excludeObjectContainer: Array<number> = [104]
+
 
     const { playNarratorAudio, playUserAudio, stopAudio } = useAudioManager();
-    const { loadTensorModel, predictTensor, finishTensor, isModelLoaded } = useTensorFlow();
+    const { runModel, stopModel, isModelLoaded } = useTensorFlow()
     const { getPredctionClass } = useConvertTensorClass(0.80)
 
-    const excludeObjectContainer: Array<number> = [104]
 
 
     // manages playback for audio narration 
@@ -60,26 +64,17 @@ export default function MainBar(props: YogaPoseDetailed) {
     // creating a canvas and then attaching video reference height, width
     // using 'useRef' hook to get the input source features
     // feeding the canvas content (Base64 encoded image) to tensor for predict ('predictTensor' function)
-    const handleCaptureFrame = async () => {
-        setLoad(false)
-        setPredAssumption(null)
+    const handleCaptureFrame = () => {
+        const video: (any | null) = videoRef.current;
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
 
-        const video: (any | null) = videoRef.current
-        const canvas = document.createElement('canvas')
-        const ctx: (CanvasRenderingContext2D | null) = canvas.getContext('2d')
-
-        canvas.height = video.videoHeight
-        canvas.width = video.videoWidth
-
-        ctx?.drawImage(video, 0, 0)
-        const image = canvas.toDataURL()
-
-        setCapturedFrame(image);
-        const runTensor: Array<string> = [await predictTensor(image), '' + Math.random() * 3]
-        setPredAssumption(runTensor)
-
-        console.log(runTensor);
-
+        canvas.width = 250;
+        canvas.height = 250
+        ctx?.drawImage(video, 0, 0, 250, 250);
+        const imageData = canvas.toDataURL();
+        setCapturedFrame(imageData);
+        runModel(imageData, setPredAssumption, props?.TFData?.set)
 
     }
 
@@ -90,9 +85,11 @@ export default function MainBar(props: YogaPoseDetailed) {
         const random = (length: number) => {
             return Math.floor(Math.random() * length)
         }
+        console.log("handleinteract", predAssumption);
+
         if (predAssumption) {
 
-            const predClass = getPredctionClass(predAssumption[0], props?.TFData?.set)
+            const predClass = getPredctionClass(predAssumption, props?.TFData?.set)
             if (props?.TFData?.class === predClass) {
                 const randomIndex: number = random(successMessageList.length)
                 playUserAudio(`seg${randomIndex}.mp3`, 'user/pose/valid', 'slow')
@@ -113,38 +110,27 @@ export default function MainBar(props: YogaPoseDetailed) {
     }, [predAssumption])
 
 
-    // when the asynchronous 'runTensor' function is called, it execute the 'handleCaptureFrame'
-    // the function itself run in every n second
+
     const runTensor = () => {
         console.log('Stated');
         setLoad(true)
         const id = setInterval(async () => {
             setPredAssumption(null)
             console.log('STG')
-            await handleCaptureFrame()
-            setLoad(false)
+            handleCaptureFrame()
+           
         }, 2000);
         setIntervalId(id);
     }
 
-    // 'stopTensor' will clear the interval id and stop the 'runTensor' function
     const stopTensor = () => {
         if (intervalId) {
             clearInterval(intervalId)
         }
-        // finishTensor()
-        setPredAssumption(null)
+        setLoad(true)
     }
 
-    // below function load the dl model to client side
-    // with loading animation
-    const loadAssetsTensor = async () => {
-        setLoad(true)
-        const ltm = await loadTensorModel(props?.TFData?.set)
-        if (ltm) {
-            setLoad(false)
-        }
-    }
+    
 
 
     return (
@@ -263,64 +249,42 @@ export default function MainBar(props: YogaPoseDetailed) {
                     <div className="col-span-3">
                         <div className="w-full h-full flex flex-col items-center justify-center border-[3px] border-text rounded-2xl">
 
-                            {load ? (
-                                <>
-                                    <div className="animate-jump-in animate-ease-out duration-500">
-                                        <div className="loader"></div>
+                            {(load && !isModelLoaded) &&
+                                < div className="loader"></div>
+                            }
+
+                            {!load &&
+                                <div
+                                    onClick={runTensor}
+                                    className="px-5 py-3 text-xl text-button-text font-semibold bg-primary rounded-tr-xl rounded-bl-xl  hover:rounded-tl-2xl hover:rounded-br-2xl hover:rounded-tr-none hover:rounded-bl-none shadow-xl hover:shadow-xl duration-500 cursor-pointer">
+                                    Start
+                                </div>
+                            }
+
+
+                            {(load && isModelLoaded) &&
+                                <div className="flex flex-col-reverse gap-5">
+
+                                    <div
+                                        onClick={stopTensor}
+                                        className="mx-auto w-fit px-5 py-3 text-xl text-button-text font-semibold bg-primary rounded-tr-xl rounded-bl-xl  hover:rounded-tl-2xl hover:rounded-br-2xl hover:rounded-tr-none hover:rounded-bl-none shadow-xl hover:shadow-xl duration-500 cursor-pointer">
+                                        Stop
                                     </div>
 
-                                </>
-                            ) : (
-                                !load && !isModelLoaded ? (
-                                    <>
-                                        <div
-                                            onClick={loadAssetsTensor}
-                                            className="px-5 py-3 text-xl text-button-text font-semibold bg-primary rounded-tr-xl rounded-bl-xl  hover:rounded-tl-2xl hover:rounded-br-2xl hover:rounded-tr-none hover:rounded-bl-none shadow-xl hover:shadow-xl duration-500 cursor-pointer">
-                                            Load Assets
+                                    {poseMessage?.poseMessage &&
+                                        <div className={`${!poseMessage.isSuccess ? "text-[#ea1537]" : "text-[#00b499]"} text-3xl font-semibold tracking-wider`}>
+                                            <Typewriter
+                                                options={{
+                                                    strings: [poseMessage?.poseMessage],
+                                                    autoStart: true,
+                                                    delay: 40,
+                                                    deleteSpeed: 999999
+                                                }}
+                                            />
                                         </div>
-
-
-
-                                    </>
-                                ) : (
-                                    predAssumption ? (
-                                        <>
-                                            <div className="flex flex-col-reverse h-auto justify-evenly  items-center gap-5">
-
-                                                <div
-                                                    onClick={stopTensor}
-                                                    className="w-fit px-5 py-3 text-xl text-button-text font-semibold bg-accent rounded-tr-xl rounded-bl-xl  hover:rounded-tl-2xl hover:rounded-br-2xl hover:rounded-tr-none hover:rounded-bl-none shadow-xl hover:shadow-xl duration-500 cursor-pointer">
-                                                    Stop
-                                                </div>
-
-                                                {poseMessage?.poseMessage &&
-                                                    <div className={`${!poseMessage.isSuccess ? "text-[#ea1537]" : "text-[#00b499]"} text-3xl font-semibold tracking-wider`}>
-                                                        <Typewriter
-                                                            options={{
-                                                                strings: [poseMessage?.poseMessage],
-                                                                autoStart: true,
-                                                                delay: 40,
-                                                                deleteSpeed: 999999
-                                                            }}
-                                                        />
-                                                    </div>
-                                                }
-                                            </div>
-
-
-                                        </>
-                                    ) : (
-                                        <div
-                                            onClick={runTensor}
-                                            className="px-5 py-3 text-xl text-button-text font-semibold bg-accent rounded-tr-xl rounded-bl-xl  hover:rounded-tl-2xl hover:rounded-br-2xl hover:rounded-tr-none hover:rounded-bl-none shadow-xl hover:shadow-xl duration-500 cursor-pointer">
-                                            Start
-                                        </div>
-                                    )
-                                )
-
-
-
-                            )}
+                                    }
+                                </div>
+                            }
 
                         </div>
                     </div>
@@ -331,7 +295,7 @@ export default function MainBar(props: YogaPoseDetailed) {
                         <img src={capturedFrame} alt="cap frm" className="hidden" height={500} width={500} />
                     </div>
                 }
-            </div>
+            </div >
 
 
         </>
