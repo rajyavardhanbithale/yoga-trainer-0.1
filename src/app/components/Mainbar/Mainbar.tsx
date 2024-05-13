@@ -7,6 +7,7 @@ import { IoIosArrowDown } from "react-icons/io";
 
 import useAudioManager from "../../hooks/useAudioPlayer";
 import useConvertTensorClass from "../../hooks/useConvertTensorClass";
+import useTensorFlow from "@/app/hooks/useTensorFlow";
 
 import DropdownSelect from "./helper/DropdownSelect";
 import MusicSelection from "./helper/MusicSelection";
@@ -15,14 +16,12 @@ import { successMessageList, unsuccessMessageList } from "../UserMessage/UserMes
 import { AudioState, PoseMessage, YogaPoseDetailed } from "../../../../types";
 import Title from "./helper/Title";
 import UserSelection from "./helper/UserSelection";
-
-
-
-import useTensorFlow from "@/app/hooks/useTensorFlow";
-
+import { useSearchParams } from "next/navigation";
 
 
 export default function MainBar(props: YogaPoseDetailed) {
+    const param = useSearchParams();
+
     const [poseMessage, setPoseMessage] = useState<PoseMessage>()
     const [audioState, setAudioState] = useState<AudioState>({ status: true, state: "", playbackSpeed: "fine" })
     const [dropdown, setDropdown] = useState<boolean>(false)
@@ -146,7 +145,7 @@ export default function MainBar(props: YogaPoseDetailed) {
                         <div className="flex justify-center h-full max-h-[400px] ">
                             <video
                                 ref={videoRef}
-                                src="test/tree.mp4"
+                                src={`test/${param.get('source') || 'tree.mp4'}`}
                                 controls
                                 height={1280}
                                 width={720}

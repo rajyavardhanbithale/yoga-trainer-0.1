@@ -12,7 +12,7 @@ export default function DropdownSelect(props: any) {
 
     return (
         <>
-            <div className="ml-[1.05rem] mt-2">
+            <div className="ml-[1.05rem] mt-2 z-50">
                 <div className="rounded-lg shadow absolute animate-fade-down animate-once animate-ease-in-out animate-duration-[300ms]">
                     <ul className="py-2 px-2 rounded-xl bg-secondary capitalize">
                         <li onClick={() => handleOption('slower')}  className="py-0.5 px-2 text-button-text rounded-xl hover:bg-secondary hover:brightness-90 duration-500 cursor-pointer">slowest</li>
