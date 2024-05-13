@@ -2,7 +2,7 @@
 
 import { Sedan } from "next/font/google";
 import Typewriter from 'typewriter-effect';
-import { YogaPoseDetailed } from "../../../types";
+import { AudioState, PoseMessage, YogaPoseDetailed } from "../../../types";
 import { useEffect, useRef, useState } from "react";
 import useTensorFlow from "../hooks/useTensorFlow";
 import { IoVolumeMediumOutline, IoVolumeMuteOutline } from "react-icons/io5";
@@ -21,11 +21,8 @@ const titleFont = Sedan(
 );
 
 export default function MainBar(props: YogaPoseDetailed) {
-    const [poseSuccess, setPoseSuccess] = useState<boolean>(false)
-    const [poseMessage, setPoseMessage] = useState<string>()
-    const [audioStatus, setAudioStatus] = useState<boolean>(true)
-    const [audioState, setAudioState] = useState<string>()
-    const [playbackSpeed, setPlaybackSpeed] = useState<string>("fine")
+    const [poseMessage, setPoseMessage] = useState<PoseMessage>()
+    const [audioState, setAudioState] = useState<AudioState>({status:true,state:"",playbackSpeed:"fine"})
     const [dropdown, setDropdown] = useState<boolean>(false)
     const videoRef = useRef(null)
     const [capturedFrame, setCapturedFrame] = useState<string | null>(null);
@@ -47,17 +44,17 @@ export default function MainBar(props: YogaPoseDetailed) {
     // when playback speed changes the audio source will be terminated ('useEffect')
     function playAudio(source: (string | Array<string>), state: (string)) {
         stopAudio()
-        if (audioStatus) {
-            playNarratorAudio(source, props?.TFData?.class, playbackSpeed)
-            setAudioState(state)
+        if (audioState.status) {
+            playNarratorAudio(source, props?.TFData?.class, audioState?.playbackSpeed)
+            setAudioState(prevState => ({...prevState,state:state}))
         } else {
-            setAudioState("")
+            setAudioState(prevState => ({...prevState,state:""}))
         }
-        setAudioStatus(!audioStatus)
+        setAudioState(prevState => ({...prevState,status:!audioState.status}))
     }
     useEffect(() => {
         stopAudio()
-    }, [playbackSpeed, setPlaybackSpeed])
+    }, [audioState.playbackSpeed])
 
 
     // capturing frames from input video source
@@ -82,6 +79,9 @@ export default function MainBar(props: YogaPoseDetailed) {
         const runTensor: Array<string> = [await predictTensor(image), '' + Math.random() * 3]
         setPredAssumption(runTensor)
 
+        console.log(runTensor);
+        
+
     }
 
     // in the below function get 'getPredctionClass' output the yoga pose class based on tensor prediction values
@@ -101,15 +101,13 @@ export default function MainBar(props: YogaPoseDetailed) {
             if (props?.TFData?.class === predClass) {
                 const randomIndex: number = random(successMessageList.length)
                 playUserAudio(`seg${randomIndex}.mp3`, 'user/pose/valid', 'slow')
-                setPoseSuccess(true)
-                setPoseMessage(successMessageList[randomIndex])
+                setPoseMessage({ isSuccess: true, poseMessage: successMessageList[randomIndex] });
                 console.log(successMessageList[randomIndex], randomIndex);
 
             } else {
                 const randomIndex: number = random(successMessageList.length)
                 playUserAudio(`seg${randomIndex}.mp3`, 'user/pose/invalid', 'slow')
-                setPoseSuccess(false)
-                setPoseMessage(unsuccessMessageList[randomIndex])
+                setPoseMessage({ isSuccess: false, poseMessage: unsuccessMessageList[randomIndex] });
             }
         }
     }
@@ -196,7 +194,7 @@ export default function MainBar(props: YogaPoseDetailed) {
                                 <span
                                     onClick={() => playAudio(props?.audioData?.mainAudio, "narrator")}
                                     className="text-button-text inline-flex justify-center w-1/2  align-middle  rounded-2xl bg-secondary hover:brightness-75 duration-300 cursor-pointer ">
-                                    {audioState === "narrator" ? (
+                                    {audioState?.state === "narrator" ? (
                                         <IoVolumeMediumOutline className="text-4xl font-bold p-1" />
 
                                     ) : (
@@ -212,7 +210,7 @@ export default function MainBar(props: YogaPoseDetailed) {
                                 <span
                                     onClick={() => playAudio(props?.audioData?.narratorSegment, "tips")}
                                     className="text-button-text inline-flex justify-center w-1/2 mx-auto align-middle  rounded-2xl bg-secondary hover:brightness-75 duration-300 cursor-pointer ">
-                                    {audioState === "tips" ? (
+                                    {audioState?.state === "tips" ? (
                                         <IoVolumeMediumOutline className="text-4xl font-bold p-1" />
 
                                     ) : (
@@ -230,13 +228,13 @@ export default function MainBar(props: YogaPoseDetailed) {
                                         onClick={() => setDropdown(!dropdown)}
                                         className="text-button-text bg-secondary hover:brightness-75 rounded-xl  font-medium px-5 py-1.5 text-center inline-flex items-center capitalize">
 
-                                        {playbackSpeed}
+                                        {audioState?.playbackSpeed}
                                         <IoIosArrowDown className="ml-2" />
                                     </div>
 
 
                                     {dropdown &&
-                                        <DropdownSelect playbackSpeed={setPlaybackSpeed} dropdown={setDropdown} />
+                                        <DropdownSelect setAudioState={setAudioState} dropdown={setDropdown} />
 
                                     }
                                 </div>
@@ -265,13 +263,24 @@ export default function MainBar(props: YogaPoseDetailed) {
 
 
                 <div className="grid grid-cols-7 my-6 p-5 gap-10">
-                    <Benefits
-                        originalName={props?.originalName}
-                        playAudio={playAudio}
-                        audioClass={props?.audioData?.benefits}
-                        audioState={audioState}
-                        benefits={props?.benefits}
-                    />
+                    <div className="col-span-4 grid-row-2">
+                        <div className="grid grid-cols-6 row-span-1 max-h-[200px]">
+                            <div className="col-span-1 hover_border text-nowrap py-2 cursor-pointer brightness-95 text-start rounded-t-xl text-xl font-semibold">Benefits</div>
+                            <div className="col-span-1 hover_border text-nowrap py-2 cursor-pointer brightness-95 text-start rounded-t-xl text-xl font-semibold">Tutorial Video</div>
+                            <div className="col-span-1 hover_border text-nowrap py-2 cursor-pointer brightness-95 text-start rounded-t-xl text-xl font-semibold">Read More</div>
+
+                        </div>
+
+                        <div className="row-span-1">
+                            <Benefits
+                                originalName={props?.originalName}
+                                playAudio={playAudio}
+                                audioClass={props?.audioData?.benefits}
+                                audioState={audioState?.state}
+                                benefits={props?.benefits}
+                            />
+                        </div>
+                    </div>
 
                     <div className="col-span-3">
                         <div className="w-full h-full flex flex-col items-center justify-center border-[3px] border-text rounded-2xl">
@@ -306,11 +315,11 @@ export default function MainBar(props: YogaPoseDetailed) {
                                                     Stop
                                                 </div>
 
-                                                {poseMessage &&
-                                                    <div className={`${!poseSuccess ? "text-[#ea1537]" : "text-[#00b499]"} text-3xl font-semibold tracking-wider`}>
+                                                {poseMessage?.poseMessage &&
+                                                    <div className={`${!poseMessage.isSuccess ? "text-[#ea1537]" : "text-[#00b499]"} text-3xl font-semibold tracking-wider`}>
                                                         <Typewriter
                                                             options={{
-                                                                strings: [poseMessage],
+                                                                strings: [poseMessage?.poseMessage],
                                                                 autoStart: true,
                                                                 delay: 40,
                                                                 deleteSpeed: 999999

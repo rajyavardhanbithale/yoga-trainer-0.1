@@ -10,6 +10,7 @@
   --accent: hsl(206, 66%, 60%);
   --button-text: #fffffe;
 }
+
 [data-theme="dark"] {
   --text: #ffffff;
   --background: #16161a;
@@ -20,12 +21,12 @@
 }
 
 
-*{
+* {
   /* outline: red 1px solid; */
 
 }
 
-body{
+body {
   overflow: hidden;
   background: var(--background);
   transition: 1s;
@@ -33,7 +34,7 @@ body{
 
 }
 
-.sidebar_scrollable{
+.sidebar_scrollable {
   overflow-y: auto;
   max-height: 100vh;
   padding-right: 20px
@@ -47,29 +48,60 @@ body{
   display: grid;
   animation: l38-0 6s infinite linear;
 }
+
 .loader:before,
 .loader:after {
   content: "";
   grid-area: 1/1;
 }
+
 .loader:before {
-  clip-path: polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%);
-  background: conic-gradient(from -30deg,#0000 60deg,currentColor 0);
+  clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);
+  background: conic-gradient(from -30deg, #0000 60deg, currentColor 0);
 }
+
 .loader:after {
-  background: conic-gradient(from -30deg,currentColor 60deg,#0000 0);
+  background: conic-gradient(from -30deg, currentColor 60deg, #0000 0);
   animation: l38 0.5s infinite alternate;
 }
+
 @keyframes l38-0 {
-  0%,16.66%     {transform: rotate(0deg)}
-  16.67%,33.33% {transform: rotate(60deg)}
-  33.34%,50%    {transform: rotate(120deg)}
-  50.1%,66.66%  {transform: rotate(180deg)}
-  66.67%,83.33% {transform: rotate(240deg)}
-  83.34%,100%   {transform: rotate(300deg)}
+
+  0%,
+  16.66% {
+    transform: rotate(0deg)
+  }
+
+  16.67%,
+  33.33% {
+    transform: rotate(60deg)
+  }
+
+  33.34%,
+  50% {
+    transform: rotate(120deg)
+  }
+
+  50.1%,
+  66.66% {
+    transform: rotate(180deg)
+  }
+
+  66.67%,
+  83.33% {
+    transform: rotate(240deg)
+  }
+
+  83.34%,
+  100% {
+    transform: rotate(300deg)
+  }
 }
+
 @keyframes l38 {
-  100%  {transform: translateY(-20px)}
+  100% {
+    transform: translateY(-20px)
+  }
 }
 
 
@@ -78,10 +110,12 @@ body{
   width: 7px;
   height: 7px;
 }
+
 ::-webkit-scrollbar-button {
   width: 50px;
   height: 100vh;
 }
+
 ::-webkit-scrollbar-thumb {
   background: var(--scollbar);
   height: 10px;
@@ -101,4 +135,24 @@ body{
 }
 
 
+.hover_border {
+  border-bottom-width: 4px;
+  width: 0%;
+  border-color: var(--secondary);
+}
 
+
+.hover_border:hover {
+  width: 90%;
+  animation: slideInHover 0.5s linear;
+}
+
+@keyframes slideInHover {
+  0% {
+    width: 0%;
+  }
+
+  100% {
+    width: 90%;
+  }
+}

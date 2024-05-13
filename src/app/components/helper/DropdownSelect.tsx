@@ -1,9 +1,10 @@
+import { AudioState } from "../../../../types"
 
 
 export default function DropdownSelect(props: any) {
 
     const handleOption = (option: string) => {
-        props?.playbackSpeed(option)
+        props?.setAudioState((prevState: AudioState) => ({...prevState,playbackSpeed:option}))
         props?.dropdown(false)
 
     }

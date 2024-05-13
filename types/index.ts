@@ -52,5 +52,14 @@ interface AmbientMusic {
     keyword: Array<string>
 }
 
+interface PoseMessage{
+    isSuccess: Boolean
+    poseMessage: string | undefined
+}
 
-export type { YogaPose, YogaPoseAPI, YogaPoseDetailed, AmbientMusic }
+interface AudioState{
+    status: Boolean
+    state: string 
+    playbackSpeed: string 
+}
+export type { YogaPose, YogaPoseAPI, YogaPoseDetailed, AmbientMusic, PoseMessage, AudioState }
