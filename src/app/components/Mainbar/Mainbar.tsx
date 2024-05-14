@@ -37,7 +37,7 @@ export default function MainBar(props: YogaPoseDetailed) {
 
     const { playNarratorAudio, playUserAudio, stopAudio } = useAudioManager();
     const { runModel, stopModel, isModelLoaded } = useTensorFlow()
-    const { getPredctionClass } = useConvertTensorClass(0.80)
+    const { getPredictionClass } = useConvertTensorClass(0.80)
 
 
 
@@ -88,7 +88,9 @@ export default function MainBar(props: YogaPoseDetailed) {
 
         if (predAssumption) {
 
-            const predClass = getPredctionClass(predAssumption, props?.TFData?.set)
+            const predClass = getPredictionClass(predAssumption, props?.TFData?.set)
+            
+            
             if (props?.TFData?.class === predClass) {
                 const randomIndex: number = random(successMessageList.length)
                 playUserAudio(`seg${randomIndex}.mp3`, 'user/pose/valid', 'slow')
@@ -118,7 +120,7 @@ export default function MainBar(props: YogaPoseDetailed) {
             console.log('STG')
             handleCaptureFrame()
            
-        }, 2000);
+        }, 3000);
         setIntervalId(id);
     }
 
@@ -126,7 +128,7 @@ export default function MainBar(props: YogaPoseDetailed) {
         if (intervalId) {
             clearInterval(intervalId)
         }
-        setLoad(true)
+        setLoad(false)
     }
 
     
@@ -145,7 +147,7 @@ export default function MainBar(props: YogaPoseDetailed) {
                         <div className="flex justify-center h-full max-h-[400px] ">
                             <video
                                 ref={videoRef}
-                                src={`test/${param.get('source') || 'tree.mp4'}`}
+                                src={`test/${param.get('source') || 'warrior_2.mp4'}`}
                                 controls
                                 height={1280}
                                 width={720}

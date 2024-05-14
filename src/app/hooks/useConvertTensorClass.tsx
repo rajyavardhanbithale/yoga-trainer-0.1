@@ -8,7 +8,11 @@ function useConvertTensorClass(threshold_num: number) {
         switch (set){
             case 1:
                 const set1: Array<string> = ["downdog", "tree", "warrior1"]
-                return set1[index]
+                return set1[index]            
+                
+            case 2:
+                const set2: Array<string> = ['goddess','mountain','warrior2']
+                return set2[index]
 
             default:
                 return "none"
@@ -16,7 +20,7 @@ function useConvertTensorClass(threshold_num: number) {
     }
 
 
-    const getPredctionClass = (predAssumption: string, set: number) => {
+    const getPredictionClass = (predAssumption: string, set: number) => {
         const arr = predAssumption.split(',')
         const numericArr = arr.map(parseFloat);
 
@@ -43,7 +47,7 @@ function useConvertTensorClass(threshold_num: number) {
         }
     }
 
-    return { getPredctionClass }
+    return { getPredictionClass }
 }
 
 export default useConvertTensorClass
