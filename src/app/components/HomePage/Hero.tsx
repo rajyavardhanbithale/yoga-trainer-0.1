@@ -49,7 +49,10 @@ export default async function Hero() {
 
 
                             <span className={`text-xl leading-9 tracking-[0.08em] capitalize font-semibold text-slate-100 text-wrap`}>
-                                Namaste! Welcome to RAGE InnerBalance, your ultimate destination for yoga training and pose verification. Whether you're a beginner or an experienced yogi, we're here to guide you every step of the way.
+                                Namaste! Welcome to RAGE InnerBalance, your ultimate 
+                                destination for yoga training and pose verification.
+                                 Whether you&apos;re a beginner or an experienced yogi, 
+                                 we&apos;re here to guide you every step of the way.
                             </span>
 
                             <div className="mt-8 bg-white text-xl w-fit py-2 px-5 rounded-2xl font-semibold tracking-widest">
