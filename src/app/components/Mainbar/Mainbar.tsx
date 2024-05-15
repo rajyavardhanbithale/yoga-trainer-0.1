@@ -1,6 +1,6 @@
 'use client'
 
-import {  useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Typewriter from 'typewriter-effect';
 import { IoVolumeMediumOutline, IoVolumeMuteOutline } from "react-icons/io5";
 import { IoIosArrowDown } from "react-icons/io";
@@ -89,8 +89,8 @@ export default function MainBar(props: YogaPoseDetailed) {
         if (predAssumption) {
 
             const predClass = getPredictionClass(predAssumption, props?.TFData?.set)
-            
-            
+
+
             if (props?.TFData?.class === predClass) {
                 const randomIndex: number = random(successMessageList.length)
                 playUserAudio(`seg${randomIndex}.mp3`, 'user/pose/valid', 'slow')
@@ -119,7 +119,7 @@ export default function MainBar(props: YogaPoseDetailed) {
             setPredAssumption(null)
             console.log('STG')
             handleCaptureFrame()
-           
+
         }, 3000);
         setIntervalId(id);
     }
@@ -131,7 +131,7 @@ export default function MainBar(props: YogaPoseDetailed) {
         setLoad(false)
     }
 
-    
+
 
 
     return (
@@ -250,8 +250,12 @@ export default function MainBar(props: YogaPoseDetailed) {
                     <div className="col-span-3">
                         <div className="w-full h-full flex flex-col items-center justify-center border-[3px] border-text rounded-2xl">
 
+
                             {(load && !isModelLoaded) &&
-                                < div className="loader"></div>
+                                <div className="flex flex-col items-center gap-8">
+                                    <div className="loader"> </div>
+                                    <span className="text-2xl text-text font-semibold"> Hang on Loading Assets ...</span>
+                                </div>
                             }
 
                             {!load &&
