@@ -10,7 +10,7 @@ export default function Home() {
       <Background></Background>
       <Navbar></Navbar>
       <Hero></Hero>
-      <GridFeatures />
+      {/* <GridFeatures /> */}
 
     </>
   );
