@@ -25,7 +25,7 @@
   /* outline: red 1px solid; */
   margin: 0;
   padding: 0;
-
+  scroll-behavior: smooth;
 }
 
 body {
@@ -219,4 +219,20 @@ body {
     transform: rotate(1turn)
   }
 }
+
+
+.hero-bottom-gradient {
+  background: rgb(72, 109, 242);
+  background: linear-gradient(180deg, #486df2 0%, rgba(255, 255, 255, 0) 20%);
+
+}
+
+.glass-grid {
+  background: rgba(255, 255, 255, 0.55);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 10px;
+}
+
 

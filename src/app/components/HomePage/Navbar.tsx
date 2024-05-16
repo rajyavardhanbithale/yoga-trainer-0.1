@@ -1,7 +1,14 @@
+'use client'
 import { PiFlowerLotusLight } from "react-icons/pi";
 
-
 export default async function Navbar() {
+    const handleClickScroll = (id: string) => {
+        const element = document.getElementById(id);
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
     return (
         <>
             <div className="w-full  border-b-2 border-b-blue-900 z-50">
@@ -17,28 +24,32 @@ export default async function Navbar() {
                         </span>
                     </div>
 
-                    <div className="flex justify-center items-center mx-5">
-                        <span className="text-xl px-5 text-white font-semibold">
-                            Home
-                        </span> 
+                    <div className="flex justify-center items-center mx-5  cursor-pointer">
+                        <span
+                            onClick={() => handleClickScroll("hallmark")}
+                            className="text-xl px-5 text-white font-semibold">
+                            Hallmarks
+                        </span>
+                        <span
+                            onClick={() => handleClickScroll("stats")}
+                            className="text-xl px-5 text-white font-semibold">
+                            Stats
+                        </span>
                         <span className="text-xl px-5 text-white font-semibold">
                             Practice
-                        </span> 
-                        <span className="text-xl px-5 text-white font-semibold">
-                            Explore
                         </span>
-                    </div> 
-                    
+                    </div>
+
                     <div className="flex justify-center items-center mx-5">
                         <span className="text-xl px-5 text-text font-semibold bg-slate-100 p-2 rounded-2xl">
                             Login
-                        </span> 
-                       
+                        </span>
+
                     </div>
 
                 </div>
 
-                
+
             </div>
         </>
     )
