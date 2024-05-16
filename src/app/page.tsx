@@ -3,6 +3,8 @@ import Background from "./components/HomePage/Background";
 import Stats from "./components/HomePage/Stats";
 import Hero from "./components/HomePage/Hero";
 import Navbar from "./components/HomePage/Navbar";
+import Footer from "./components/HomePage/Footer";
+import Practice from "./components/HomePage/Practice";
 
 export default function Home() {
 
@@ -23,8 +25,11 @@ export default function Home() {
       </div>
       <div id="stats" ></div>
 
+      <div id="stats" className="mx-auto w-[90%] my-40">
+        <Practice />
+      </div>
 
-
+      <Footer></Footer>
     </>
   );
 }

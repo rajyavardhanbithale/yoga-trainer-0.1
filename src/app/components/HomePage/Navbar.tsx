@@ -24,7 +24,7 @@ export default async function Navbar() {
                         </span>
                     </div>
 
-                    <div className="flex justify-center items-center mx-5  cursor-pointer">
+                    <div className="flex justify-center -ml-5 items-center mx-5  cursor-pointer">
                         <span
                             onClick={() => handleClickScroll("hallmark")}
                             className="text-xl px-5 text-white font-semibold">

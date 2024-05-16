@@ -1,5 +1,6 @@
 
 import { Raleway, Viaoda_Libre } from "next/font/google";
+import Link from "next/link";
 import { PiRocketLaunch } from "react-icons/pi";
 
 
@@ -49,18 +50,19 @@ export default async function Hero() {
 
 
                             <span className={`xl:text-xl text-lg xl:leading-9 tracking-[0.08em] capitalize font-semibold text-slate-100 text-wrap`}>
-                                Namaste! Welcome to RAGE InnerBalance, your ultimate 
+                                Namaste! Welcome to RAGE InnerBalance, your ultimate
                                 destination for yoga training and pose verification.
-                                 Whether you&apos;re a beginner or an experienced yogi, 
-                                 we&apos;re here to guide you every step of the way.
+                                Whether you&apos;re a beginner or an experienced yogi,
+                                we&apos;re here to guide you every step of the way.
                             </span>
 
-                            <div className="xl:mt-5 mt-5 bg-white text-xl w-fit py-2 px-5 rounded-2xl font-semibold tracking-widest">
-                                Explore
-                                <PiRocketLaunch className="inline-flex text-2xl mx-2" />
+                            <Link href={'/yoga'}>
 
-
-                            </div>
+                                <div className="xl:mt-6 mt-5 bg-white text-xl w-fit py-2 px-5 rounded-2xl font-semibold tracking-widest hover:scale-105 duration-700 shadow-lg hover:shadow-white/50 ">
+                                    Explore
+                                    <PiRocketLaunch className="inline-flex text-2xl mx-2" />
+                                </div>
+                            </Link>
                         </div>
 
                     </div>
@@ -81,7 +83,7 @@ export default async function Hero() {
                         <div className="xl:col-span-3 col-span-4 mt-auto">
                             <div className={` ${lora.className} animate-fade-right`}>
                                 <span className="xl:text-5xl text-4xl leading-[4rem] tracking-[0.08em] capitalize font-semibold text-slate-100">
-                                Meet Your Personal AI Yoga Trainer.
+                                    Meet Your Personal AI Yoga Trainer.
                                 </span>
                             </div>
 
@@ -95,14 +97,14 @@ export default async function Hero() {
                         <div className="xl:col-span-7 col-span-7 xl:mt-auto">
                             <div className={` ${raleway.className} xl:mt-10  animate-fade-left`}>
                                 <span className=" text-xl leading-relaxed tracking-wide capitalize font-semibold text-slate-100">
-                                Introducing Meet Your Personal AI Yoga Trainer. With advanced AI, 
-                                get tailored guidance from pose analysis to alignment tips. 
-                                Elevate your practice today with our innovative digital companion!
+                                    Introducing Meet Your Personal AI Yoga Trainer. With advanced AI,
+                                    get tailored guidance from pose analysis to alignment tips.
+                                    Elevate your practice today with our innovative digital companion!
                                 </span>
                             </div>
 
                         </div>
-                       
+
                     </div>
                 </div>
             </div>
