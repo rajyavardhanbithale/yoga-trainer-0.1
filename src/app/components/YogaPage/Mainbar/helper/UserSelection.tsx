@@ -1,6 +1,6 @@
 'use client'
 import { useState } from "react";
-import { UserSectionSelection } from "../../../../../types";
+import { UserSectionSelection } from "../../../../../../types";
 import Benefits from "./Benefits";
 import { IoChevronBackCircleOutline } from "react-icons/io5";
 

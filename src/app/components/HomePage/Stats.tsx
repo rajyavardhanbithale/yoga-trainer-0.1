@@ -23,7 +23,7 @@ const numeric = Plus_Jakarta_Sans(
 export default function Stats() {
     const { ref, inView, entry } = useInView({
         /* Optional options */
-        threshold: 0,
+        threshold: 0.8,
     });
 
     const [visible,setVisible] = useState<boolean>(false)

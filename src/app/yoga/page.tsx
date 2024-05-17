@@ -1,13 +1,13 @@
 'use client'
 
 import { useEffect, useState } from "react"
-import Sidebar from "../components/Sidebar"
+import Sidebar from "../components/YogaPage/Sidebar/Sidebar"
 import { YogaPoseAPI, YogaPoseDetailed } from "../../../types"
-import MainBar from "../components/Mainbar/Mainbar"
+import MainBar from "../components/YogaPage/Mainbar/Mainbar"
 
 import useFetch from "../hooks/useFetch"
-import SidebarSkeleton from "../components/skeleton/SidebarSkeleton"
-import MainbarSkeleton from "../components/skeleton/MainbarSkeleton"
+import SidebarSkeleton from "../components/YogaPage/skeleton/SidebarSkeleton"
+import MainbarSkeleton from "../components/YogaPage/skeleton/MainbarSkeleton"
 
 export default function Yoga() {
     const [selectedPose, setSelectedPose] = useState<number>(101)

@@ -1,9 +1,9 @@
 
 import type { Metadata } from "next";
-import { Raleway } from "next/font/google";
+import { Poppins, Raleway } from "next/font/google";
 import "./globals.css";
 
-const pops = Raleway(
+const pops = Poppins(
   {
     subsets: ["latin"],
     weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"]

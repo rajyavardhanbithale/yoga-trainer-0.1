@@ -1,6 +1,6 @@
 import useFetch from "@/app/hooks/useFetch";
 import { useEffect, useState } from "react";
-import { AmbientMusic } from "../../../../../types";
+import { AmbientMusic } from "../../../../../../types";
 import useAudioManager from "@/app/hooks/useAudioPlayer";
 
 

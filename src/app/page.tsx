@@ -19,7 +19,7 @@ export default function Home() {
         <Hero></Hero>
       </div>
 
-      <div className="mt-20 sm:mt-5">
+      <div className="mt-10 sm:mt-5">
         <HeroExtended />
 
       </div>
@@ -27,12 +27,12 @@ export default function Home() {
         <Features />
       </div>
 
-      <div id="stats" className="mx-auto w-[90%] mt-20">
+      <div id="stats" className="mx-auto w-[90%] mt-40">
         <Stats />
       </div>
       <div id="stats" ></div>
 
-      <div id="stats" className="mx-auto w-[90%] mt-20">
+      <div id="stats" className="mx-auto w-[90%] mt-40">
         <Practice />
       </div>
 
