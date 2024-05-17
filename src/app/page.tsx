@@ -19,27 +19,27 @@ export default function Home() {
         <Hero></Hero>
       </div>
 
-      <div className="mt-20 sm:mt-6">
+      <div className="mt-20 sm:mt-5">
         <HeroExtended />
 
       </div>
-
-
-      {/* <div id="hallmark" className="mx-auto w-[90%] my-40">
+      <div id="hallmark" className="mx-auto sm:w-[90%] mt-20">
         <Features />
       </div>
 
-
-      <div id="stats" className="mx-auto w-[90%] my-40">
+      <div id="stats" className="mx-auto w-[90%] mt-20">
         <Stats />
       </div>
       <div id="stats" ></div>
 
-      <div id="stats" className="mx-auto w-[90%] my-40">
+      <div id="stats" className="mx-auto w-[90%] mt-20">
         <Practice />
       </div>
 
-      <Footer></Footer> */}
+      <div className="mt-40">
+      <Footer></Footer>
+
+      </div>
     </>
   );
 }

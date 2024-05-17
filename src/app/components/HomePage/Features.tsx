@@ -10,6 +10,26 @@ const lora = Viaoda_Libre(
 
 export default function Features() {
 
+    const hallmark: { [key: string]: string }[] = [
+        {
+            title: "Pose Analysis",
+            description: "Our AI conducts thorough pose analysis, providing real-time feedback on your alignment and posture. Enhance your practice with personalized guidance tailored to your needs.",
+            icon: "graph.gif"
+        },
+        {
+            title: "Total Span Duration Summary",
+            description: "Keep track of your progress effortlessly with our total span duration summary. Monitor your practice duration over time, helping you stay consistent and achieve your goals.",
+            icon: "clock.gif"
+        },
+        {
+            title: "Real-Time Webcam",
+            description: "Utilize our real-time webcam feature for live feedback and alignment corrections as you flow through poses. Experience instant adjustments for a more rewarding yoga practice.",
+            icon: "camera.gif"
+        }
+
+    ]
+
+
     return (
         <>
             <div className="p-8 mx-10">
@@ -20,61 +40,32 @@ export default function Features() {
                     </span>
 
                     <span className="xl:text-2xl text-2xl leading-9 tracking-[0.1em] capitalize font-semibold text-slate-900">
-                       Unlock Your Practice Potential
+                        Unlock Your Practice Potential
                     </span>
 
                 </div>
 
             </div>
+
             <div className="grid grid-cols-1 xl:grid-cols-3 mx-5">
-                <div className="p-8 flex flex-col gap-5">
-                    <div className="flex xl:justify-normal justify-center">
-                        <div className="bg-indigo-200/45 rounded-full w-20 h-20 flex justify-center items-center text-indigo-500">
-                            <img src="/homepage/graph.gif" alt="graph" className="w-3/4" />
+
+                {hallmark.map((item, idx) => (
+                    <div key={idx} className="py-8 px-4 flex flex-col gap-5">
+                        <div className="flex sm:justify-normal justify-center flex-col sm:flex-row">
+                            <div className="bg-indigo-200/45 rounded-full w-20 h-20 mx-auto sm:mx-0 flex justify-center items-center text-indigo-500">
+                                <img src={`/homepage/animated/${item.icon}`} alt="graph" className="w-3/4" />
+                            </div>
+                            <span className="sm:mx-10 uppercase mt-6  text-[#1c243f] font-semibold text-2xl mb-3 w-full sm:w-auto text-center sm:text-left">
+                                {item.title}
+                            </span>
                         </div>
-                        <span className="mx-10 uppercase mt-6  text-[#1c243f] font-semibold text-2xl mb-3">
-                            Pose Analysis
+
+                        <span className="font-medium text-xl text-slate-950 mb-3 sm:text-left text-center">
+                            {item.description}
                         </span>
+
                     </div>
-
-                    <span className="font-medium text-xl  text-gray-500 mb-3">
-                        Our AI conducts thorough pose analysis, providing real-time feedback on your alignment and posture. Enhance your practice with personalized guidance tailored to your needs.
-                    </span>
-
-                </div>
-
-                <div className="p-8 flex flex-col gap-5">
-                    <div className="flex xl:justify-normal justify-center">
-                        <div className="bg-indigo-200/45 rounded-full w-20 h-20 flex justify-center items-center text-indigo-500">
-                            <img src="/homepage/clock.gif" alt="clock" className="w-3/4" />
-                        </div>
-                        <span className="mx-10 uppercase mt-6 text-[#1c243f] font-semibold text-2xl mb-3">
-                            Total Span Duration Summary
-                        </span>
-                    </div>
-
-                    <span className="font-medium text-xl text-gray-500 mb-3">
-                        Keep track of your progress effortlessly with our total span duration summary. Monitor your practice duration over time, helping you stay consistent and achieve your goals.
-                    </span>
-
-                </div>
-
-                <div className="p-8 flex flex-col gap-5">
-                    <div className="flex xl:justify-normal justify-center">
-                        <div className="bg-indigo-200/45 rounded-full w-20 h-20 flex justify-center items-center text-indigo-500">
-                            <img src="/homepage/camera.gif" alt="graph" className="w-3/4" />
-                        </div>
-                        <span className="mx-10 uppercase mt-6 text-[#1c243f] font-semibold text-2xl mb-3">
-                            Real-Time Webcam
-                        </span>
-                    </div>
-
-                    <span className="font-medium text-xl text-gray-500 mb-3">
-                        Utilize our real-time webcam feature for live feedback and alignment corrections as you flow through poses. Experience instant adjustments for a more rewarding yoga practice.
-                    </span>
-
-                </div>
-
+                ))}
 
             </div>
         </>
