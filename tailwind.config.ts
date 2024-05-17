@@ -21,7 +21,10 @@ const config: Config = {
         'accent': 'var(--accent)',
         'button-text': 'var(--button-text)',
        },
+       
     },
+
+
   },
   plugins: [
     require('tailwindcss-animated'),

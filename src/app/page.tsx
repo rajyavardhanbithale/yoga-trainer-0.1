@@ -12,10 +12,14 @@ export default function Home() {
     <>
       <Background></Background>
       <Navbar></Navbar>
-      <Hero></Hero>
+
+      <div className="w-[90%] mx-auto">
+
+        <Hero></Hero>
+      </div>
 
 
-      <div id="hallmark" className="mx-auto w-[90%] my-40">
+      {/* <div id="hallmark" className="mx-auto w-[90%] my-40">
         <Features />
       </div>
 
@@ -29,7 +33,7 @@ export default function Home() {
         <Practice />
       </div>
 
-      <Footer></Footer>
+      <Footer></Footer> */}
     </>
   );
 }
