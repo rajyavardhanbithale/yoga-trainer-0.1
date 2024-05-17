@@ -22,7 +22,7 @@
 
 
 * {
-  /* outline: red 1px solid; */
+  outline: red 1px solid;
   margin: 0;
   padding: 0;
   scroll-behavior: smooth;
@@ -236,3 +236,21 @@ body {
 }
 
 
+.hero_image_scale_animation {
+  animation: hero_image_scale 8s infinite linear;
+}
+
+
+@keyframes hero_image_scale {
+  0% {
+    transform: translate(0, 0px);
+  }
+
+  50% {
+    transform: translate(0, -16px);
+  }
+
+  100% {
+    transform: translate(0, -0px);
+  }
+}
