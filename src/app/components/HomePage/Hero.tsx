@@ -31,8 +31,8 @@ export default async function Hero() {
                         <span className="text-white text-4xl font-semibold capitalize xl:text-6xl md:text-5xl xl:w-[60%] md:w-[80%] sm:text-end">
                             to get healthy
                         </span>
-
-                        <div className={`hidden sm:block ${raleway.className} mt-5 text-justify flex flex-col gap-8 w-11/12`}>
+                        
+                        <div className={`hidden ${raleway.className} mt-5 text-justify sm:flex flex-col gap-8 w-11/12`}>
                             <span className="text-white text-base font-semibold capitalize xl:text-2xl md:text-xl">
                                 Namaste! Welcome to RAGE InnerBalance, your ultimate
                                 destination for yoga training and pose verification.
@@ -53,7 +53,6 @@ export default async function Hero() {
                     </div>
 
                     <br />
-
                     {/* for mobile */}
                     <div className="sm:hidden mt-5 col-span-4 text-justify flex flex-col items-center gap-4">
                         <span className="text-white text-base font-semibold capitalize xl:text-6xl md:text-xl">
