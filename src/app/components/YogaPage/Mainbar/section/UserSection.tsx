@@ -5,8 +5,8 @@ import Benefits from "./UserSection/Benefits";
 
 
 import Tutorial from "./UserSection/Tutorial";
-import DoughnutChart from "./UserSection/Accuracy/DoughnutChart";
-import LineChart from "./UserSection/Analysis/LineChat";
+import DoughnutChart from "./UserSection/Analysis/DoughnutChart";
+import LineChart from "./UserSection/Accuracy/LineChat";
 
 export default function UserSection(props: any) {
     const [userSelection, setUserSelection] = useState<UserSectionSelection>({ active: "benefits" })
@@ -17,7 +17,7 @@ export default function UserSection(props: any) {
             {/* onClick={() => setUserSelection({ ...userSelection, active: "benefits" })} */}
 
             <div
-                className="w-1/2 flex overflow-x-auto justify-between hide_scrollbar">
+                className="w-full sm:w-1/2 flex overflow-x-auto justify-between hide_scrollbar">
                 <span
                     onClick={() => setUserSelection({ ...userSelection, active: "benefits" })}
                     className={`cursor-pointer m-2 px-1 py-1 text-xl font-semibold text-left  ${userSelection.active === "benefits" ? "border-b-[3px] border-b-secondary" : "hover-item"} `}>

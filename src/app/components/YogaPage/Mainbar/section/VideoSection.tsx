@@ -1,5 +1,8 @@
-export default function VideoSection(props: any) {
+import { useSearchParams } from "next/navigation"
 
+export default function VideoSection(props: any) {
+ 
+    
     const size = 1000
     return (
         <>
@@ -9,7 +12,7 @@ export default function VideoSection(props: any) {
                 <div className="grid-blur xl:col-span-6 max-h-[400px] m-5">
                     <video
                         ref={props?.videoRef}
-                        src="test/tree.mp4"
+                        src={`test/${props?.source}`}
                         className="w-full h-full object-contain rounded-xl"
                         controls
                     ></video>

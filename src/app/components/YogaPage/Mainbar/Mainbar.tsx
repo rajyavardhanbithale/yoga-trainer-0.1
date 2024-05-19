@@ -20,6 +20,7 @@ import TensorControl from "./section/TensorControl";
 export default function MainBar(props: YogaPoseDetailed) {
     const param = useSearchParams();
     const repTime: number = parseInt(param.get('repTime') || '5', 10) * 1000
+    const source: string = param.get('source') || 'tree.mp4'
 
 
     const [poseMessage, setPoseMessage] = useState<PoseMessage>()
@@ -199,6 +200,7 @@ export default function MainBar(props: YogaPoseDetailed) {
                         tutorialVideo={props?.videoData?.tutorialIFRAME}
 
                         videoRef={videoRef}
+                        source={source}
                     />
                 </div>
 

@@ -123,7 +123,7 @@ export default function DoughnutChart(props: any) {
                                 <LuTarget className="text-blue-800 text-xl font-semibold" />
 
                                 <span className="text-xl">
-                                    Accuracy: {accuracy} %
+                                    Accuracy: {accuracy >= 0 ? accuracy  : 0} %
                                 </span>
                             </div>
                             <div className="col-span-1 flex items-center gap-2 p-4 bg-blue-100 rounded-lg shadow">
