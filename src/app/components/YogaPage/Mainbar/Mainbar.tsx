@@ -106,13 +106,13 @@ export default function MainBar(props: YogaPoseDetailed) {
                 const randomIndex: number = random(successMessageList.length)
                 playUserAudio(`seg${randomIndex}.mp3`, 'user/pose/invalid', 'slow')
                 setPoseMessage({ isSuccess: false, poseMessage: unsuccessMessageList[randomIndex] });
-                
-                setAnalysis(prevAnalysis=>({
+
+                setAnalysis(prevAnalysis => ({
                     ...prevAnalysis!,
                     accuracy: [...prevAnalysis!.accuracy, 0],
                     correctPose: [...prevAnalysis!.correctPose, 0]
                 }))
-            
+
             }
         }
 
@@ -133,8 +133,8 @@ export default function MainBar(props: YogaPoseDetailed) {
                 repTime: repTime,
                 startTime: Date.now(),
                 accuracy: [],
-                correctPose:[],
-                endTime:0
+                correctPose: [],
+                endTime: 0
             }));
         }
 
@@ -174,8 +174,8 @@ export default function MainBar(props: YogaPoseDetailed) {
         }))
     }
 
-  
-    
+
+
 
     return (
         <>
@@ -221,17 +221,21 @@ export default function MainBar(props: YogaPoseDetailed) {
 
                             analysis={analysis}
 
+                            load={load}
+                            isModelLoaded={isModelLoaded}
+                            runTensor={runTensor}
+                            stopTensor={stopTensor}
+                            poseMessage={poseMessage}
+
                         />
                     </div>
 
-                    <div className="w-[30%]">
+                    <div className="w-[30%] hidden sm:block">
                         <TensorControl
                             load={load}
                             isModelLoaded={isModelLoaded}
-
                             runTensor={runTensor}
                             stopTensor={stopTensor}
-
                             poseMessage={poseMessage}
                         />
                     </div>

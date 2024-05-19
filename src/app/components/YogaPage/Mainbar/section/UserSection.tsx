@@ -7,6 +7,7 @@ import Benefits from "./UserSection/Benefits";
 import Tutorial from "./UserSection/Tutorial";
 import DoughnutChart from "./UserSection/Analysis/DoughnutChart";
 import LineChart from "./UserSection/Accuracy/LineChat";
+import TensorControl from "./TensorControl";
 
 export default function UserSection(props: any) {
     const [userSelection, setUserSelection] = useState<UserSectionSelection>({ active: "benefits" })
@@ -17,7 +18,7 @@ export default function UserSection(props: any) {
             {/* onClick={() => setUserSelection({ ...userSelection, active: "benefits" })} */}
 
             <div
-                className="w-full sm:w-1/2 flex overflow-x-auto justify-between hide_scrollbar">
+                className="w-full xl:w-1/2 flex overflow-x-auto justify-between hide_scrollbar">
                 <span
                     onClick={() => setUserSelection({ ...userSelection, active: "benefits" })}
                     className={`cursor-pointer m-2 px-1 py-1 text-xl font-semibold text-left  ${userSelection.active === "benefits" ? "border-b-[3px] border-b-secondary" : "hover-item"} `}>
@@ -37,6 +38,13 @@ export default function UserSection(props: any) {
                     onClick={() => setUserSelection({ ...userSelection, active: "analysis" })}
                     className={`cursor-pointer m-2 px-1 py-1 text-xl font-semibold text-left ${userSelection.active === "analysis" ? "border-b-[3px] border-b-secondary" : "hover-item"}  `}>
                     Analysis
+                </span>
+
+
+                <span
+                    onClick={() => setUserSelection({ ...userSelection, active: "start" })}
+                    className={`sm:hidden block cursor-pointer m-2 px-1 py-1 text-xl font-semibold text-nowrap text-left ${userSelection.active === "analysis" ? "border-b-[3px] border-b-secondary" : "hover-item"}  `}>
+                    Start Yoga
                 </span>
 
 
@@ -96,6 +104,22 @@ export default function UserSection(props: any) {
 
                     )}
 
+                </div>
+            }
+
+
+            {userSelection?.active === "start" &&
+                <div className="block sm:hidden row-span-1 animate-fade-up">
+                    <div className="w-full h-[300px]">
+                        <TensorControl
+                            
+                            load={props?.load}
+                            isModelLoaded={props?.isModelLoaded}
+                            runTensor={props?.runTensor}
+                            stopTensor={props?.stopTensor}
+                            poseMessage={props?.poseMessage}
+                        />
+                    </div>
                 </div>
             }
         </>
