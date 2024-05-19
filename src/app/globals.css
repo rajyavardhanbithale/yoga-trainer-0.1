@@ -22,7 +22,7 @@
 
 
 * {
-  outline: red 1px solid;
+  /* outline: red 1px solid; */
   margin: 0;
   padding: 0;
   scroll-behavior: smooth;
@@ -52,8 +52,7 @@ body {
 
 
 .hover_border {
-  border-bottom-width: 4px;
-
+  /* border-bottom-width: 4px; */
   border-color: var(--secondary);
 }
 
@@ -74,27 +73,27 @@ body {
 }
 
 
-.hover_border_side {
-  border-bottom-width: 4px;
-
-  border-color: var(--secondary);
+.hover-item {
+  position: relative;
+  display: inline-block;
 }
 
-
-.hover_border_side:hover {
-  width: 90%;
-  animation: slideInHoverSide 0.5s ease-in-out;
+.hover-item::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background-color: var(--secondary);
+  transition: all 0.3s ease;
 }
 
-@keyframes slideInHoverSide {
-  0% {
-    width: 0%;
-  }
-
-  100% {
-    width: 90%;
-  }
+.hover-item:hover::after {
+  width: 100%;
+  left: 0;
 }
+
 
 
 .loader {
@@ -281,4 +280,11 @@ body {
 }
 .sidebar_exit {
   animation: fade-right 1s both;
+}
+
+.hide_scrollbar {
+  -ms-overflow-style: none;  
+  scrollbar-width: none; 
+  overflow-y: hidden;  
+  overflow-x: auto; 
 }
