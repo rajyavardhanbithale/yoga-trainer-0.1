@@ -26,26 +26,28 @@ export default async function Hero() {
                 <div className="grid grid-cols-1 sm:grid-cols-10  md:mt-10 xl:mt-0 place-items-center">
 
                     <div className={`${lora.className} col-span-6 flex flex-col gap-5 sm:w-full sm:gap-10`}>
-                        <span className="text-white text-4xl font-semibold capitalize xl:text-6xl md:text-5xl">
+                        <span className="text-white text-4xl font-semibold capitalize xl:text-6xl md:text-5xl w-fit animate-flip-up">
                             the best way
                         </span>
-                        <span className="text-white text-4xl font-semibold capitalize xl:text-6xl md:text-5xl xl:w-[60%] md:w-[80%] sm:text-end">
+                        <span className="text-white text-4xl font-semibold capitalize xl:text-6xl md:text-5xl xl:w-[60%] md:w-[80%] sm:text-end w-fit animate-flip-down">
                             to get healthy
                         </span>
 
                         <div className={`hidden ${raleway.className} mt-5 text-justify sm:flex flex-col gap-8 w-11/12`}>
-                            <span className="text-white text-base font-semibold capitalize xl:text-2xl md:text-xl">
+                            <span className="text-white text-base font-semibold capitalize xl:text-2xl md:text-xl animate-fade-up">
                                 Namaste! Welcome to RAGE InnerBalance, your ultimate
                                 destination for yoga training and pose verification.
                                 Whether you&apos;re a beginner or an experienced yogi,
                                 we&apos;re here to guide you every step of the way.
                             </span>
 
-                            <button className="mt-2 py-1.5 xl:py-2 bg-slate-100 xl:text-xl rounded-xl w-1/4 hover:shadow-[0_0_0px_#fff,inset_0_0_0px_#fff,0_0_0px_#fff,0_0_5px_#fff,0_0_13px_#fff] duration-500">
-                                Explore
-                                <IoCompassOutline className="inline-flex text-xl mx-2 my-auto mb-0.5" />
+                            <Link href={"/yoga"}>
 
-                            </button>
+                                <button className="mt-2 py-1.5 xl:py-2 bg-slate-100 xl:text-xl rounded-xl w-1/4 hover:shadow-[0_0_0px_#fff,inset_0_0_0px_#fff,0_0_0px_#fff,0_0_5px_#fff,0_0_13px_#fff] duration-500 animate-fade-in">
+                                    Explore
+                                    <IoCompassOutline className="inline-flex text-xl mx-2 my-auto mb-0.5" />
+                                </button>
+                            </Link>
                         </div>
                     </div>
 

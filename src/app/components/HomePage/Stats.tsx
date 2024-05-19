@@ -26,7 +26,15 @@ export default function Stats() {
         threshold: 0.8,
     });
 
-    const [visible,setVisible] = useState<boolean>(false)
+    const [visible, setVisible] = useState<boolean>(false)
+
+    useEffect(() => {
+        if (inView && !visible) {
+            setVisible(true)
+        }
+    }, [inView])
+
+
 
 
 
@@ -43,13 +51,8 @@ export default function Stats() {
         }
     ]
 
-    useEffect(()=>{
-        if(inView && !visible){
-            setVisible(true)
-        }
-    },[inView])
 
-    
+
 
     return (
         <>

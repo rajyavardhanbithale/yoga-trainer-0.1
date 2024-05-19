@@ -1,4 +1,4 @@
-import { IoDocumentTextOutline, IoLogoGithub, IoLogoLinkedin } from "react-icons/io5";
+import { IoLogoGithub, IoLogoLinkedin } from "react-icons/io5";
 import { SiVercel } from "react-icons/si";
 
 export default function Footer() {
