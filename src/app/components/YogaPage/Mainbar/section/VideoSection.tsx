@@ -19,8 +19,8 @@ export default function VideoSection(props: any) {
 
                 {props?.showTutorial ? (
                     <>
-                        <div className="xl:col-span-6 min-h-[400px] m-5 ">
-                           
+                        <div className="xl:col-span-6 min-h-[400px] m-5 relative">
+                            <div className="-z-50 absolute w-full h-full mx-auto  rounded-2xl bg-slate-400 animate-pulse"></div>
                             <iframe
                                 className="w-full h-full mx-auto z-40 rounded-2xl"
                                 src={props?.tutorialVideo}
@@ -29,6 +29,8 @@ export default function VideoSection(props: any) {
                                 referrerPolicy="strict-origin-when-cross-origin"
                                 allowFullScreen
                             ></iframe>
+
+
                         </div>
                     </>
                 ) : (

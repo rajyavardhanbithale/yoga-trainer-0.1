@@ -2,18 +2,14 @@
 
 import { useEffect, useRef, useState } from "react";
 
-import { IoVolumeMediumOutline, IoVolumeMuteOutline } from "react-icons/io5";
-import { IoIosArrowDown } from "react-icons/io";
 
 import useAudioManager from "../../../hooks/useAudioPlayer";
 import useConvertTensorClass from "../../../hooks/useConvertTensorClass";
 import useTensorFlow from "@/app/hooks/useTensorFlow";
 
-import DropdownSelect from "./helper/DropdownSelect";
-import MusicSelection from "./helper/MusicSelection";
 
 import { successMessageList, unsuccessMessageList } from "../UserMessage/UserMessage";
-import { AudioState, PoseMessage, YogaPoseDetailed } from "../../../../../types";
+import { AudioState, PoseMessage, YogaPoseDetailed, YogaPosePerformanceData } from "../../../../../types";
 import Title from "./section/Title";
 import { useSearchParams } from "next/navigation";
 import VideoSection from "./section/VideoSection";
@@ -23,25 +19,25 @@ import TensorControl from "./section/TensorControl";
 
 export default function MainBar(props: YogaPoseDetailed) {
     const param = useSearchParams();
+    const repTime: number = parseInt(param.get('repTime') || '5', 10) * 1000
+
 
     const [poseMessage, setPoseMessage] = useState<PoseMessage>()
     const [audioState, setAudioState] = useState<AudioState>({ status: true, state: "", playbackSpeed: "fine" })
     const [showTutorial, setShowTutorial] = useState<boolean>(false)
-    const [dropdown, setDropdown] = useState<boolean>(false)
     const [capturedFrame, setCapturedFrame] = useState<string | null>(null);
     const [predAssumption, setPredAssumption] = useState<string | null>()
     const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null)
     const [load, setLoad] = useState<boolean>(false) // Load Assets Button
 
+    const [analysis, setAnalysis] = useState<YogaPosePerformanceData>()
+
 
     const videoRef = useRef(null)
-
-
 
     const { playNarratorAudio, playUserAudio, stopAudio } = useAudioManager();
     const { runModel, stopModel, isModelLoaded } = useTensorFlow()
     const { getPredictionClass } = useConvertTensorClass(0.80)
-
 
 
     // // manages playback for audio narration 
@@ -87,29 +83,60 @@ export default function MainBar(props: YogaPoseDetailed) {
         const random = (length: number) => {
             return Math.floor(Math.random() * length)
         }
-        console.log("handleinteract", predAssumption);
 
         if (predAssumption) {
 
             const predClass = getPredictionClass(predAssumption, props?.TFData?.set)
 
-
             if (props?.TFData?.class === predClass) {
                 const randomIndex: number = random(successMessageList.length)
                 playUserAudio(`seg${randomIndex}.mp3`, 'user/pose/valid', 'slow')
                 setPoseMessage({ isSuccess: true, poseMessage: successMessageList[randomIndex] });
-                console.log(successMessageList[randomIndex], randomIndex);
+                // console.log(successMessageList[randomIndex], randomIndex);
+
+                setAnalysis(prevAnalysis => ({
+                    ...prevAnalysis!,
+                    accuracy: [...prevAnalysis!.accuracy, 1],
+                    correctPose: [...prevAnalysis!.correctPose, 1]
+                }));
+
 
             } else {
                 const randomIndex: number = random(successMessageList.length)
                 playUserAudio(`seg${randomIndex}.mp3`, 'user/pose/invalid', 'slow')
                 setPoseMessage({ isSuccess: false, poseMessage: unsuccessMessageList[randomIndex] });
+                
+                setAnalysis(prevAnalysis=>({
+                    ...prevAnalysis!,
+                    accuracy: [...prevAnalysis!.accuracy, 0],
+                    correctPose: [...prevAnalysis!.correctPose, 0]
+                }))
+            
             }
         }
+
+        setAnalysis((prevAnalysis) => ({
+            ...prevAnalysis!,
+            endTime: Date.now(),
+        }))
     }
 
     // 'handleInteractTensor' function will be executed when the 'predAssumption' value is available
     useEffect(() => {
+
+        if (isModelLoaded && !analysis?.startTime) {
+            setAnalysis((prevAnalysis) => ({
+                ...prevAnalysis!,
+                poseID: props?.id || 0,
+                poseName: props?.name || "",
+                repTime: repTime,
+                startTime: Date.now(),
+                accuracy: [],
+                correctPose:[],
+                endTime:0
+            }));
+        }
+
         handleInteractTensor()
     }, [predAssumption])
 
@@ -118,12 +145,19 @@ export default function MainBar(props: YogaPoseDetailed) {
     const runTensor = () => {
         console.log('Stated');
         setLoad(true)
+
+        setAnalysis((prevAnalysis) => ({
+            ...prevAnalysis!,
+            startTime: 0,
+
+        }));
+
         const id = setInterval(async () => {
             setPredAssumption(null)
             console.log('STG')
             handleCaptureFrame()
 
-        }, 3000);
+        }, repTime);
         setIntervalId(id);
     }
 
@@ -132,12 +166,15 @@ export default function MainBar(props: YogaPoseDetailed) {
             clearInterval(intervalId)
         }
         setLoad(false)
+
+        setAnalysis((prevAnalysis) => ({
+            ...prevAnalysis!,
+            endTime: Date.now(),
+        }))
     }
 
-
-    console.log(showTutorial);
-
-
+  
+    
 
     return (
         <>
@@ -173,11 +210,14 @@ export default function MainBar(props: YogaPoseDetailed) {
                             audioBenefits={props?.audioData?.benefits}
                             audioState={audioState?.state}
                             benefits={props?.benefits}
-                            
+
                             name={props?.name}
                             setShowTutorial={setShowTutorial}
                             tutorialGIF={props?.tutorial}
                             tutorialVideo={props?.videoData?.tutorialIFRAME}
+
+
+                            analysis={analysis}
 
                         />
                     </div>

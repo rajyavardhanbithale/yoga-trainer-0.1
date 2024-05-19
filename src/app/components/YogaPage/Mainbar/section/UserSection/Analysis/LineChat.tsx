@@ -5,17 +5,46 @@ import { Line } from "react-chartjs-2";
 
 ChartJS.register(LineElement, PointElement, LinearScale, Title, CategoryScale, Tooltip, Legend);
 
-export default function LineChart() {
+export default function LineChart(props: any) {
 
-    const span = 30
+    const analysis = props?.analysis
+
+
+    const epochToSecond = (startTime: number, endTime: number): (number | null) => {
+        if (!startTime || !endTime) {
+            return 0;
+        }
+        return  (endTime - startTime) / 1000;;
+    }
+
+
+    const handleData = () => {
+        console.log();
+        const accuracyLength:number = analysis?.accuracy?.length
+        const timeData: (number| null) = epochToSecond(analysis?.startTime,analysis?.endTime)
+
+        if(timeData !==null && accuracyLength){
+            const timePerRep:number = timeData / accuracyLength
+            const resultData: Array<string> = Array.from({length: accuracyLength}, (_, i) => `${Math.floor(timePerRep * (i + 1))} s`);
+            const span:string = resultData[resultData.length - 1];
+
+            return { resultData, span };
+            
+        }
+        return { resultData: ['0','0'], lastElement: 'error' };
+        
+    }
+
+    const { resultData, span } = handleData();
+
     const data = {
-        labels: ['5s', '10s', '15s', '20s', '25s', '30s'],
+        labels: resultData,
         datasets: [
             {
-                label: 'Accuracy ' + span + 'S',
+                label: 'Accuracy ' + span,
                 borderColor: '#4158a8',
-                data: [0,1,0.8,0.9,1,0.95],
-                tension:0.1
+                data: analysis && analysis?.accuracy,
+                tension: 0.2
             },
         ],
     };
@@ -28,11 +57,15 @@ export default function LineChart() {
             },
         },
     };
+
+   
+    
+
     return (
         <>
             <div className="h-[300px]">
-
-                    <Line data={data} options={options} />
+                
+                <Line data={data} options={options} />
 
             </div>
         </>

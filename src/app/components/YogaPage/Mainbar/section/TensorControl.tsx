@@ -15,16 +15,18 @@ export default function TensorControl(props: any) {
                     </div>
                 }
                 {!props?.load &&
-                    <button
-                        onClick={props?.runTensor}
-                        className="bg-primary text-slate-50 font-semibold text-2xl h-fit 
+                    <>
+                        <button
+                            onClick={props?.runTensor}
+                            className="bg-primary text-slate-50 font-semibold text-2xl h-fit 
                     py-2 px-6 rounded-tl-2xl rounded-br-2xl 
                     hover:rounded-tr-2xl hover:rounded-bl-2xl duration-500
                     hover:rounded-tl-none hover:rounded-br-none
                     shadow-xl hover:shadow-blue-800/50
                     ">
-                        Start
-                    </button>
+                            Start
+                        </button>
+                    </>
                 }
 
 
@@ -35,7 +37,7 @@ export default function TensorControl(props: any) {
 
                         <button
                             onClick={props?.stopTensor}
-                            className="bg-primary text-slate-50 font-semibold text-2xl h-fit 
+                            className="mx-auto bg-primary w-fit text-slate-50 font-semibold text-2xl h-fit 
                     py-2 px-6 rounded-tl-2xl rounded-br-2xl 
                     hover:rounded-tr-2xl hover:rounded-bl-2xl duration-500
                     hover:rounded-tl-none hover:rounded-br-none
@@ -45,7 +47,7 @@ export default function TensorControl(props: any) {
                         </button>
 
                         {props?.poseMessage?.poseMessage &&
-                            <div className={`${!props?.poseMessage.isSuccess ? "text-[#ea1537]" : "text-[#00b499]"} text-3xl font-semibold tracking-wider`}>
+                            <div className={`${!props?.poseMessage.isSuccess ? "text-red-600" : "text-emerald-600"} text-3xl font-semibold tracking-wider`}>
                                 <Typewriter
                                     options={{
                                         strings: [props?.poseMessage?.poseMessage],

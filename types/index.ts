@@ -77,6 +77,16 @@ interface UserSectionSelection {
     active: string
 }
 
+interface YogaPosePerformanceData{
+    poseID: number
+    poseName: string
+    startTime: number
+    repTime: number
+    endTime: number
+    accuracy: Array<number>
+    correctPose: Array<number>
+}
+
 export type {
     YogaPose,
     YogaPoseAPI,
@@ -84,5 +94,6 @@ export type {
     AmbientMusic,
     PoseMessage,
     AudioState,
-    UserSectionSelection
+    UserSectionSelection,
+    YogaPosePerformanceData
 }

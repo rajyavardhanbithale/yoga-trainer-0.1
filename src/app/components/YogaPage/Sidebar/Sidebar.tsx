@@ -3,7 +3,7 @@
 import Image from "next/image"
 import { YogaPose } from "../../../../../types"
 import { useState } from "react";
-import { ToastContainer, toast, Zoom, } from 'react-toastify';
+// import { ToastContainer, toast, Zoom, } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import SidebarMobile from "./SidebarDesktop";
 import SidebarMediumDevice from "./SidebarMediumDevice";
@@ -44,7 +44,7 @@ export default function Sidebar(props: any) {
 
     return (
         <>
-            <ToastContainer
+            {/* <ToastContainer
                 position="top-right"
                 autoClose={3000}
                 hideProgressBar={false}
@@ -56,7 +56,7 @@ export default function Sidebar(props: any) {
                 pauseOnHover={false}
                 theme="light"
                 transition={Zoom}
-            />
+            /> */}
 
             <div className="hidden xl:block lg:w-[22%] xl:w-[12%]">
                 <SidebarMobile
