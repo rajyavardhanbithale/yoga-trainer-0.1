@@ -1,13 +1,13 @@
 'use client'
 import { useState } from "react";
-import { UserSectionSelection } from "../../../../../../types";
-import Benefits from "./UserSection/Benefits";
+import { UserSectionSelection } from "../../../../../../../types";
+import Benefits from "./Benefits";
 
 
-import Tutorial from "./UserSection/Tutorial";
-import DoughnutChart from "./UserSection/Analysis/DoughnutChart";
-import LineChart from "./UserSection/Accuracy/LineChat";
-import TensorControl from "./TensorControl";
+import Tutorial from "./Tutorial";
+import DoughnutChart from "./Analysis/DoughnutChart";
+import LineChart from "./Accuracy/LineChat";
+import TensorControl from "../TensorControl";
 
 export default function UserSection(props: any) {
     const [userSelection, setUserSelection] = useState<UserSectionSelection>({ active: "benefits" })

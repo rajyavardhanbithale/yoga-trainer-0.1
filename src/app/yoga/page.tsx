@@ -43,10 +43,7 @@ export default function Yoga() {
     return (
         <>
 
-            <div className='flex flex-row'>
-
-
-
+            <div className='flex mx-auto flex-row max-w-[2080px]'>
                 {loading ? (
                     <>
                         <SidebarSkeleton />
@@ -54,6 +51,7 @@ export default function Yoga() {
                     </>
                 ) : (
                     <>
+                        
                         <Sidebar
                             setSelectedPose={setSelectedPose}
                             pose={data}

@@ -80,12 +80,12 @@ export default function DoughnutChart(props: any) {
         <>
             <div className="flex">
 
-                <div className="h-[300px]">
+                <div className="h-[30vh]">
                     <Doughnut data={data} />
                 </div>
 
 
-                <div className="flex flex-col w-full m-2 p-2 rounded-lg shadow-md">
+                <div className="h-[30vh] flex flex-col w-full m-2 p-2 rounded-lg shadow-md">
                     <div className="w-full capitalize text-center font-semibold text-2xl align-middle items-center justify-center">
 
                         Pose Analysis

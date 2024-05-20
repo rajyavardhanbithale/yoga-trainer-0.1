@@ -25,7 +25,7 @@ export default function VideoSection(props: any) {
                         <div className="xl:col-span-6 min-h-[400px] m-5 relative">
                             <div className="-z-50 absolute w-full h-full mx-auto  rounded-2xl bg-slate-400 animate-pulse"></div>
                             <iframe
-                                className="w-full h-full mx-auto z-40 rounded-2xl"
+                                className="w-full h-full mx-auto z-10 rounded-2xl"
                                 src={props?.tutorialVideo}
                                 title="YouTube video player"
                                 allow="encrypted-media; picture-in-picture;"

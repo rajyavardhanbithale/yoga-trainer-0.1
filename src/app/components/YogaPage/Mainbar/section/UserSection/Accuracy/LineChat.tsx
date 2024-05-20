@@ -63,7 +63,7 @@ export default function LineChart(props: any) {
 
     return (
         <>
-            <div className="h-[300px]">
+            <div className="h-[30vh]">
                 
                 <Line data={data} options={options} />
 

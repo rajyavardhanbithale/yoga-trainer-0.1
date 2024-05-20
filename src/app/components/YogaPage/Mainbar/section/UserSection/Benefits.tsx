@@ -14,7 +14,7 @@ const advantagesFont = Montserrat(
 export default function Benefits(props: any) {
     return (
         <>
-            <div className=" sm:h-[300px] overflow-y-auto sm:sidebar_scrollable">
+            <div className="sm:h-[30vh] overflow-y-auto sm:sidebar_scrollable">
 
 
                 <div className={`flex flex-col ${advantagesFont.className} `}>

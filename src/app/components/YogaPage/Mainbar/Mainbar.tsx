@@ -13,7 +13,7 @@ import { AudioState, PoseMessage, YogaPoseDetailed, YogaPosePerformanceData } fr
 import Title from "./section/Title";
 import { useSearchParams } from "next/navigation";
 import VideoSection from "./section/VideoSection";
-import UserSection from "./section/UserSection";
+import UserSection from "./section/UserSection/UserSection";
 import TensorControl from "./section/TensorControl";
 
 
@@ -37,7 +37,7 @@ export default function MainBar(props: YogaPoseDetailed) {
     const videoRef = useRef(null)
 
     const { playNarratorAudio, playUserAudio, stopAudio } = useAudioManager();
-    const { runModel, stopModel, isModelLoaded } = useTensorFlow()
+    // const { runModel, stopModel, isModelLoaded } = useTensorFlow()
     const { getPredictionClass } = useConvertTensorClass(0.80)
 
 
@@ -123,23 +123,23 @@ export default function MainBar(props: YogaPoseDetailed) {
     }
 
     // 'handleInteractTensor' function will be executed when the 'predAssumption' value is available
-    useEffect(() => {
+    // useEffect(() => {
 
-        if (isModelLoaded && !analysis?.startTime) {
-            setAnalysis((prevAnalysis) => ({
-                ...prevAnalysis!,
-                poseID: props?.id || 0,
-                poseName: props?.name || "",
-                repTime: repTime,
-                startTime: Date.now(),
-                accuracy: [],
-                correctPose: [],
-                endTime: 0
-            }));
-        }
+    //     if (isModelLoaded && !analysis?.startTime) {
+    //         setAnalysis((prevAnalysis) => ({
+    //             ...prevAnalysis!,
+    //             poseID: props?.id || 0,
+    //             poseName: props?.name || "",
+    //             repTime: repTime,
+    //             startTime: Date.now(),
+    //             accuracy: [],
+    //             correctPose: [],
+    //             endTime: 0
+    //         }));
+    //     }
 
-        handleInteractTensor()
-    }, [predAssumption])
+    //     handleInteractTensor()
+    // }, [predAssumption])
 
 
 
@@ -191,7 +191,7 @@ export default function MainBar(props: YogaPoseDetailed) {
                 </div>
 
 
-                <div className="mt-5 sm:mt-5 w-11/12 mx-auto xl:mx-0  flex flex-col">
+                <div className="-z-50 mt-5 sm:mt-5 w-11/12 mx-auto xl:mx-0  flex flex-col">
                     <VideoSection
                         tutorial={props?.tutorial}
                         name={props?.name}
@@ -204,7 +204,7 @@ export default function MainBar(props: YogaPoseDetailed) {
                     />
                 </div>
 
-                <div className="mt-5 sm:mt-5 sm:w-11/12 w-[95%] mx-auto xl:mx-0 flex flex-row">
+                <div className="mt-5 sm:mt-5 my-5 sm:w-11/12 w-[95%] mx-auto xl:mx-0 flex flex-row">
                     <div className="sm:w-[70%] w-[100%]">
                         <UserSection
                             originalName={props?.originalName}
@@ -222,7 +222,7 @@ export default function MainBar(props: YogaPoseDetailed) {
                             analysis={analysis}
 
                             load={load}
-                            isModelLoaded={isModelLoaded}
+                            // isModelLoaded={isModelLoaded}
                             runTensor={runTensor}
                             stopTensor={stopTensor}
                             poseMessage={poseMessage}
@@ -233,7 +233,7 @@ export default function MainBar(props: YogaPoseDetailed) {
                     <div className="w-[30%] hidden sm:block">
                         <TensorControl
                             load={load}
-                            isModelLoaded={isModelLoaded}
+                            // isModelLoaded={isModelLoaded}
                             runTensor={runTensor}
                             stopTensor={stopTensor}
                             poseMessage={poseMessage}

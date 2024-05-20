@@ -31,7 +31,7 @@ export default function SidebarMediumDevice(props: any) {
 
             {showSideBar &&
                 <div className="absolute lg:w-[22%] xl:w-[12%] bg-white">
-                    <div className={` px-4 grid grid-cols-1 gap-4 overflow-y-auto sidebar_scrollable ${exitAnimation ? "sidebar_exit" : "sidebar_entry"}`}>
+                    <div className={` px-4 grid grid-cols-1 gap-4 min-h-[100vh] overflow-y-auto sidebar_scrollable ${exitAnimation ? "sidebar_exit" : "sidebar_entry"}`}>
 
 
                         <div className="cursor-pointer flex flex-col my-3 w-full sticky top-3 shadow-lg z-50">

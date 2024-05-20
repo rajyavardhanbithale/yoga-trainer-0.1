@@ -5,7 +5,7 @@ import { YogaPose } from "../../../../../types"
 import { useState } from "react";
 // import { ToastContainer, toast, Zoom, } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import SidebarMobile from "./SidebarDesktop";
+import SidebarDesktop from "./SidebarDesktop";
 import SidebarMediumDevice from "./SidebarMediumDevice";
 
 export default function Sidebar(props: any) {
@@ -59,7 +59,7 @@ export default function Sidebar(props: any) {
             /> */}
 
             <div className="hidden xl:block lg:w-[22%] xl:w-[12%]">
-                <SidebarMobile
+                <SidebarDesktop
                     pose={pose}
                     handleSelectYogaPose={handleSelectYogaPose}
                     highlight={highlight}
