@@ -37,7 +37,7 @@ export default function MainBar(props: YogaPoseDetailed) {
     const videoRef = useRef(null)
 
     const { playNarratorAudio, playUserAudio, stopAudio } = useAudioManager();
-    // const { runModel, stopModel, isModelLoaded } = useTensorFlow()
+    const { runModel, stopModel, isModelLoaded } = useTensorFlow()
     const { getPredictionClass } = useConvertTensorClass(0.80)
 
 
@@ -123,23 +123,23 @@ export default function MainBar(props: YogaPoseDetailed) {
     }
 
     // 'handleInteractTensor' function will be executed when the 'predAssumption' value is available
-    // useEffect(() => {
+    useEffect(() => {
 
-    //     if (isModelLoaded && !analysis?.startTime) {
-    //         setAnalysis((prevAnalysis) => ({
-    //             ...prevAnalysis!,
-    //             poseID: props?.id || 0,
-    //             poseName: props?.name || "",
-    //             repTime: repTime,
-    //             startTime: Date.now(),
-    //             accuracy: [],
-    //             correctPose: [],
-    //             endTime: 0
-    //         }));
-    //     }
+        if (isModelLoaded && !analysis?.startTime) {
+            setAnalysis((prevAnalysis) => ({
+                ...prevAnalysis!,
+                poseID: props?.id || 0,
+                poseName: props?.name || "",
+                repTime: repTime,
+                startTime: Date.now(),
+                accuracy: [],
+                correctPose: [],
+                endTime: 0
+            }));
+        }
 
-    //     handleInteractTensor()
-    // }, [predAssumption])
+        handleInteractTensor()
+    }, [predAssumption])
 
 
 
