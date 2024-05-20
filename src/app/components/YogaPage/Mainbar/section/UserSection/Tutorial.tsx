@@ -10,9 +10,9 @@ export default function Tutorial(props: any) {
     }
     return (
         <>
-            <div className="grid grid-cols-2">
+            <div className="grid sm:grid-cols-2">
 
-                <div className="col-span-1 h-[30vh] flex ">
+                <div className="col-span-1 sm:h-[30vh] h-[30vh] flex ">
                     <div
                         onClick={() => handleSelection("animated")}
                         className={`sm:h-[70%] h-[50%] sm:w-[70%] w-[80%] flex flex-col my-auto mx-auto text-center
@@ -30,7 +30,7 @@ export default function Tutorial(props: any) {
                     </div>
                 </div>
 
-                <div className="col-span-1 h-[30vh] flex ">
+                <div className="col-span-1 sm:h-[30vh] h-[30vh] flex ">
                     <div
                         onClick={() => handleSelection("video")}
                         className={`sm:h-[70%] h-[50%] sm:w-[70%] w-[80%] flex flex-col my-auto mx-auto text-center

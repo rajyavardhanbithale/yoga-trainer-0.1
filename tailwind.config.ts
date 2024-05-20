@@ -21,7 +21,9 @@ const config: Config = {
         'accent': 'var(--accent)',
         'button-text': 'var(--button-text)',
        },
-       
+       screens: {
+          'mid': '1650px'
+       }
     },
 
 

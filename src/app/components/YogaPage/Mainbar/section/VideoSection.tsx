@@ -9,7 +9,7 @@ export default function VideoSection(props: any) {
             <div className="grid xl:grid-cols-12 place-content-center">
 
                 {/* Input Source */}
-                <div className="grid-blur xl:col-span-6 max-h-[400px] m-5">
+                <div className="grid-blur xl:col-span-6 sm:max-h-[400px]  m-5">
                     <video
                         ref={props?.videoRef}
                         src={`test/${props?.source}`}

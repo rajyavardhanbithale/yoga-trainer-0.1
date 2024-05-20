@@ -4,6 +4,9 @@ import Typewriter from "typewriter-effect"
 
 export default function TensorControl(props: any) {
     const [buttonState, setButtonState] = useState()
+
+   
+
     return (
         <>
             <div className="flex justify-center items-center h-full my-auto mx-auto rounded-2xl">

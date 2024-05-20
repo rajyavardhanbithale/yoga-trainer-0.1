@@ -37,7 +37,7 @@ export default function MainBar(props: YogaPoseDetailed) {
     const videoRef = useRef(null)
 
     const { playNarratorAudio, playUserAudio, stopAudio } = useAudioManager();
-    const { runModel, stopModel, isModelLoaded } = useTensorFlow()
+    // const { runModel, stopModel, isModelLoaded } = useTensorFlow()
     const { getPredictionClass } = useConvertTensorClass(0.80)
 
 
@@ -123,23 +123,23 @@ export default function MainBar(props: YogaPoseDetailed) {
     }
 
     // 'handleInteractTensor' function will be executed when the 'predAssumption' value is available
-    useEffect(() => {
+    // useEffect(() => {
 
-        if (isModelLoaded && !analysis?.startTime) {
-            setAnalysis((prevAnalysis) => ({
-                ...prevAnalysis!,
-                poseID: props?.id || 0,
-                poseName: props?.name || "",
-                repTime: repTime,
-                startTime: Date.now(),
-                accuracy: [],
-                correctPose: [],
-                endTime: 0
-            }));
-        }
+    //     if (isModelLoaded && !analysis?.startTime) {
+    //         setAnalysis((prevAnalysis) => ({
+    //             ...prevAnalysis!,
+    //             poseID: props?.id || 0,
+    //             poseName: props?.name || "",
+    //             repTime: repTime,
+    //             startTime: Date.now(),
+    //             accuracy: [],
+    //             correctPose: [],
+    //             endTime: 0
+    //         }));
+    //     }
 
-        handleInteractTensor()
-    }, [predAssumption])
+    //     handleInteractTensor()
+    // }, [predAssumption])
 
 
 
@@ -176,13 +176,14 @@ export default function MainBar(props: YogaPoseDetailed) {
 
 
 
-
+    console.log(analysis);
+    
     return (
         <>
             <div className="flex w-full flex-col items-center">
 
 
-                <div className="mt-20 sm:mt-10 w-11/12 mx-auto xl:mx-0  flex flex-col">
+                <div className="mt-10 sm:mt-10 w-11/12 mx-auto xl:mx-0  flex flex-col">
                     <Title
                         name={props?.name}
                         originalName={props?.originalName}
@@ -204,7 +205,7 @@ export default function MainBar(props: YogaPoseDetailed) {
                     />
                 </div>
 
-                <div className="mt-5 sm:mt-5 my-5 sm:w-11/12 w-[95%] mx-auto xl:mx-0 flex flex-row">
+                <div className="mt-5 sm:mt-5 my-5 sm:w-11/12 w-[85%] mx-auto xl:mx-0 flex flex-row">
                     <div className="sm:w-[70%] w-[100%]">
                         <UserSection
                             originalName={props?.originalName}

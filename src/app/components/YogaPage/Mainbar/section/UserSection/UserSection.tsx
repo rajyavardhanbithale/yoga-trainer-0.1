@@ -12,7 +12,27 @@ import TensorControl from "../TensorControl";
 export default function UserSection(props: any) {
     const [userSelection, setUserSelection] = useState<UserSectionSelection>({ active: "benefits" })
     // props?.setShowTutorial(false)
-
+    // const analysis = {
+    //     "endTime": 1716210665578,
+    //     "startTime": 1716210644683,
+    //     "poseID": 101,
+    //     "poseName": "tree pose",
+    //     "repTime": 5000,
+    //     "accuracy": [
+    //         1,
+    //         1,
+    //         1,
+    //         1,
+    //         1
+    //     ],
+    //     "correctPose": [
+    //         1,
+    //         1,
+    //         1,
+    //         1,
+    //         1
+    //     ]
+    // }
     return (
         <>
             {/* onClick={() => setUserSelection({ ...userSelection, active: "benefits" })} */}
@@ -43,7 +63,7 @@ export default function UserSection(props: any) {
 
                 <span
                     onClick={() => setUserSelection({ ...userSelection, active: "start" })}
-                    className={`sm:hidden block cursor-pointer m-2 px-1 py-1 text-xl font-semibold text-nowrap text-left ${userSelection.active === "analysis" ? "border-b-[3px] border-b-secondary" : "hover-item"}  `}>
+                    className={`sm:hidden block cursor-pointer m-2 px-1 py-1 text-xl font-semibold text-nowrap text-left ${userSelection.active === "start" ? "border-b-[3px] border-b-secondary" : "hover-item"}  `}>
                     Start Yoga
                 </span>
 
@@ -83,7 +103,9 @@ export default function UserSection(props: any) {
             {userSelection?.active === "analysis" &&
                 <div className="row-span-1 animate-fade-up">
                     {props?.analysis?.correctPose?.length > 2 ? (
+
                         <DoughnutChart analysis={props?.analysis} />
+
                     ) : (
                         <div className="flex flex-col h-[300px] w-full justify-center items-center">
                             <span className="text-2xl capitalize text-slate-900">
@@ -112,7 +134,7 @@ export default function UserSection(props: any) {
                 <div className="block sm:hidden row-span-1 animate-fade-up">
                     <div className="w-full h-[300px]">
                         <TensorControl
-                            
+
                             load={props?.load}
                             isModelLoaded={props?.isModelLoaded}
                             runTensor={props?.runTensor}
