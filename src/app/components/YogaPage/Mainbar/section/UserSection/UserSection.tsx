@@ -8,64 +8,84 @@ import Tutorial from "./Tutorial";
 import DoughnutChart from "./Analysis/DoughnutChart";
 import LineChart from "./Accuracy/LineChat";
 import TensorControl from "../TensorControl";
+import { BsFillCameraVideoFill, BsFillLightningChargeFill, BsStars } from "react-icons/bs";
+import { TbTargetArrow, TbVideo } from "react-icons/tb";
+import { VscGraphLine } from "react-icons/vsc";
+import { LuSettings2 } from "react-icons/lu";
+import AudioControls from "./AudioControls";
 
 export default function UserSection(props: any) {
     const [userSelection, setUserSelection] = useState<UserSectionSelection>({ active: "benefits" })
     // props?.setShowTutorial(false)
-    // const analysis = {
-    //     "endTime": 1716210665578,
-    //     "startTime": 1716210644683,
-    //     "poseID": 101,
-    //     "poseName": "tree pose",
-    //     "repTime": 5000,
-    //     "accuracy": [
-    //         1,
-    //         1,
-    //         1,
-    //         1,
-    //         1
-    //     ],
-    //     "correctPose": [
-    //         1,
-    //         1,
-    //         1,
-    //         1,
-    //         1
-    //     ]
-    // }
+
+
+    const options = [
+        {
+            name: "benefits",
+            class: "benefits",
+            icon: <BsStars />
+        },
+        {
+            name: "tutorial",
+            class: "tutorial",
+            icon: <BsFillCameraVideoFill />
+        },
+        {
+            name: "accuracy",
+            class: "accuracy",
+            icon: <TbTargetArrow />
+        },
+        {
+            name: "analysis",
+            class: "analysis",
+            icon: <VscGraphLine />
+        },
+        {
+            name: "audio control",
+            class: "audio",
+            icon: <LuSettings2 />
+        },
+
+    ]
+
     return (
         <>
             {/* onClick={() => setUserSelection({ ...userSelection, active: "benefits" })} */}
 
             <div
-                className="w-full xl:w-1/2 flex overflow-x-auto justify-between hide_scrollbar">
-                <span
-                    onClick={() => setUserSelection({ ...userSelection, active: "benefits" })}
-                    className={`cursor-pointer m-2 px-1 py-1 text-xl font-semibold text-left  ${userSelection.active === "benefits" ? "border-b-[3px] border-b-secondary" : "hover-item"} `}>
-                    Benefits
-                </span>
-                <span
-                    onClick={() => setUserSelection({ ...userSelection, active: "tutorial" })}
-                    className={`cursor-pointer m-2 px-1 py-1 text-xl font-semibold text-left ${userSelection.active === "tutorial" ? "border-b-[3px] border-b-secondary" : "hover-item"}  `}>
-                    Tutorial
-                </span>
-                <span
-                    onClick={() => setUserSelection({ ...userSelection, active: "accuracy" })}
-                    className={`cursor-pointer m-2 px-1 py-1 text-xl font-semibold text-left ${userSelection.active === "accuracy" ? "border-b-[3px] border-b-secondary" : "hover-item"}  `}>
-                    Accuracy
-                </span>
-                <span
-                    onClick={() => setUserSelection({ ...userSelection, active: "analysis" })}
-                    className={`cursor-pointer m-2 px-1 py-1 text-xl font-semibold text-left ${userSelection.active === "analysis" ? "border-b-[3px] border-b-secondary" : "hover-item"}  `}>
-                    Analysis
-                </span>
+                className="w-full xl:w-3/4 flex row overflow-x-auto justify-between">
+
+                {options?.map((item, idx) => (
+                    <div
+                        key={idx}
+                        onClick={() => setUserSelection({ ...userSelection, active: item.class })}
+                        className={`flex sm:flex-row flex-col items-center cursor-pointer m-2 px-1 py-1 text-xl font-semibold text-left  ${userSelection.active === item.class ? "border-b-[3px] border-b-secondary" : "hover-item"}`}>
+
+                        <div className="flex items-center">
+                            <span className="text-slate-950 mx-2">
+                                {item.icon}
+                            </span>
+                            <span className="capitalize text-nowrap">
+                                {item.name}
+                            </span>
+                        </div>
+                    </div>
+
+                ))}
 
 
-                <span
+
+
+                <div
                     onClick={() => setUserSelection({ ...userSelection, active: "start" })}
-                    className={`sm:hidden block cursor-pointer m-2 px-1 py-1 text-xl font-semibold text-nowrap text-left ${userSelection.active === "start" ? "border-b-[3px] border-b-secondary" : "hover-item"}  `}>
-                    Start Yoga
-                </span>
+                    className={`sm:hidden flex sm:flex-row flex-col cursor-pointer m-2 px-1 py-1 text-xl font-semibold text-nowrap text-left ${userSelection.active === "start" ? "border-b-[3px] border-b-secondary" : "hover-item"}  `}>
+
+                    <BsFillLightningChargeFill className="inline-flex mx-1 my-auto text-slate-950" />
+                    <span>
+                        Start Yoga
+
+                    </span>
+                </div>
 
 
 
@@ -142,6 +162,16 @@ export default function UserSection(props: any) {
                             poseMessage={props?.poseMessage}
                         />
                     </div>
+                </div>
+            }
+
+            {userSelection?.active === "audio" &&
+                <div className="row-span-1 animate-fade-up">
+                    <AudioControls
+                        narratorSegment = {props?.narratorSegment}
+                        mainAudio = {props?.mainAudio}
+                        audioClass={props?.audioClass}
+                    />
                 </div>
             }
         </>
