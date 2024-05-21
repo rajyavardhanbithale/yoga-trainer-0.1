@@ -9,6 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@supabase/auth-helpers-nextjs": "^0.10.0",
+    "@supabase/ssr": "^0.3.0",
+    "@supabase/supabase-js": "^2.43.2",
     "@tensorflow/tfjs-node": "^4.19.0",
     "axios": "^1.6.8",
     "chart.js": "^4.4.3",
