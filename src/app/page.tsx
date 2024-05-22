@@ -7,12 +7,14 @@ import Footer from "./components/HomePage/Footer";
 import Practice from "./components/HomePage/Practice";
 import HeroExtended from "./components/HomePage/HeroExtended";
 
+
 export default function Home() {
 
   return (
     <>
       <Background></Background>
       <Navbar></Navbar>
+
 
       <div className="w-[90%] mt-10 mx-auto">
 
