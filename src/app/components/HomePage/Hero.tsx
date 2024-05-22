@@ -52,7 +52,7 @@ export default async function Hero() {
                     </div>
 
                     <div className="col-span-4">
-                        <img src="homepage/pics/yoga.png" alt="rage inner balance" className="w-11/12 md:w-[100%] xl:w-[90%] mx-auto hero_image_scale_animation" />
+                        <img src="home-page/pics/yoga.png" alt="rage inner balance" className="w-11/12 md:w-[100%] xl:w-[90%] mx-auto hero_image_scale_animation" />
                     </div>
 
                     <br />

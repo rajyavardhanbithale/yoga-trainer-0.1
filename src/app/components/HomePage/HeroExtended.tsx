@@ -37,7 +37,7 @@ export default function HeroExtended() {
                     </div>
 
                     <div className="col-span-1 w-[80%] mx-8">
-                        <img src="homepage/pics/light-med-yoga.gif" alt="warrior2 pose" className="xl:block hidden" />
+                        <img src="home-page/pics/light-med-yoga.gif" alt="warrior2 pose" className="xl:block hidden" />
                     </div>
                 </div>
             </div>

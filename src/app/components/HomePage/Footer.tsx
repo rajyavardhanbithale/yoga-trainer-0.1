@@ -14,7 +14,7 @@ export default function Footer() {
                             Created with
                         </span>
                         <div className="w-8 mx-2">
-                            <img src="homepage/animated/passion-bg-removed.gif" alt="" />
+                            <img src="home-page/animated/passion-bg-removed.gif" alt="" />
                         </div>
                         <span className="uppercase">
                             By Rajyavardhan Bithale

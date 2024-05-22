@@ -130,7 +130,7 @@ export default function UserSection(props: any) {
                         <div className="flex flex-col h-[300px] w-full justify-center items-center">
                             <span className="text-2xl capitalize text-slate-900">
                                 <img
-                                    src="/yogapage/yoga-upside.gif"
+                                    src="/yoga-page/yoga-upside.gif"
                                     alt="start yoga"
                                     className="w-[25%] mx-auto"
                                 />

@@ -27,7 +27,7 @@ export default function Practice() {
                 <div className="grid sm:grid-cols-3">
                     <div className="col-span-1 flex justify-center items-center">
                         <img
-                            src="/homepage/animated/lotus-pose-bg-removed.gif"
+                            src="/home-page/animated/lotus-pose-bg-removed.gif"
                             alt="women meditation"
                             className="w-3/4 mx-auto"
                         />

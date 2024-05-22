@@ -8,6 +8,7 @@ import { FcGoogle } from "react-icons/fc";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useState } from "react";
 import { LogIn } from "../../../types";
+import Link from "next/link";
 
 const montserrat = Montserrat(
     {
@@ -17,7 +18,7 @@ const montserrat = Montserrat(
 )
 
 export default function Page() {
-    const [userInfo,setUserInfo] = useState<LogIn>({
+    const [userInfo, setUserInfo] = useState<LogIn>({
         email: '',
         password: ''
     })
@@ -33,7 +34,7 @@ export default function Page() {
 
         if (error) {
             console.log(error);
-        } 
+        }
 
     }
 
@@ -44,21 +45,21 @@ export default function Page() {
         })
 
         console.log(data);
-        
-        
+
+
     }
 
     return (
         <>
 
-          
+
 
             <div className="flex my-2 min-h-screen justify-center items-center">
                 <div className={`h-[50%] xl:w-[50%] w-[90%] flex flex-row ${montserrat.className}`}>
                     <div className="flex flex-1 items-center justify-center bg-white p-8 rounded-l-2xl shadow-xl">
                         <div className="max-w-md w-full space-y-8 px-10">
                             <div className="text-center">
-                                <img className="mx-auto h-12 w-auto" src="/loginpage/logo.svg" alt="Logo" />
+                                <img className="mx-auto h-12 w-auto" src="/login-page/logo.svg" alt="Logo" />
                                 <h2 className="mt-6 text-3xl font-extrabold text-gray-900">
                                     Welcome back!
                                 </h2>
@@ -67,7 +68,7 @@ export default function Page() {
                                 </p>
                             </div>
 
-                            <form className="mt-8 space-y-6" action={handleUserLogin}>
+                            {/* <form className="mt-8 space-y-6" action={handleUserLogin}>
                                 <input type="hidden" name="remember" value="true" />
 
                                 <div className="rounded-md shadow-sm -space-y-px">
@@ -118,31 +119,42 @@ export default function Page() {
                                     </button>
                                 </div>
 
+                        <div className="flex items-center justify-center mt-4">
+                                <span className="text-sm text-gray-600">Or login with</span>
+                            </div>
+                                
+                            </form> */}
 
-                                <div className="flex items-center justify-center mt-4">
-                                    <span className="text-sm text-gray-600">Or login with</span>
-                                </div>
 
-                                <div className="flex justify-center mt-2">
-                                    <button 
+
+                            <div className="flex justify-center mt-2">
+                                <button
                                     onClick={handleSignInOAuth}
-                                    type="button" 
+                                    type="button"
                                     className="group relative w-full flex justify-center py-2 px-4 border border-gray-300 text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-100 duration-500">
-                                        <FcGoogle className="mt-[2px] text-xl" />
+                                    <FcGoogle className="mt-[2px] text-xl" />
 
-                                        <span className="ml-2">Sign up with Google</span>
-                                    </button>
-                                </div>
-                                <div className="text-center mt-4">
-                                    <span className="text-sm text-gray-600">Don't have an account? <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">Register here</a></span>
-                                </div>
-                            </form>
+                                    <span className="ml-2">Sign up with Google</span>
+                                </button>
+                            </div>
+                            <div className="text-center mt-4">
+                                <span className="text-sm text-gray-600">
+                                    Don't have an account?
+                                    <Link href={'/signup'}>
+
+                                        <span
+                                            className="font-medium text-indigo-600 hover:text-indigo-500">
+                                            Register here
+                                        </span>
+                                    </Link>
+                                </span>
+                            </div>
                         </div>
                     </div>
 
                     <div className="hidden lg:block lg:flex-1 bg-indigo-600 max-h-max overflow-hidden rounded-r-2xl shadow-xl">
                         <Image
-                            src={"/loginpage/login2.jpg"}
+                            src={"/login-page/login2.jpg"}
                             width={0}
                             height={0}
                             sizes="100vw"

@@ -96,7 +96,6 @@ interface SignUp{
     email: string
     password: string
     confirmPassword: string
-    otp: number
 }
 
 interface APIYogaPosePerformanceData{
@@ -122,5 +121,6 @@ export type {
 
     APIYogaPosePerformanceData,
 
-    LogIn
+    LogIn,
+    SignUp
 }

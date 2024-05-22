@@ -22,7 +22,7 @@ export default function SidebarMediumDevice(props: any) {
                     onClick={() => setShowSideBar(true)}
                     className="animate-fade-left cursor-pointer w-12 sm:w-16 absolute top-5 left-5 bg-accent rounded-full shadow-xl hover:shadow-blue-800/50 duration-700">
                     <img
-                        src="/yogapage/light-med-yoga.gif"
+                        src="/yoga-page/light-med-yoga.gif"
                         alt="select pose"
 
                     />

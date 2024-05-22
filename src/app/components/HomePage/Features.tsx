@@ -75,7 +75,7 @@ export default function Features() {
                         <div key={idx} className={`py-8 px-4 flex flex-col gap-5 ${idx % 2 === 0 ? "animate-fade-up" : "animate-fade-down"} animate-duration-[1.2s]`}>
                             <div className="flex sm:justify-normal justify-center flex-col sm:flex-row">
                                 <div className="bg-indigo-200/45 rounded-full w-20 h-20 mx-auto sm:mx-0 flex justify-center items-center text-indigo-500">
-                                    <img src={`/homepage/animated/${item.icon}`} alt="graph" className="w-3/4" />
+                                    <img src={`/home-page/animated/${item.icon}`} alt="graph" className="w-3/4" />
                                 </div>
                                 <span className="sm:mx-10 uppercase mt-6  text-[#1c243f] font-semibold text-2xl mb-3 w-full sm:w-auto text-center sm:text-left">
                                     {item.title}
