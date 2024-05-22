@@ -87,6 +87,28 @@ interface YogaPosePerformanceData{
     correctPose: Array<number>
 }
 
+interface LogIn{
+    email: string
+    password: string
+}
+
+interface SignUp{
+    email: string
+    password: string
+    confirmPassword: string
+    otp: number
+}
+
+interface APIYogaPosePerformanceData{
+    poseID: number
+    poseName: string
+    startTime: number
+    repTime: number
+    endTime: number
+    accuracy: Array<number>
+    correctPose: Array<number>
+}
+
 export type {
     YogaPose,
     YogaPoseAPI,
@@ -95,5 +117,10 @@ export type {
     PoseMessage,
     AudioState,
     UserSectionSelection,
-    YogaPosePerformanceData
+    YogaPosePerformanceData,
+
+
+    APIYogaPosePerformanceData,
+
+    LogIn
 }

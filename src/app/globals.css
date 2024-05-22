@@ -4,7 +4,7 @@
 
 :root {
   --text: #101519;
-  --background: hsl(240, 9%, 95%);
+  --background: #f1f1f3;
   --primary: #4158a8;
   --secondary: #4158a8;
   --accent: #5979f2;
@@ -14,7 +14,7 @@
 [data-theme="dark"] {
   --text: #ffffff;
   --background: #1e2538;
-  --primary: #094067;
+  --primary: 5979f2;
   --secondary: #3da9fc;
   --accent: #56a2dc;
   --button-text: #fffffe;
