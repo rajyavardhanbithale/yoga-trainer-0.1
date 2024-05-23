@@ -13,12 +13,14 @@ export default function Calendar({ epochTimes }: Prop) {
     const [selected, setSelected] = useState<Date[]>(dates);
     return (
         <>
-            <h1>sdf</h1>
-            <DayPicker
-                mode="multiple"
-                selected={selected}
+            <div className="scale-[.85]">
 
-            />
+                <DayPicker
+                    mode="multiple"
+                    selected={selected}
+
+                />
+            </div>
 
         </>
     )

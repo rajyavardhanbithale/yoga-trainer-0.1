@@ -2,6 +2,7 @@
 
 import { BsLightningCharge } from "react-icons/bs"
 import { IoCalendarClearOutline } from "react-icons/io5"
+import Calendar from "./Calendar"
 
 export default function Dashboard() {
     const todayPose = [
@@ -76,7 +77,7 @@ export default function Dashboard() {
 
 
                 {/* level 1 */}
-                <div className="col-span-7 xl:col-span-4 min-h-[40vh]  flex flex-col justify-center rounded-2xl anim-blob">
+                <div className="col-span-full xl:col-span-4 min-h-[40vh]  flex flex-col justify-center rounded-2xl anim-blob">
                     <div className="w-44 mx-auto">
                         <img
                             src="/dashboard/meditation.gif"
@@ -91,7 +92,7 @@ export default function Dashboard() {
                 </div>
 
 
-                <div className="col-span-5 xl:col-span-5 min-h-[40vh] flex flex-col justify-between rounded-2xl">
+                <div className="col-span-full xl:col-span-5 min-h-[40vh] flex flex-col justify-between rounded-2xl">
                     <div className="flex flex-col mx-5">
                         <span className="text-3xl p-5 text-slate-900 capitalize font-semibold">
                             Today&apos;s List
@@ -101,7 +102,7 @@ export default function Dashboard() {
                         </span>
                     </div>
 
-                    <div className="mx-5 my-5 flex flex-col justify-between h-fit">
+                    <div className="mx-5 my-3 flex flex-col justify-between h-fit">
                         {todayPose.map((item, idx) => (
                             <>
                                 <div
@@ -117,7 +118,7 @@ export default function Dashboard() {
                                             />
                                         </div>
 
-                                        <span className="text-2xl m-5 p-1">{item.name}</span>
+                                        <span className="text-2xl mx-4 p-1">{item.name}</span>
                                     </div>
 
                                     <button className="capitalize bg-accent text-xl text-slate-100 rounded-xl px-3 py-3 font-medium h-fit mx-2 shadow-md hover:shadow-indigo-900 duration-300">
@@ -130,8 +131,19 @@ export default function Dashboard() {
                     </div>
                 </div>
 
-                <div className="col-span-full xl:col-span-3 min-h-[40vh] bg-teal-400 rounded-2xl">
+                <div className="col-span-full xl:col-span-3 min-h-[40vh] max-h-[40vh] rounded-2xl overflow-hidden">
+                    <div className="flex flex-col mx-5">
+                        <span className="text-3xl p-5 text-slate-900 capitalize font-semibold">
+                            Current Activity
+                        </span>
+                        <span className="text-xl px-5 text-slate-700 capitalize font-normal">
+                            All active dates are marked below:
+                        </span>
+                    </div>
+                    <div className="flex mx-1 justify-center xl:justify-normal items-center -mt-7">
+                        <Calendar epochTimes={[1716487431000, 1716228231000]} />
 
+                    </div>
                 </div>
 
 

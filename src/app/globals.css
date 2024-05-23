@@ -298,10 +298,14 @@ body {
   color: white !important;
   opacity: 1;
   background-color: var(--accent) !important;
+  transition: transform 1s;
+}
+.rdp-day_selected:hover {
+  transform: scale(1.08);
 }
 
 .rdp-weeknumber, .rdp-day {
-  margin: 3px !important;
+  margin: 2px !important;
   border-radius: 30% !important;
 
 }
