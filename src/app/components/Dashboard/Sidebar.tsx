@@ -78,6 +78,7 @@ export default function Sidebar() {
 
                             {selected === idx &&
                                 <div
+                                    key={idx}
                                     className="bg-[#f1f1f3] shadow-md animate-dashboard ml-5 flex justify-start gap-5 align-middle items-center py-4 px-6 rounded-l-full cursor-pointer">
 
                                     <div className="text-2xl text-accent font-semibold my-auto">
