@@ -19,7 +19,7 @@ export default function Home() {
       <div className="w-[90%] mt-10 mx-auto">
 
         <Hero></Hero>
-      </div>
+      </div> 
 
       <div className="mt-10 sm:mt-5">
         <HeroExtended />

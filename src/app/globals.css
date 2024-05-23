@@ -21,6 +21,8 @@
 }
 
 
+
+
 * {
   /* outline: red 1px solid; */
   margin: 0;
@@ -287,4 +289,34 @@ body {
   scrollbar-width: none; 
   overflow-y: hidden;  
   overflow-x: auto; 
+}
+
+
+.rdp-day_selected,
+.rdp-day_selected:focus-visible,
+.rdp-day_selected:hover {
+  color: white !important;
+  opacity: 1;
+  background-color: var(--accent) !important;
+}
+
+.rdp-weeknumber, .rdp-day {
+  margin: 3px !important;
+  border-radius: 30% !important;
+
+}
+
+@keyframes fade-down {
+  0% {
+      opacity: 0;
+      transform: translateX(2rem);
+  }
+  100% {
+      opacity: 1;
+      transform: translateX(0);
+      
+  }
+}
+.animate-dashboard {
+  animation: fade-down 0.5s both;
 }
