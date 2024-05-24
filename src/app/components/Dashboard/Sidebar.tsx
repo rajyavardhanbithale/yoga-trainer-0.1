@@ -48,7 +48,7 @@ export default function Sidebar() {
 
     return (
         <>
-            <div className={`w-full min-h-screen bg-accent ${raleway.className} rounded-r-2xl`}>
+            <div className={`select-none w-full min-h-screen bg-accent ${raleway.className} rounded-r-2xl`}>
                 <div className="flex flex-col py-3 px-2">
                     <img src="/dashboard/logo.svg" alt="logo" className="w-20 mx-auto" />
                     <span
@@ -64,7 +64,7 @@ export default function Sidebar() {
                                 <div
                                     key={idx}
                                     onClick={() => setSelected(idx)}
-                                    className="flex justify-start gap-5 align-middle items-center m-5 mx-10 cursor-pointer">
+                                    className="flex justify-start gap-5 align-middle items-center m-5 mx-10 cursor-pointer hover:scale-110 duration-300">
 
                                     <div className="text-2xl text-white font-semibold my-auto">
                                         {item.icon}

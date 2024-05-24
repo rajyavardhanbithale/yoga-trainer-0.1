@@ -61,15 +61,15 @@ export default function Dashboard() {
 
     return (
         <>
-            <div className="grid grid-cols-12 gap-8 m-5">
+            <div className="grid grid-cols-12 gap-8 m-5 overflow-y-hidden">
                 {/* level 0 */}
-                <div className="col-span-12 min-h-[5vh] flex justify-between items-center rounded-2xl">
+                <div className="col-span-12 min-h-[5vh] flex flex-col sm:flex-row justify-between items-center rounded-2xl">
                     <span className="text-3xl mx-5 font-medium text-slate-800">
                         Dashboard
                     </span>
                     <div className="flex text-gray-700 font-light">
                         <IoCalendarClearOutline className="mx-3 text-xl" />
-                        <span className="">
+                        <span className="text-nowrap">
                             {dateToday()}
                         </span>
                     </div>
@@ -77,7 +77,9 @@ export default function Dashboard() {
 
 
                 {/* level 1 */}
-                <div className="col-span-full xl:col-span-4 min-h-[40vh]  flex flex-col justify-center rounded-2xl anim-blob">
+
+                {/* level 1.1 - user welcome */}
+                <div className="col-span-full  xl:col-span-4 min-h-[40vh]  flex flex-col justify-center rounded-2xl anim-blob">
                     <div className="w-44 mx-auto">
                         <img
                             src="/dashboard/meditation.gif"
@@ -91,7 +93,7 @@ export default function Dashboard() {
                     </div>
                 </div>
 
-
+                {/* level 1.2 - today list */}
                 <div className="col-span-full xl:col-span-5 min-h-[40vh] flex flex-col justify-between rounded-2xl">
                     <div className="flex flex-col mx-5">
                         <span className="text-3xl p-5 text-slate-900 capitalize font-semibold">
@@ -130,7 +132,8 @@ export default function Dashboard() {
                         ))}
                     </div>
                 </div>
-
+                    
+                {/* level 1.3 - calendar */}
                 <div className="col-span-full xl:col-span-3 min-h-[40vh] max-h-[40vh] rounded-2xl overflow-hidden">
                     <div className="flex flex-col mx-5">
                         <span className="text-3xl p-5 text-slate-900 capitalize font-semibold">
