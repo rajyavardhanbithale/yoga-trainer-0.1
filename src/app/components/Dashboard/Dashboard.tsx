@@ -3,6 +3,10 @@
 import { BsLightningCharge } from "react-icons/bs"
 import { IoCalendarClearOutline } from "react-icons/io5"
 import Calendar from "./Calendar"
+import RecentActivity from "./RecentActivity"
+import Heading from "./Heading"
+import LastTHDays from "./LastTHDays"
+
 
 export default function Dashboard() {
     const todayPose = [
@@ -22,6 +26,24 @@ export default function Dashboard() {
 
     ]
 
+    const recentActivities = [
+        {
+            name: "tree pose - vṛkṣāsana",
+            icon: "tree.webp",
+        },
+        {
+            name: "warrior I - Vīrabhadrāsana I",
+            icon: "warrior1.webp",
+        },
+        {
+            name: "mountain pose - Tāḍāsana",
+            icon: "mountain.webp",
+        },
+
+
+    ]
+
+    const last30Days = [5, 1, 4, 0, 3, 1, 0, 7, 6, 4, 2, 2, 1, 5, 3, 2, 1, 5, 0, 2, 7, 4, 4, 4, 5, 1, 6, 6, 2, 7]
 
 
     const dateToday = () => {
@@ -79,30 +101,29 @@ export default function Dashboard() {
                 {/* level 1 */}
 
                 {/* level 1.1 - user welcome */}
-                <div className="col-span-full  xl:col-span-4 min-h-[40vh]  flex flex-col justify-center rounded-2xl anim-blob">
-                    <div className="w-44 mx-auto">
-                        <img
-                            src="/dashboard/meditation.gif"
-                            alt="yoga"
-                        />
-                    </div>
-                    <div className="flex text-center m-5">
-                        <span className="text-2xl p-5 text-white capitalize font-medium">
-                            {wishes("Morning", "jane")}
-                        </span>
+                <div className="col-span-full xl:col-span-4 min-h-[40vh] overflow-hidden rounded-2xl">
+                    <div className="h-full anim-blob flex flex-col justify-center ">
+
+                        <div className="w-44 mx-auto">
+                            <img
+                                src="/dashboard/meditation.gif"
+                                alt="yoga"
+                            />
+                        </div>
+                        <div className="flex text-center m-5">
+                            <span className="text-2xl p-5 text-white capitalize font-medium">
+                                {wishes("Morning", "jane")}
+                            </span>
+                        </div>
                     </div>
                 </div>
 
                 {/* level 1.2 - today list */}
                 <div className="col-span-full xl:col-span-5 min-h-[40vh] flex flex-col justify-between rounded-2xl">
-                    <div className="flex flex-col mx-5">
-                        <span className="text-3xl p-5 text-slate-900 capitalize font-semibold">
-                            Today&apos;s List
-                        </span>
-                        <span className="text-xl px-5 text-slate-700 capitalize font-normal">
-                            Complete the following yoga exercises
-                        </span>
-                    </div>
+                    <Heading
+                        title=" Today&apos;s List"
+                        description="Complete the following yoga exercises"
+                    />
 
                     <div className="mx-5 my-3 flex flex-col justify-between h-fit">
                         {todayPose.map((item, idx) => (
@@ -132,17 +153,13 @@ export default function Dashboard() {
                         ))}
                     </div>
                 </div>
-                    
+
                 {/* level 1.3 - calendar */}
                 <div className="col-span-full xl:col-span-3 min-h-[40vh] max-h-[40vh] rounded-2xl overflow-hidden">
-                    <div className="flex flex-col mx-5">
-                        <span className="text-3xl p-5 text-slate-900 capitalize font-semibold">
-                            Current Activity
-                        </span>
-                        <span className="text-xl px-5 text-slate-700 capitalize font-normal">
-                            All active dates are marked below:
-                        </span>
-                    </div>
+                    <Heading
+                        title="Current Activity"
+                        description="All active dates are marked below"
+                    />
                     <div className="flex mx-1 justify-center xl:justify-normal items-center -mt-7">
                         <Calendar epochTimes={[1716487431000, 1716228231000]} />
 
@@ -151,11 +168,35 @@ export default function Dashboard() {
 
 
                 {/* level 2 */}
-                <div className="col-span-full xl:col-span-9 min-h-[40vh] bg-teal-400 rounded-2xl"></div>
-                <div className="col-span-full xl:col-span-3 min-h-[40vh] bg-teal-400 rounded-2xl"></div>
+
+
+                {/* level 2.1 recent activity */}
+                <div className="col-span-full xl:col-span-9 min-h-[40vh] rounded-2xl">
+                    <Heading
+                        title="Recent Activities"
+                        description="All your recent activities are displayed below"
+                    />
+                    <div className="mx-5 my-3 flex flex-col justify-between h-fit">
+                        <RecentActivity recentActivities={recentActivities} />
+
+                    </div>
+                </div>
+
+                {/* level 2.2 last 30 days */}
+                <div className="col-span-full xl:col-span-3 min-h-[40vh] max-h-[40vh] rounded-2xl">
+                    <Heading
+                        title="Last 30 Days"
+                        description="Overview of activity trends over the last 30 days."
+                    />
+                    <div className="my-5 mx-8">
+                        <LastTHDays chartData={last30Days} />
+                    </div>
+                </div>
 
 
             </div>
         </>
     )
 }
+
+

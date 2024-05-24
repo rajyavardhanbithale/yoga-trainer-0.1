@@ -10,7 +10,7 @@ export default function Page() {
         <>
             {/* <Calendar epochTimes={Time} /> */}
 
-            <div className="grid grid-cols-9 max-w-[2050px] mx-auto">
+            <div className="grid grid-cols-9 max-w-[2200px] mx-auto">
                 <div className="hidden sm:block xl:col-span-1 sm:col-span-2 h-screen sticky top-0">
                     <Sidebar></Sidebar>
                 </div>
