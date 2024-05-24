@@ -29,7 +29,7 @@ export default function Page() {
         const { error, data } = await supabase.auth.signInWithOAuth({
             provider: 'google',
             options: {
-                redirectTo: `${location.origin}/auth/callback`,
+                redirectTo: `${window.location.origin}/auth/callback`,
             }
         })
 
@@ -44,7 +44,7 @@ export default function Page() {
             email: userInfo.email,
             password: userInfo.email,
             options: {
-                emailRedirectTo: location.origin
+                emailRedirectTo: window.location.origin
             }
 
         })
