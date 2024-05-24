@@ -58,7 +58,7 @@ export default function Sidebar() {
                 </div>
                 <div className="flex flex-col mt-10">
                     {menuItem.map((item, idx) => (
-                        <>
+                        <div key={idx}>
                             {selected !== idx &&
 
                                 <div
@@ -90,7 +90,7 @@ export default function Sidebar() {
                                     </span>
                                 </div>
                             }
-                        </>
+                        </div>
                     ))}
 
                 </div>

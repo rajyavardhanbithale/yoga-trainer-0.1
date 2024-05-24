@@ -1,11 +1,58 @@
 'use client'
 
-import Calendar from "../components/Dashboard/Calendar";
+import { useEffect, useState } from "react";
+
 import Dashboard from "../components/Dashboard/Dashboard";
 import Sidebar from "../components/Dashboard/Sidebar";
+import { createClientComponentClient, User } from "@supabase/auth-helpers-nextjs";
+import useFetch from "../hooks/useFetch";
+import { APIYogaDataMinimal } from "../../../types";
+
+interface IFResponse1 {
+    todayPoseList: any
+    userActiveDays: any
+    userRecentActivity: any
+}
 
 export default function Page() {
-    const Time = [1716202079000, 1716288479000, 1716374879000];
+    const [user, setUser] = useState<User | null>()
+    const [response1, setResponse1] = useState<IFResponse1>()
+    const [poseToday, setPoseToday] = useState<APIYogaDataMinimal[]>()
+    const [userRecentActivity, setUserRecentActivity] = useState<APIYogaDataMinimal[]>()
+
+    const { fetchAPI } = useFetch()
+
+    useEffect(() => {
+        const handleUserGET = async () => {
+            const supabase = createClientComponentClient()
+            const { data: { user } } = await supabase.auth.getUser()
+            setUser(user)
+
+        }
+
+        const fetchUserDetails = async () => {
+            // today pose, user activity, user recent activity
+            const response1: any = await fetchAPI('/api/db/dashboard')
+            setResponse1(response1?.responseData)
+
+            // pose information according to response1
+            const response2: any = await fetchAPI(`/api/pose?poseID=${response1?.responseData?.todayPoseList.toString()}`)
+            setPoseToday(response2.poseDataList)
+
+            // user recent activity
+            const response3: any = await fetchAPI(`/api/pose?poseID=${response1?.responseData?.userRecentActivity.toString()}`)
+            setUserRecentActivity(response3.poseDataList)
+        }
+
+
+        handleUserGET()
+        fetchUserDetails()
+
+
+    }, [])
+
+
+
     return (
         <>
             {/* <Calendar epochTimes={Time} /> */}
@@ -15,7 +62,14 @@ export default function Page() {
                     <Sidebar></Sidebar>
                 </div>
                 <div className="xl:col-span-8 sm:col-span-7 col-span-full">
-                    <Dashboard></Dashboard>
+                    {(userRecentActivity && poseToday) &&
+                        <Dashboard
+                            name={user?.user_metadata.name}
+                            todayPoseList={poseToday}
+                            userActiveDays={response1?.userActiveDays}
+                            userRecentActivity={userRecentActivity}
+                        />
+                    }
                 </div>
             </div>
         </>

@@ -9,7 +9,7 @@ type Prop = {
 
 
 export default function Calendar({ epochTimes }: Prop) {
-    const dates: Array<Date> = epochTimes.map(time => new Date(time));
+    const dates: Array<Date> = epochTimes.map(time => new Date(time * 1000));
     const [selected, setSelected] = useState<Date[]>(dates);
     return (
         <>

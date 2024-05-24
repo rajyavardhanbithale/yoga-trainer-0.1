@@ -2,26 +2,40 @@
 
 import { createClient } from "@/app/utils/supabase/middleware";
 import { NextRequest, NextResponse } from "next/server";
+import { APIYogaPosePerformanceData } from "../../../../../types";
+import CryptoJS from 'crypto-js';
 
 const poseAnalysis = process.env.NEXT_PUBLIC_SUPABASE_DATABASE_POSE_ANALYSIS!
 
 export async function POST(request: NextRequest) {
-    const body = await request.json()
-    console.log(body);
-    
-    
+    const body: APIYogaPosePerformanceData = await request.json()
+
     const { supabase, response } = createClient(request);
 
+    const obsfID = CryptoJS.MD5(body.userID).toString();
 
-    const { error } = await supabase
+    const newBody: APIYogaPosePerformanceData = {...body, userID:obsfID}
+
+    const { error } = await supabase    
         .from(poseAnalysis)
-        .insert(body)
- 
+        .insert(newBody)
 
-    if (error){
+
+    if (error) {
         console.log(error);
         
+        return NextResponse.json({
+            message: "error in inserting data to database"
+        }, {
+            status: 500
+        })
     }
 
-    return NextResponse.json({ response: "op" });
+   
+    
+    return NextResponse.json({
+        message: "data inserted"
+    }, {
+        status: 200
+    })
 }

@@ -6,42 +6,16 @@ import Calendar from "./Calendar"
 import RecentActivity from "./RecentActivity"
 import Heading from "./Heading"
 import LastTHDays from "./LastTHDays"
+import { DashboardPROPS } from "../../../../types"
 
 
-export default function Dashboard() {
-    const todayPose = [
-        {
-            name: "tree pose - vṛkṣāsana",
-            icon: "tree.webp",
-        },
-        {
-            name: "warrior I - Vīrabhadrāsana I",
-            icon: "warrior1.webp",
-        },
-        {
-            name: "mountain pose - Tāḍāsana",
-            icon: "mountain.webp",
-        },
+export default function Dashboard(
+    {
+        name, todayPoseList, userActiveDays, userRecentActivity }
+        : DashboardPROPS
+) {
 
-
-    ]
-
-    const recentActivities = [
-        {
-            name: "tree pose - vṛkṣāsana",
-            icon: "tree.webp",
-        },
-        {
-            name: "warrior I - Vīrabhadrāsana I",
-            icon: "warrior1.webp",
-        },
-        {
-            name: "mountain pose - Tāḍāsana",
-            icon: "mountain.webp",
-        },
-
-
-    ]
+    console.log(userRecentActivity);
 
     const last30Days = [5, 1, 4, 0, 3, 1, 0, 7, 6, 4, 2, 2, 1, 5, 3, 2, 1, 5, 0, 2, 7, 4, 4, 4, 5, 1, 6, 6, 2, 7]
 
@@ -112,7 +86,7 @@ export default function Dashboard() {
                         </div>
                         <div className="flex text-center m-5">
                             <span className="text-2xl p-5 text-white capitalize font-medium">
-                                {wishes("Morning", "jane")}
+                                {wishes("Morning", name ?? "User")}
                             </span>
                         </div>
                     </div>
@@ -126,30 +100,29 @@ export default function Dashboard() {
                     />
 
                     <div className="mx-5 my-3 flex flex-col justify-between h-fit">
-                        {todayPose.map((item, idx) => (
-                            <>
-                                <div
-                                    key={idx}
-                                    className="flex justify-between capitalize m-2 p-2 items-center align-middle rounded-2xl shadow-lg hover:shadow-xl border-2 border-slate-200 duration-500"
-                                >
-                                    <div className="flex items-center">
-                                        <div className="w-16">
-                                            <img
-                                                className="object-scale-down mix-blend-multiply rounded-xl"
-                                                src={`/pose/image/webp/${item.icon}`}
-                                                alt={item.name}
-                                            />
-                                        </div>
-
-                                        <span className="text-2xl mx-4 p-1">{item.name}</span>
+                        {todayPoseList.map((item, idx) => (
+                            <div
+                                key={idx}
+                                className="flex justify-between capitalize m-2 p-2 items-center align-middle rounded-2xl shadow-lg hover:shadow-xl border-2 border-slate-200 duration-500"
+                            >
+                                <div className="flex items-center">
+                                    <div className="w-16">
+                                        <img
+                                            className="object-scale-down mix-blend-multiply rounded-xl"
+                                            src={`/pose/image/webp/${item?.image}`}
+                                            alt={item.name}
+                                        />
                                     </div>
 
-                                    <button className="capitalize bg-accent text-xl text-slate-100 rounded-xl px-3 py-3 font-medium h-fit mx-2 shadow-md hover:shadow-indigo-900 duration-300">
-                                        perform
-                                        <BsLightningCharge className="inline-flex mx-1" />
-                                    </button>
+                                    <span className="text-2xl mx-4 p-1">{item.name} - {item.originalName}</span>
                                 </div>
-                            </>
+
+                                <button className="capitalize bg-accent text-xl text-slate-100 rounded-xl px-3 py-3 font-medium h-fit mx-2 shadow-md hover:shadow-indigo-900 duration-300">
+                                    perform
+                                    <BsLightningCharge className="inline-flex mx-1" />
+                                </button>
+                            </div>
+
                         ))}
                     </div>
                 </div>
@@ -161,7 +134,7 @@ export default function Dashboard() {
                         description="All active dates are marked below"
                     />
                     <div className="flex mx-1 justify-center xl:justify-normal items-center -mt-7">
-                        <Calendar epochTimes={[1716487431000, 1716228231000]} />
+                        <Calendar epochTimes={userActiveDays} />
 
                     </div>
                 </div>
@@ -177,7 +150,7 @@ export default function Dashboard() {
                         description="All your recent activities are displayed below"
                     />
                     <div className="mx-5 my-3 flex flex-col justify-between h-fit">
-                        <RecentActivity recentActivities={recentActivities} />
+                        <RecentActivity recentActivities={userRecentActivity} />
 
                     </div>
                 </div>

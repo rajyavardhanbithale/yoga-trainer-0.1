@@ -22,7 +22,7 @@ interface YogaPoseDetailed {
         benefits: string
         narratorSegment: Array<string>
     }
-    videoData:{
+    videoData: {
         tutorialURL: string
         tutorialIFRAME: string
         tutorialSource: string
@@ -48,7 +48,7 @@ interface YogaPoseAPI {
         benefits: string
         narratorSegment: Array<string>
     }
-    videoData:{
+    videoData: {
         tutorialURL: string
         tutorialIFRAME: string
         tutorialSource: string
@@ -77,7 +77,7 @@ interface UserSectionSelection {
     active: string
 }
 
-interface YogaPosePerformanceData{
+interface YogaPosePerformanceData {
     poseID: number
     poseName: string
     startTime: number
@@ -87,26 +87,47 @@ interface YogaPosePerformanceData{
     correctPose: Array<number>
 }
 
-interface LogIn{
+interface LogIn {
     email: string
     password: string
 }
 
-interface SignUp{
+interface SignUp {
     email: string
     password: string
     confirmPassword: string
 }
 
-interface APIYogaPosePerformanceData{
+interface APIYogaPosePerformanceData {
+    userID: string
     poseID: number
-    poseName: string
     startTime: number
     repTime: number
     endTime: number
     accuracy: Array<number>
     correctPose: Array<number>
 }
+
+interface APIYogaDataMinimal {
+    id: number
+    name: string
+    originalName: string
+    image: string
+}
+
+interface DashboardPROPS {
+    name: string
+    todayPoseList: APIYogaDataMinimal[]
+    userActiveDays: Array<number>
+    userRecentActivity: APIYogaDataMinimal[]
+}
+
+interface DBFetchSupabase {
+    poseID: number
+    startTime: number
+    correctPose: Array<number>
+}
+
 
 export type {
     YogaPose,
@@ -120,7 +141,13 @@ export type {
 
 
     APIYogaPosePerformanceData,
+    APIYogaDataMinimal,
 
     LogIn,
-    SignUp
+    SignUp,
+
+
+    DashboardPROPS,
+
+    DBFetchSupabase
 }

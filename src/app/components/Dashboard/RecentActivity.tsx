@@ -43,7 +43,7 @@ export default function RecentActivity(props: any) {
                         <div className="w-full max-w-xs flex flex-col items-center bg-white shadow-md rounded-2xl overflow-hidden transform transition duration-500 hover:scale-105 hover:shadow-xl cursor-pointer">
                             <div className="w-full flex justify-center bg-gray-100 p-4">
                                 <img
-                                    src={`/pose/image/webp/${item.icon}`}
+                                    src={`/pose/image/webp/${item?.image}`}
                                     alt={item.name}
                                     className="h-32 object-contain mix-blend-multiply rounded-lg"
                                 />
@@ -51,10 +51,10 @@ export default function RecentActivity(props: any) {
 
                             <div className="flex flex-col text-center">
                                 <span className="capitalize mt-4 text-lg font-semibold text-slate-800">
-                                    {item.name.split('-')[0]}
+                                    {item.name}
                                 </span>
                                 <span className="capitalize mt-2 mb-4 text-lg font-semibold text-slate-800">
-                                    {item.name.split('-')[1]}
+                                    {item.originalName}
                                 </span>
                             </div>
                         </div>
