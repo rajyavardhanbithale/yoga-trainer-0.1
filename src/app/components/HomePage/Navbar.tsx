@@ -30,7 +30,7 @@ export default function Navbar() {
 
     const handleReadCookie = async () => {
         const { data: { user } } = await supabase.auth.getUser()
-
+        console.log(user)
         if (user) {
             const username = user?.user_metadata?.name || user?.user_metadata?.full_name || ''
             setLogged(true)
@@ -42,16 +42,11 @@ export default function Navbar() {
             });
         }
 
-        console.log(user)
+        
     }
 
-    
-    
     useEffect(() => {
-
-        return () => {
-            handleReadCookie()
-        }
+        handleReadCookie()
     }, [])
 
     return (
