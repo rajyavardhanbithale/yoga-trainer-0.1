@@ -21,6 +21,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/components/Dashboard/LastTHDays.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/components/Dashboard/DashboardSection/LastTHDays.jsx", "src/app/components/Dashboard/StatsSection/WeekActivity.jsx"],
   "exclude": ["node_modules"]
 }

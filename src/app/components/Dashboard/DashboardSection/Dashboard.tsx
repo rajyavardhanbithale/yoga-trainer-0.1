@@ -6,7 +6,7 @@ import Calendar from "./Calendar"
 import RecentActivity from "./RecentActivity"
 import Heading from "./Heading"
 import LastTHDays from "./LastTHDays"
-import { DashboardPROPS } from "../../../../types"
+import { DashboardPROPS } from "../../../../../types"
 
 
 export default function Dashboard(

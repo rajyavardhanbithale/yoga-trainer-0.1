@@ -15,7 +15,7 @@ const raleway = Raleway(
     }
 );
 
-export default function Sidebar() {
+export default function Sidebar(props:any) {
 
     const [selected, setSelected] = useState<number>(0)
     const menuItem = [
@@ -63,7 +63,7 @@ export default function Sidebar() {
 
                                 <div
                                     key={idx}
-                                    onClick={() => setSelected(idx)}
+                                    onClick={() => {setSelected(idx);props?.setActiveSection(item.title.toLowerCase())}}
                                     className="flex justify-start gap-5 align-middle items-center m-5 mx-10 cursor-pointer hover:scale-110 duration-300">
 
                                     <div className="text-2xl text-white font-semibold my-auto">
