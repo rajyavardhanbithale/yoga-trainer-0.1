@@ -105,7 +105,7 @@ export default function Dashboard(
                                 key={idx}
                                 className="flex justify-between capitalize m-2 p-2 items-center align-middle rounded-2xl shadow-lg hover:shadow-xl border-2 border-slate-200 duration-500"
                             >
-                                <div className="flex items-center">
+                                <div className="flex items-center w-3/4">
                                     <div className="w-16">
                                         <img
                                             className="object-scale-down mix-blend-multiply rounded-xl"
@@ -114,7 +114,7 @@ export default function Dashboard(
                                         />
                                     </div>
 
-                                    <span className="text-2xl mx-4 p-1">{item.name} - {item.originalName}</span>
+                                    <span className="text-2xl overflow-hidden mx-4 p-1 truncate">{item.name} - {item.originalName}</span>
                                 </div>
 
                                 <button className="capitalize bg-accent text-xl text-slate-100 rounded-xl px-3 py-3 font-medium h-fit mx-2 shadow-md hover:shadow-indigo-900 duration-300">
