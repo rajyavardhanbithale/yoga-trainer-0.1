@@ -55,7 +55,7 @@ export default function LastTHDays({ chartData }) {
         scales: {
             y: {
                 display: false,
-                min: Math.min(...chartData),
+                min: Math.min(...chartData) - 0.1,
                 max: Math.max(...chartData) + 1,
                 ticks: {
                     stepSize: 1,

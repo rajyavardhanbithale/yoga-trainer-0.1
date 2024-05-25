@@ -11,13 +11,13 @@ import { DashboardPROPS } from "../../../../types"
 
 export default function Dashboard(
     {
-        name, todayPoseList, userActiveDays, userRecentActivity }
+        name, todayPoseList, userActiveDays, userRecentActivity,userLastNDaysActivity }
         : DashboardPROPS
 ) {
 
-    console.log(userRecentActivity);
 
-    const last30Days = [5, 1, 4, 0, 3, 1, 0, 7, 6, 4, 2, 2, 1, 5, 3, 2, 1, 5, 0, 2, 7, 4, 4, 4, 5, 1, 6, 6, 2, 7]
+
+    
 
 
     const dateToday = () => {
@@ -162,7 +162,7 @@ export default function Dashboard(
                         description="Overview of activity trends over the last 30 days."
                     />
                     <div className="my-5 mx-8">
-                        <LastTHDays chartData={last30Days} />
+                        <LastTHDays chartData={userLastNDaysActivity} />
                     </div>
                 </div>
 

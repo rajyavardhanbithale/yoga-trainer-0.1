@@ -24,7 +24,7 @@
 
 
 * {
-  outline: red 1px solid;
+  /* outline: red 1px solid; */
   margin: 0;
   padding: 0;
   scroll-behavior: smooth;

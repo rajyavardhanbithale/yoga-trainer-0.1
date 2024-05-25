@@ -120,6 +120,7 @@ interface DashboardPROPS {
     todayPoseList: APIYogaDataMinimal[]
     userActiveDays: Array<number>
     userRecentActivity: APIYogaDataMinimal[]
+    userLastNDaysActivity: Array<number>
 }
 
 interface DBFetchSupabase {

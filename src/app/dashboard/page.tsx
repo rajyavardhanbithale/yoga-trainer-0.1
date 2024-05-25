@@ -12,6 +12,7 @@ interface IFResponse1 {
     todayPoseList: any
     userActiveDays: any
     userRecentActivity: any
+    userLastNDaysActivity: any
 }
 
 export default function Page() {
@@ -68,6 +69,8 @@ export default function Page() {
                             todayPoseList={poseToday}
                             userActiveDays={response1?.userActiveDays}
                             userRecentActivity={userRecentActivity}
+                            userLastNDaysActivity={response1?.userLastNDaysActivity}
+                            
                         />
                     }
                 </div>
