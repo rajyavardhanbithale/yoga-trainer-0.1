@@ -18,7 +18,7 @@ import { DashboardStats } from "../../../../../types";
 // const PerformanceAOI = dynamic(() => import('./PerformanceAOI'), { ssr: false })
 
 
-export default function StatsDashboard({ weeklyActivity, activeInMonth, performance }: DashboardStats) {
+export default function StatsDashboard({ weeklyActivity, activeInMonth, performance, areaOfInterest }: DashboardStats) {
 
     const dateToday = () => {
         const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
@@ -55,14 +55,17 @@ export default function StatsDashboard({ weeklyActivity, activeInMonth, performa
                         title="Weekly Activity"
                         description="Overview of your activity throughout the week"
                     />
-                    <WeekActivity weeklyActivity={weeklyActivity} />
+                    <div className="animate-fade-up">
+                        <WeekActivity weeklyActivity={weeklyActivity} />
+
+                    </div>
                 </div>
                 <div className="col-span-full xl:col-span-6 min-h-[50vh] flex flex-col justify-between rounded-2xl">
                     <Heading
                         title="Last 30 Days Activity"
                         description="Summary of your recent activity."
                     />
-                    <div className="flex h-full w-full justify-center items-center">
+                    <div className="flex h-full w-full justify-center items-center animate-fade-left">
                         <DaySpent activeInMonth={activeInMonth} />
 
                     </div>
@@ -75,7 +78,10 @@ export default function StatsDashboard({ weeklyActivity, activeInMonth, performa
                         description="Summary of your recent activity."
                     />
 
-                    <Accuracy performanceData={performance} />
+                    <div className="animate-fade-up">
+
+                        <Accuracy performanceData={performance} />
+                    </div>
 
 
                 </div>
@@ -87,7 +93,7 @@ export default function StatsDashboard({ weeklyActivity, activeInMonth, performa
                     />
 
                     <div className="flex h-full w-full justify-center items-center">
-                        <AreaOfInterest />
+                        <AreaOfInterest areaOfInterest={areaOfInterest} />
                     </div>
 
 
@@ -100,7 +106,7 @@ export default function StatsDashboard({ weeklyActivity, activeInMonth, performa
                     />
 
                     <div className="flex h-full w-full justify-center items-center">
-                        <PerformanceAOI />
+                        <PerformanceAOI areaOfInterest={areaOfInterest} />
                     </div>
 
 

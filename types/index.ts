@@ -133,6 +133,7 @@ interface DashboardStats{
     weeklyActivity: Array<number>
     activeInMonth: {[key:string]:number}
     performance: {[key:string]:number}
+    areaOfInterest: any
 }
 
 export type {

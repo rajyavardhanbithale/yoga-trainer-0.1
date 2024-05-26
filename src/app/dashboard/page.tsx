@@ -64,8 +64,6 @@ export default function Page() {
     }, [])
 
 
-    console.log(stats);
-
 
     return (
         <>
@@ -92,11 +90,16 @@ export default function Page() {
                         />
                     } */}
 
+                    {(activeSection == 'stats' && !stats) &&
+                        <SkeletonDashboard />
+
+                    }
                     {(activeSection === 'stats' && stats) &&
                         <StatsDashboard
                             weeklyActivity={stats?.weeklyActivity}
                             activeInMonth={stats.activeInMonth}
                             performance={stats?.performance}
+                            areaOfInterest={stats?.areaOfInterest}
                         />
                     }
 

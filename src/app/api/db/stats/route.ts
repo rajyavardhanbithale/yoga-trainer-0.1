@@ -97,13 +97,13 @@ export async function GET(request: NextRequest) {
         const accuracy = correctPosePercentage
         const inaccuracy = correctPosePercentage?.map(acc => 100 - acc)
 
-        const averageAccuracy = accuracy && accuracy?.reduce((a,b)=>a+b,0) / accuracy.length
+        const averageAccuracy = accuracy && accuracy?.reduce((a, b) => a + b, 0) / accuracy.length
         const averageInaccuracy = averageAccuracy && 100 - averageAccuracy
 
         return {
             accuracy: accuracy,
             inaccuracy: inaccuracy,
-            average:{
+            average: {
                 accuracy: averageAccuracy,
                 inaccuracy: averageInaccuracy,
 
@@ -112,12 +112,59 @@ export async function GET(request: NextRequest) {
 
     }
 
-    userAccuracyInaccuracy(30)
+
+    // 
+    const getIndices = (id:number) => {
+        const poseList = data && data?.map(item => item?.poseID)
+        const correctPoseList: number[][] | undefined = data?.map(item => item.correctPose)
+        const correctPosePercentage = correctPoseList &&
+            correctPoseList.map(item => {
+                const sum = item.reduce((a, b) => a + b, 0)
+                return Math.round((sum / item.length) * 100)
+
+            })
+
+
+        const specificPoseID = id
+        const indices: number[] = [];
+        (poseList && correctPosePercentage) && poseList.forEach((poseID, index) => {
+            if (poseID === specificPoseID) {
+                indices.push(correctPosePercentage[index])
+            }
+        });
+        
+        return indices
+
+    }
+
+    const userAreaOfInterest = () => {
+        const poseList = data && data?.map(item => item?.poseID)
+        const poseSet = new Set(poseList)
+
+        const cnt: { [key: string]: number } = {};
+        poseList && poseList.forEach(item => {
+            if (poseSet.has(item)) {
+                cnt[item] = (cnt[item] || 0) + 1;
+            }
+        });
+        const sortedCounts = Object.entries(cnt).sort((a, b) => b[1] - a[1])
+
+
+
+        return sortedCounts.map(([key, count]) => {
+            return { id: key, count: count, data: getIndices(parseInt(key)) }
+        });
+
+
+
+    }
+
 
     const responseData: { [key: string]: any } = {
         weeklyActivity: userActivity(7),
         activeInMonth: userActiveInMonth(30),
-        performance: userAccuracyInaccuracy(30)
+        performance: userAccuracyInaccuracy(30),
+        areaOfInterest: userAreaOfInterest()
     }
 
 

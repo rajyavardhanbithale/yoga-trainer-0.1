@@ -1,17 +1,28 @@
 // src/PolarChart.js
+'use client'
 import React from 'react'
 import { PolarArea } from 'react-chartjs-2'
 import { Chart as ChartJS, RadialLinearScale, ArcElement, Tooltip, Legend } from 'chart.js'
+import { pose } from "@/app/api/pose/poseApiData"
 
 ChartJS.register(RadialLinearScale, ArcElement, Tooltip, Legend)
 
-export default function AreaOfInterest() {
+export default function AreaOfInterest({ areaOfInterest }) {
+
+    const FAreaOfInterest = areaOfInterest.slice(0, 5)
+    const label = FAreaOfInterest.map(item =>
+        pose[parseInt(item.id)]
+    )
+    const count = FAreaOfInterest.map(item =>
+        item.count
+    )
+
     const data = {
-        labels: ['Tree pose', 'Warrior II', 'Mountain Pose', 'Goddess Pose'],
+        labels: label,
         datasets: [
             {
                 label: 'I have performed',
-                data: [11, 16, 7, 3],
+                data: count,
                 backgroundColor: [
                     'rgb(58, 97, 253, 0.2)',
                     'rgb(72, 64, 186, 0.3)',

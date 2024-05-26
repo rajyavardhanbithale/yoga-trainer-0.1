@@ -1,5 +1,13 @@
 import { YogaPoseAPI } from "../../../../types";
 
+const pose: {[key:string]:string} = {
+    "101" : "Tree Pose", 
+    "102" : "Warrior I", 
+    "103" : "Downward Facing Dog", 
+    "104" : "Goddess Pose", 
+    "105" : "Mountain Pose", 
+    "106" : "Warrior II"
+}
 
 const poseInfo: YogaPoseAPI[] = [
     {
@@ -25,7 +33,7 @@ const poseInfo: YogaPoseAPI[] = [
             benefits: "benefits.mp3",
             narratorSegment: ["seg0.mp3", "seg1.mp3", "seg2.mp3", "seg3.mp3", "seg4.mp3"]
         },
-        videoData:{
+        videoData: {
             tutorialURL: "https://youtu.be/Fr5kiIygm0c",
             tutorialIFRAME: "https://www.youtube.com/embed/Fr5kiIygm0c",
             tutorialSource: "yt"
@@ -33,7 +41,7 @@ const poseInfo: YogaPoseAPI[] = [
     },
     {
         id: 102,
-        name: "warrior I",
+        name: "Warrior I",
         originalName: "Vīrabhadrāsana I",
         description: "Warrior 1, also known as Virabhadrasana I, is a standing yoga pose that stretches the front of the body, improves balance, and builds strength in the core, legs, and back.",
         benefits: [
@@ -54,7 +62,7 @@ const poseInfo: YogaPoseAPI[] = [
             benefits: "benefits.mp3",
             narratorSegment: ["seg0.mp3", "seg1.mp3", "seg2.mp3", "seg3.mp3", "seg4.mp3", "seg5.mp3"]
         },
-        videoData:{
+        videoData: {
             tutorialURL: "https://youtu.be/NytDpa2r34g",
             tutorialIFRAME: "https://www.youtube.com/embed/NytDpa2r34g",
             tutorialSource: "yt"
@@ -62,7 +70,7 @@ const poseInfo: YogaPoseAPI[] = [
     },
     {
         id: 103,
-        name: "downward facing dog",
+        name: "Downward Facing Dog",
         originalName: "Adho Mukha Śvānāsana",
         description: "Downward facing Dog or Downward Dog is also known as Adho Mukha Śvānāsana, is an inversion asana, often practised as part of a flowing sequence of poses, especially Surya Namaskar, the Salute to the Sun",
         benefits: [
@@ -83,7 +91,7 @@ const poseInfo: YogaPoseAPI[] = [
             benefits: "benefits.mp3",
             narratorSegment: ["seg0.mp3", "seg1.mp3", "seg2.mp3", "seg3.mp3", "seg4.mp3", "seg5.mp3"]
         },
-        videoData:{
+        videoData: {
             tutorialURL: "https://youtu.be/EC7RGJ975iM",
             tutorialIFRAME: "https://www.youtube.com/embed/EC7RGJ975iM",
             tutorialSource: "yt"
@@ -112,7 +120,7 @@ const poseInfo: YogaPoseAPI[] = [
             benefits: "benefits.mp3",
             narratorSegment: ["seg0.mp3", "seg1.mp3", "seg2.mp3", "seg3.mp3", "seg4.mp3", "seg5.mp3"]
         },
-        videoData:{
+        videoData: {
             tutorialURL: "https://youtu.be/cekN3sdUNso",
             tutorialIFRAME: "https://www.youtube.com/embed/cekN3sdUNso",
             tutorialSource: "yt"
@@ -120,7 +128,7 @@ const poseInfo: YogaPoseAPI[] = [
     },
     {
         id: 105,
-        name: "mountain pose",
+        name: "Mountain Pose",
         originalName: "Tāḍāsana",
         description: "Mountain pose, also known as tadasana, is a yoga pose that's considered the foundation of all standing poses.",
         benefits: [
@@ -141,7 +149,7 @@ const poseInfo: YogaPoseAPI[] = [
             benefits: "benefits.mp3",
             narratorSegment: ["seg0.mp3", "seg1.mp3", "seg2.mp3", "seg3.mp3", "seg4.mp3", "seg5.mp3"]
         },
-        videoData:{
+        videoData: {
             tutorialURL: "https://youtu.be/0mPNlC0vD6s",
             tutorialIFRAME: "https://www.youtube.com/embed/0mPNlC0vD6s",
             tutorialSource: "yt"
@@ -149,7 +157,7 @@ const poseInfo: YogaPoseAPI[] = [
     },
     {
         id: 106,
-        name: "warrior II",
+        name: "Warrior II",
         originalName: "Vīrabhadrāsana II",
         description: "Warrior II pose also known as Vīrabhadrāsana II is the second of three related powerful standing postures that improve strength and flexibility.",
         benefits: [
@@ -159,18 +167,18 @@ const poseInfo: YogaPoseAPI[] = [
             "Enhances Balance and Focus: Balancing on one leg, Warrior 2 improves balance and concentration, fostering mental focus.",
             "Warrior Spirit: Embodying strength and determination, Warrior 2 cultivates a sense of empowerment and resilience."
         ],
-        tutorial: "warrior2.gif", 
-        image: "warrior2.webp", 
+        tutorial: "warrior2.gif",
+        image: "warrior2.webp",
         TFData: {
-            class: "warrior2", 
-            set: 2, 
+            class: "warrior2",
+            set: 2,
         },
-        audioData: { 
-            mainAudio: "warrior2.mp3", 
+        audioData: {
+            mainAudio: "warrior2.mp3",
             benefits: "benefits.mp3",
-            narratorSegment: ["seg0.mp3", "seg1.mp3", "seg2.mp3", "seg3.mp3", "seg4.mp3", "seg4.mp3","seg4.mp3"]
+            narratorSegment: ["seg0.mp3", "seg1.mp3", "seg2.mp3", "seg3.mp3", "seg4.mp3", "seg4.mp3", "seg4.mp3"]
         },
-        videoData:{
+        videoData: {
             tutorialURL: "https://youtu.be/Mn6RSIRCV3w",
             tutorialIFRAME: "https://www.youtube.com/embed/Mn6RSIRCV3w",
             tutorialSource: "yt"
@@ -200,4 +208,4 @@ const poseInfo: YogaPoseAPI[] = [
 // },
 
 
-export { poseInfo }
+export { pose, poseInfo }
