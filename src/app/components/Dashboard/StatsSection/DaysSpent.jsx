@@ -4,24 +4,14 @@ import { Chart as ChartJS, Title, ArcElement, Legend, Tooltip } from 'chart.js';
 
 ChartJS.register(Title, ArcElement, Legend, Tooltip);
 
-export default function DaySpent() {
-    const dataDays = [1, 0, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1];
-
-    const count = dataDays.reduce((acc, num) => {
-        if (num === 0) {
-            acc.zeros++;
-        } else if (num === 1) {
-            acc.ones++;
-        }
-        return acc;
-    }, { zeros: 0, ones: 0 });
-
+export default function DaySpent({activeInMonth}) {
+   
     const data = {
         labels: ['Active', 'Inactive'],
         datasets: [
             {
                 label: 'Number of active days:',
-                data: [count.ones, count.zeros],
+                data: [activeInMonth.active, activeInMonth.inactive],
                 backgroundColor: ['#4158a8', '#a0b2f8'],
                 hoverOffset: 4,
             },
@@ -33,12 +23,12 @@ export default function DaySpent() {
             tooltip: {
                 callbacks: {
                     label: function (context) {
-                        let label = '';
-                        const dataIndex = context.dataIndex;
+                        let label = ''
+                        const dataIndex = context.dataIndex
                         if (dataIndex === 0) {
-                            label = `Number of Active Days: : ${count.ones}`;
+                            label = `Number of Active Days: : ${activeInMonth.active}`
                         } else if (dataIndex === 1) {
-                            label = `Number of Inactive Days: : ${count.zeros}`;
+                            label = `Number of Inactive Days: : ${activeInMonth.inactive}`
                         }
                         return label;
                     }

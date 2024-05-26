@@ -1,44 +1,73 @@
 'use client'
+import React from 'react';
 import { Radar } from 'react-chartjs-2';
+import { Chart as ChartJS, RadialLinearScale, ArcElement, Tooltip, Legend, Filler } from 'chart.js';
 
-export default function PerformanceAOI() {
+ChartJS.register(RadialLinearScale, ArcElement, Tooltip, Legend, Filler);
+
+export default function RadarChart() {
+
+    const backgroundColor = [
+        'rgb(58, 97, 253, 0.2)',
+        'rgb(72, 64, 186, 0.3)',
+        'rgb(80, 121, 252, 0.1)',
+        'rgb(30, 48, 97, 0.6)',
+    ]
+
+    const borderColor = [
+        'rgb(58, 97, 253, 1)',
+        'rgb(72, 64, 186, 1)',
+        'rgb(80, 121, 252, 01)',
+        'rgb(30, 48, 97, 1)',
+    ]
+
+    const accuracy = [66, 49, 34, 95]
+
+    const inaccurate = accuracy.map(item => 100 - item)
+
+
 
     const data = {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+        labels: ['Tree pose', 'Warrior II', 'Mountain Pose', 'Goddess Pose'],
         datasets: [
             {
-                label: 'Dataset 1',
-                backgroundColor: 'rgba(179,181,198,0.2)',
-                borderColor: 'rgba(179,181,198,1)',
-                pointBackgroundColor: 'rgba(179,181,198,1)',
-                pointBorderColor: '#fff',
-                pointHoverBackgroundColor: '#fff',
-                pointHoverBorderColor: 'rgba(179,181,198,1)',
-                data: [65, 59, 90, 81, 56, 55, 40],
+                label: 'Accuracy',
+                data: accuracy,
+                backgroundColor: backgroundColor[0],
+                borderColor: borderColor[0],
+                borderWidth: 1,
+                fill: true, // Enable background filling for dataset 1
             },
             {
-                label: 'Dataset 2',
-                backgroundColor: 'rgba(255,99,132,0.2)',
-                borderColor: 'rgba(255,99,132,1)',
-                pointBackgroundColor: 'rgba(255,99,132,1)',
-                pointBorderColor: '#fff',
-                pointHoverBackgroundColor: '#fff',
-                pointHoverBorderColor: 'rgba(255,99,132,1)',
-                data: [28, 48, 40, 19, 96, 27, 100],
+                label: 'Inaccuracy',
+                data: inaccurate,
+                backgroundColor: 'rgba(54, 162, 235, 0.2)', // Background color for dataset 2
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1,
+                fill: true, // Enable background filling for dataset 2
             },
         ],
     };
 
     const options = {
+        scale: {
+            angleLines: {
+                display: true
+            },
+            ticks: {
+                suggestedMin: 0,
+                suggestedMax: 100
+            }
+        },
         responsive: true,
         maintainAspectRatio: false,
-    }
+    };
+
     return (
         <>
             <div className="xl:h-11/12 xl:w-11/12 h-full w-full">
                 <Radar data={data} options={options} />
             </div>
-
         </>
-    )
+    );
 }

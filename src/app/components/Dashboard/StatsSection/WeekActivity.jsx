@@ -6,13 +6,16 @@ import { Bar } from 'react-chartjs-2';
 
 ChartJS.register(BarElement, LinearScale, CategoryScale, Title, Tooltip, Legend);
 
-export default function WeekActivity() {
+
+
+export default function WeekActivity({ weeklyActivity }) {
+
     const labels = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const data = {
         labels: labels,
         datasets: [{
             label: 'Daily Activity',
-            data: [2,1,3,3,4,1,4],
+            data: weeklyActivity,
             backgroundColor: [
                 "#3a61fd",
                 "#5079fc",
@@ -28,7 +31,7 @@ export default function WeekActivity() {
             borderRadius: 10,
             hoverBorderRadius: 15,
         }]
-        
+
     };
 
     const options = {
@@ -38,7 +41,7 @@ export default function WeekActivity() {
         //         easing: 'easeInElastic',
         //     },
         // },
-       
+
         scales: {
             x: {
                 grid: {
@@ -70,10 +73,10 @@ export default function WeekActivity() {
     };
 
     return (
-            <div className="h-[39vh] ">
-                <Bar data={data} options={options} />
+        <div className="h-[39vh] ">
+            <Bar data={data} options={options} />
 
-            </div>
-       
+        </div>
+
     );
 }

@@ -5,11 +5,11 @@ import { Line } from "react-chartjs-2";
 
 ChartJS.register(LineElement, PointElement, LinearScale, Title, CategoryScale, Tooltip, Legend);
 
-export default function Accuracy() {
+export default function Accuracy({ performanceData }) {
     const [userSelection, setUserSelection] = useState('mixed');
-    const accuracy = [66, 49, 34, 95, 61, 35, 76, 59, 31, 100, 40, 83, 37, 44, 32, 91, 63, 62, 68, 84, 86, 77, 64, 50, 73, 38]
+    const accuracy = performanceData.accuracy
 
-    const inaccurate = accuracy.map(item => 100 - item)
+    const inaccurate = performanceData.inaccuracy
 
     const label = Array.from({ length: accuracy.length }, (_, i) => {
         return i + 1

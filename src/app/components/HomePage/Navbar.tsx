@@ -96,7 +96,7 @@ export default function Navbar() {
 
                     <div className="flex justify-center items-center">
                         {isLogged ? (
-                            <Link href={'/login'}>
+                            <Link href={'/dashboard'}>
                                 <div
                                     className="hidden sm:flex justify-center items-center mx-5">
                                     <span className="text-lg px-5 text-text font-semibold bg-slate-100 p-2 rounded-2xl">

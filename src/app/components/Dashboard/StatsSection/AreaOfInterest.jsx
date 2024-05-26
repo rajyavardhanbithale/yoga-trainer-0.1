@@ -13,18 +13,16 @@ export default function AreaOfInterest() {
                 label: 'I have performed',
                 data: [11, 16, 7, 3],
                 backgroundColor: [
-                    '#3a61fd',
-                    '#7ba3fb',
-                    '#5079fc',
-                    '#668ffc',
-                    '#668ffc',
+                    'rgb(58, 97, 253, 0.2)',
+                    'rgb(72, 64, 186, 0.3)',
+                    'rgb(80, 121, 252, 0.1)',
+                    'rgb(30, 48, 97, 0.6)',
                 ],
                 borderColor: [
-                    '#5079fc',
-                    '#668ffc',
-                    '#668ffc',
-                    '#7ba3fb',
-                    '#3a61fd',
+                    'rgb(58, 97, 253, 1)',
+                    'rgb(72, 64, 186, 1)',
+                    'rgb(80, 121, 252, 1)',
+                    'rgb(30, 48, 97, 1)'
                 ],
                 borderWidth: 1,
             },
@@ -39,7 +37,18 @@ export default function AreaOfInterest() {
                         const dataset = context.dataset.data;
                         const label = context.label;
                         const value = dataset[context.dataIndex];
-                        return `I had performed ${label} : ${value} times` ;
+                        return `I had performed ${label} : ${value} times`;
+                    }
+                }
+            }
+        },
+        scales: {
+            r: {
+                pointLabels: {
+                    display: true,
+                    centerPointLabels: true,
+                    font: {
+                        size: 18
                     }
                 }
             }

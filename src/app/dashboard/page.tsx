@@ -6,7 +6,7 @@ import Dashboard from "../components/Dashboard/DashboardSection/Dashboard";
 import Sidebar from "../components/Dashboard/DashboardSection/Sidebar";
 import { createClientComponentClient, User } from "@supabase/auth-helpers-nextjs";
 import useFetch from "../hooks/useFetch";
-import { APIYogaDataMinimal } from "../../../types";
+import { APIYogaDataMinimal, DashboardPROPS, DashboardStats } from "../../../types";
 import SkeletonDashboard from "../components/Dashboard/DashboardSection/Skeleton";
 import StatsDashboard from "../components/Dashboard/StatsSection/Stats";
 
@@ -25,39 +25,46 @@ export default function Page() {
 
     const [activeSection, setActiveSection] = useState<string>('stats')
 
+    const [stats, setStats] = useState<DashboardStats>()
+
 
 
     const { fetchAPI } = useFetch()
 
-    // useEffect(() => {
-    //     const handleUserGET = async () => {
-    //         const supabase = createClientComponentClient()
-    //         const { data: { user } } = await supabase.auth.getUser()
-    //         setUser(user)
+    useEffect(() => {
+        const handleUserGET = async () => {
+            const supabase = createClientComponentClient()
+            const { data: { user } } = await supabase.auth.getUser()
+            setUser(user)
 
-    //     }
+        }
 
-    //     const fetchUserDetails = async () => {
-    //         // today pose, user activity, user recent activity
-    //         const response1: any = await fetchAPI('/api/db/dashboard')
-    //         setResponse1(response1?.responseData)
+        const fetchUserDetails = async () => {
+            // // today pose, user activity, user recent activity
+            // const response1: any = await fetchAPI('/api/db/dashboard')
+            // setResponse1(response1?.responseData)
 
-    //         // pose information according to response1
-    //         const response2: any = await fetchAPI(`/api/pose?poseID=${response1?.responseData?.todayPoseList.toString()}`)
-    //         setPoseToday(response2.poseDataList)
+            // // pose information according to response1
+            // const response2: any = await fetchAPI(`/api/pose?poseID=${response1?.responseData?.todayPoseList.toString()}`)
+            // setPoseToday(response2.poseDataList)
 
-    //         // user recent activity
-    //         const response3: any = await fetchAPI(`/api/pose?poseID=${response1?.responseData?.userRecentActivity.toString()}`)
-    //         setUserRecentActivity(response3.poseDataList)
-    //     }
+            // // user recent activity
+            // const response3: any = await fetchAPI(`/api/pose?poseID=${response1?.responseData?.userRecentActivity.toString()}`)
+            // setUserRecentActivity(response3.poseDataList)
+
+            const response4: any = await fetchAPI('/api/db/stats')
+            setStats(response4?.responseData)
+        }
 
 
-    //     handleUserGET()
-    //     fetchUserDetails()
+        handleUserGET()
+        fetchUserDetails()
 
 
-    // }, [])
+    }, [])
 
+
+    console.log(stats);
 
 
     return (
@@ -66,7 +73,7 @@ export default function Page() {
 
             <div className="grid grid-cols-9 max-w-[2200px] mx-auto">
                 <div className="hidden sm:block xl:col-span-1 sm:col-span-2 h-screen sticky top-0">
-                    <Sidebar activeSection={activeSection}  setActiveSection={setActiveSection}></Sidebar>
+                    <Sidebar activeSection={activeSection} setActiveSection={setActiveSection}></Sidebar>
                 </div>
                 <div className="xl:col-span-8 sm:col-span-7 col-span-full">
                     {/* {(!response1 && !poseToday && !userRecentActivity) &&
@@ -85,8 +92,12 @@ export default function Page() {
                         />
                     } */}
 
-                    {activeSection === 'stats' &&
-                        <StatsDashboard/>
+                    {(activeSection === 'stats' && stats) &&
+                        <StatsDashboard
+                            weeklyActivity={stats?.weeklyActivity}
+                            activeInMonth={stats.activeInMonth}
+                            performance={stats?.performance}
+                        />
                     }
 
 

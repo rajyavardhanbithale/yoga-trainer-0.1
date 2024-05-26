@@ -129,6 +129,11 @@ interface DBFetchSupabase {
     correctPose: Array<number>
 }
 
+interface DashboardStats{
+    weeklyActivity: Array<number>
+    activeInMonth: {[key:string]:number}
+    performance: {[key:string]:number}
+}
 
 export type {
     YogaPose,
@@ -149,6 +154,7 @@ export type {
 
 
     DashboardPROPS,
+    DashboardStats,
 
     DBFetchSupabase
 }

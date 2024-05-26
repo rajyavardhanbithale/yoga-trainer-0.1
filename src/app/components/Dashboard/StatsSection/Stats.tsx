@@ -1,12 +1,24 @@
+import dynamic from 'next/dynamic'
+
+
 import { IoCalendarClearOutline } from "react-icons/io5"
+import Heading from "../DashboardSection/Heading";
 import WeekActivity from "./WeekActivity";
 import DaySpent from "./DaysSpent";
 import Accuracy from "./Accuracy";
 import AreaOfInterest from "./AreaOfInterest";
 import PerformanceAOI from "./PerformanceAOI";
-import Heading from "../DashboardSection/Heading";
+import { DashboardStats } from "../../../../../types";
 
-export default function StatsDashboard() {
+
+// const WeekActivity = dynamic(() => import('./WeekActivity'), { ssr: false })
+// const DaySpent = dynamic(() => import('./DaysSpent'), { ssr: false })
+// const Accuracy = dynamic(() => import('./Accuracy'), { ssr: false })
+// const AreaOfInterest = dynamic(() => import('./AreaOfInterest'), { ssr: false })
+// const PerformanceAOI = dynamic(() => import('./PerformanceAOI'), { ssr: false })
+
+
+export default function StatsDashboard({ weeklyActivity, activeInMonth, performance }: DashboardStats) {
 
     const dateToday = () => {
         const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
@@ -43,7 +55,7 @@ export default function StatsDashboard() {
                         title="Weekly Activity"
                         description="Overview of your activity throughout the week"
                     />
-                    <WeekActivity />
+                    <WeekActivity weeklyActivity={weeklyActivity} />
                 </div>
                 <div className="col-span-full xl:col-span-6 min-h-[50vh] flex flex-col justify-between rounded-2xl">
                     <Heading
@@ -51,7 +63,7 @@ export default function StatsDashboard() {
                         description="Summary of your recent activity."
                     />
                     <div className="flex h-full w-full justify-center items-center">
-                        <DaySpent />
+                        <DaySpent activeInMonth={activeInMonth} />
 
                     </div>
                 </div>
@@ -63,7 +75,7 @@ export default function StatsDashboard() {
                         description="Summary of your recent activity."
                     />
 
-                    <Accuracy />
+                    <Accuracy performanceData={performance} />
 
 
                 </div>
@@ -83,8 +95,8 @@ export default function StatsDashboard() {
 
                 <div className="col-span-full xl:col-span-6 min-h-[50vh] flex flex-col justify-between rounded-2xl">
                     <Heading
-                        title="Performance in area of interest"
-                        description="Here are the most performed yoga pose"
+                        title="Performance in Yoga Pose"
+                        description="Here are the most commonly practiced yoga poses."
                     />
 
                     <div className="flex h-full w-full justify-center items-center">
