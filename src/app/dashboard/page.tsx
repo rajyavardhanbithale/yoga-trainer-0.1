@@ -23,40 +23,40 @@ export default function Page() {
     const [poseToday, setPoseToday] = useState<APIYogaDataMinimal[]>()
     const [userRecentActivity, setUserRecentActivity] = useState<APIYogaDataMinimal[]>()
 
-    const [activeSection, setActiveSection] = useState<string>('dashboard')
+    const [activeSection, setActiveSection] = useState<string>('stats')
 
 
 
     const { fetchAPI } = useFetch()
 
-    useEffect(() => {
-        const handleUserGET = async () => {
-            const supabase = createClientComponentClient()
-            const { data: { user } } = await supabase.auth.getUser()
-            setUser(user)
+    // useEffect(() => {
+    //     const handleUserGET = async () => {
+    //         const supabase = createClientComponentClient()
+    //         const { data: { user } } = await supabase.auth.getUser()
+    //         setUser(user)
 
-        }
+    //     }
 
-        const fetchUserDetails = async () => {
-            // today pose, user activity, user recent activity
-            const response1: any = await fetchAPI('/api/db/dashboard')
-            setResponse1(response1?.responseData)
+    //     const fetchUserDetails = async () => {
+    //         // today pose, user activity, user recent activity
+    //         const response1: any = await fetchAPI('/api/db/dashboard')
+    //         setResponse1(response1?.responseData)
 
-            // pose information according to response1
-            const response2: any = await fetchAPI(`/api/pose?poseID=${response1?.responseData?.todayPoseList.toString()}`)
-            setPoseToday(response2.poseDataList)
+    //         // pose information according to response1
+    //         const response2: any = await fetchAPI(`/api/pose?poseID=${response1?.responseData?.todayPoseList.toString()}`)
+    //         setPoseToday(response2.poseDataList)
 
-            // user recent activity
-            const response3: any = await fetchAPI(`/api/pose?poseID=${response1?.responseData?.userRecentActivity.toString()}`)
-            setUserRecentActivity(response3.poseDataList)
-        }
-
-
-        handleUserGET()
-        fetchUserDetails()
+    //         // user recent activity
+    //         const response3: any = await fetchAPI(`/api/pose?poseID=${response1?.responseData?.userRecentActivity.toString()}`)
+    //         setUserRecentActivity(response3.poseDataList)
+    //     }
 
 
-    }, [])
+    //     handleUserGET()
+    //     fetchUserDetails()
+
+
+    // }, [])
 
 
 
@@ -69,7 +69,7 @@ export default function Page() {
                     <Sidebar activeSection={activeSection}  setActiveSection={setActiveSection}></Sidebar>
                 </div>
                 <div className="xl:col-span-8 sm:col-span-7 col-span-full">
-                    {(!response1 && !poseToday && !userRecentActivity) &&
+                    {/* {(!response1 && !poseToday && !userRecentActivity) &&
                         <SkeletonDashboard />
 
                     }
@@ -83,7 +83,7 @@ export default function Page() {
                             userLastNDaysActivity={response1?.userLastNDaysActivity}
 
                         />
-                    }
+                    } */}
 
                     {activeSection === 'stats' &&
                         <StatsDashboard/>

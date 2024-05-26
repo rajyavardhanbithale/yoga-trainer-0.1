@@ -2,6 +2,8 @@ import { IoCalendarClearOutline } from "react-icons/io5"
 import WeekActivity from "./WeekActivity";
 import DaySpent from "./DaysSpent";
 import Accuracy from "./Accuracy";
+import AreaOfInterest from "./AreaOfInterest";
+import PerformanceAOI from "./PerformanceAOI";
 import Heading from "../DashboardSection/Heading";
 
 export default function StatsDashboard() {
@@ -60,13 +62,39 @@ export default function StatsDashboard() {
                         title="Last 30 Days Activity"
                         description="Summary of your recent activity."
                     />
-                    
-                        <Accuracy />
 
-                    
+                    <Accuracy />
+
+
                 </div>
 
-              
+                <div className="col-span-full xl:col-span-6 min-h-[50vh] flex flex-col justify-between rounded-2xl">
+                    <Heading
+                        title="Area of interest"
+                        description="Here are the most performed yoga pose"
+                    />
+
+                    <div className="flex h-full w-full justify-center items-center">
+                        <AreaOfInterest />
+                    </div>
+
+
+                </div>
+
+                <div className="col-span-full xl:col-span-6 min-h-[50vh] flex flex-col justify-between rounded-2xl">
+                    <Heading
+                        title="Performance in area of interest"
+                        description="Here are the most performed yoga pose"
+                    />
+
+                    <div className="flex h-full w-full justify-center items-center">
+                        <PerformanceAOI />
+                    </div>
+
+
+                </div>
+
+
 
 
                 {/* <div className="bg-slate-300 animate-pulse col-span-full xl:col-span-6 min-h-[50vh] flex flex-col justify-between rounded-2xl"></div> */}
