@@ -42,7 +42,7 @@ export default function Page() {
 
 
         const fetchUserDetails = async () => {
-            // // today pose, user activity, user recent activity
+            // today pose, user activity, user recent activity
             const response1: any = await fetchAPI('/api/db/dashboard')
             setResponse1(response1?.responseData)
 
