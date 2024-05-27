@@ -23,7 +23,7 @@ export default function Page() {
     const [poseToday, setPoseToday] = useState<APIYogaDataMinimal[]>()
     const [userRecentActivity, setUserRecentActivity] = useState<APIYogaDataMinimal[]>()
 
-    const [activeSection, setActiveSection] = useState<string>('stats')
+    const [activeSection, setActiveSection] = useState<string>('dashboard')
 
     const [stats, setStats] = useState<DashboardStats>()
 
@@ -74,7 +74,7 @@ export default function Page() {
                     <Sidebar activeSection={activeSection} setActiveSection={setActiveSection}></Sidebar>
                 </div>
                 <div className="xl:col-span-8 sm:col-span-7 col-span-full">
-                    {/* {(!response1 && !poseToday && !userRecentActivity) &&
+                    {(!response1 && !poseToday && !userRecentActivity) &&
                         <SkeletonDashboard />
 
                     }
@@ -88,7 +88,7 @@ export default function Page() {
                             userLastNDaysActivity={response1?.userLastNDaysActivity}
 
                         />
-                    } */}
+                    } 
 
                     {(activeSection == 'stats' && !stats) &&
                         <SkeletonDashboard />
