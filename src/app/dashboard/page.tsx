@@ -9,6 +9,7 @@ import useFetch from "../hooks/useFetch";
 import { APIYogaDataMinimal, DashboardPROPS, DashboardStats } from "../../../types";
 import SkeletonDashboard from "../components/Dashboard/DashboardSection/Skeleton";
 import StatsDashboard from "../components/Dashboard/StatsSection/Stats";
+import Profile from "../components/Dashboard/ProfileSection/Profile";
 
 interface IFResponse1 {
     todayPoseList: any
@@ -39,29 +40,29 @@ export default function Page() {
 
         }
 
+
         const fetchUserDetails = async () => {
             // // today pose, user activity, user recent activity
             const response1: any = await fetchAPI('/api/db/dashboard')
-             setResponse1(response1?.responseData)
+            setResponse1(response1?.responseData)
 
-            // // pose information according to response1
-             const response2: any = await fetchAPI(`/api/pose?poseID=${response1?.responseData?.todayPoseList.toString()}`)
+            // pose information according to response1
+            const response2: any = await fetchAPI(`/api/pose?poseID=${response1?.responseData?.todayPoseList.toString()}`)
             setPoseToday(response2.poseDataList)
 
             // // user recent activity
             const response3: any = await fetchAPI(`/api/pose?poseID=${response1?.responseData?.userRecentActivity.toString()}`)
-             setUserRecentActivity(response3.poseDataList)
+            setUserRecentActivity(response3.poseDataList)
 
             const response4: any = await fetchAPI('/api/db/stats')
             setStats(response4?.responseData)
         }
 
-
         handleUserGET()
         fetchUserDetails()
 
-
     }, [])
+
 
 
 
@@ -102,8 +103,9 @@ export default function Page() {
                             areaOfInterest={stats?.areaOfInterest}
                         />
                     }
-
-
+                    {(activeSection === 'profile' && user) &&
+                        <Profile user={user} />
+                    }
                 </div>
             </div>
         </>

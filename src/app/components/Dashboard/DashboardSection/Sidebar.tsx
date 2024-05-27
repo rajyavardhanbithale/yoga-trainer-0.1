@@ -66,11 +66,11 @@ export default function Sidebar(props:any) {
                                     onClick={() => {setSelected(idx);props?.setActiveSection(item.title.toLowerCase())}}
                                     className="flex justify-start gap-5 align-middle items-center m-5 mx-10 cursor-pointer hover:scale-110 duration-300">
 
-                                    <div className="text-2xl text-white font-semibold my-auto">
+                                    <div className="text-[2vh] text-white font-semibold my-auto">
                                         {item.icon}
                                     </div>
 
-                                    <span className="text-2xl text-white font-normal">
+                                    <span className="text-[2vh] text-white font-normal">
                                         {item.title}
                                     </span>
                                 </div>
@@ -79,13 +79,13 @@ export default function Sidebar(props:any) {
                             {selected === idx &&
                                 <div
                                     key={idx}
-                                    className="bg-[#f1f1f3] shadow-md animate-dashboard ml-5 flex justify-start gap-5 align-middle items-center py-4 px-6 rounded-l-full cursor-pointer">
+                                    className="bg-[#f1f1f3] shadow-md animate-dashboard ml-3 flex justify-start gap-5 align-middle items-center py-4 px-6 rounded-l-full cursor-pointer">
 
-                                    <div className="text-2xl text-accent font-semibold my-auto">
+                                    <div className="text-[2vh] text-accent font-semibold my-auto">
                                         {item.icon}
                                     </div>
 
-                                    <span className="text-2xl text-accent font-normal">
+                                    <span className="text-[2vh] text-accent font-normal">
                                         {item.title}
                                     </span>
                                 </div>
@@ -94,7 +94,7 @@ export default function Sidebar(props:any) {
                     ))}
 
                 </div>
-
+                    
             </div>
 
         </>
