@@ -25,14 +25,13 @@ export async function middleware(request: NextRequest) {
        
         const dataUser = user && {
             "userID": CryptoJS.MD5(user.id).toString(),
+            "name": user.user_metadata.name,
             "profile_pic": user.user_metadata.avatar_url
         }
 
         const { data, error } = await supabase
             .from(USERDB)
             .insert(dataUser);
-
-       
 
     }
 

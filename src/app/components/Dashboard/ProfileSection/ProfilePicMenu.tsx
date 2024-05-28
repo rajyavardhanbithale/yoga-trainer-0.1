@@ -20,11 +20,11 @@ export default function ProfilePicMenu(props: any) {
     function handleAvatarSelection(item: string | null) {
         if (typeof item === 'string') {
             const operation: (string | null) = item.split('/')[1].split('.')[0] || null
-            props?.setAvatar({ ...props?.avatar, name: operation })
+            props?.setUserDetails({ ...props?.userDetails, avatar: operation })
             props?.updateAvatar(operation)
         }
         setTimeout(() => {
-            props?.setAvatar({ ...props?.avatar, isPopUpClosed: false })
+            props?.setUserDetails({ ...props?.userDetails, popUpID: null })
         }, 500)
         setClosed(false)
     }
