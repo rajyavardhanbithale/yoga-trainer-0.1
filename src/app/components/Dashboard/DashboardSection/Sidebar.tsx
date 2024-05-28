@@ -1,11 +1,12 @@
 'use client'
 
 import { Raleway } from "next/font/google";
-import { LuCalendarCheck, LuLayoutDashboard } from "react-icons/lu";
+import {  LuLayoutDashboard } from "react-icons/lu";
 import { ImStatsDots } from "react-icons/im";
 import { PiBowlFoodLight } from "react-icons/pi";
 import { useState } from "react";
 import { RiUser6Line } from "react-icons/ri";
+import { TbTrophy } from "react-icons/tb";
 
 
 const raleway = Raleway(
@@ -29,8 +30,8 @@ export default function Sidebar(props:any) {
             icon: <ImStatsDots />
         },
         {
-            title: 'Schedule',
-            icon: <LuCalendarCheck />
+            title: 'Achievements',
+            icon: <TbTrophy />
         },
         {
             title: 'Meals',
