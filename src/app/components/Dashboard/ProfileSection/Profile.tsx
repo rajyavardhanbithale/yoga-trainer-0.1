@@ -113,9 +113,17 @@ export default function Profile(props: any) {
         setIsChecked(!isChecked)
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         updateProfileType(isChecked === false ? 'public' : 'private')
-    },[isChecked,setIsChecked])
+    }, [isChecked, setIsChecked])
+
+    const userPublicID = () => {
+        const userIDThreshold = 3
+        const publicHash = userID.slice(0, userIDThreshold)
+            + userID.slice(userID.length - userIDThreshold, userID.length)
+        return publicHash
+    }
+
 
 
     return (
@@ -149,16 +157,17 @@ export default function Profile(props: any) {
                         }
                     </div>
 
-                    <div className="col-span-2 flex flex-col xl:justify-start justify-center m-10 gap-5">
+                    <div className="col-span-2 flex flex-col xl:justify-start justify-center m-10 gap-4">
 
-                        <div className="flex cursor-pointer text-slate-800 font-semibold">
-                            <span className="text-4xl">
+                        <div className="flex flex-col cursor-pointer">
+                            <span className="text-4xl text-slate-800 font-semibold">
                                 {userDetails && userDetails.name}
                             </span>
-                            <MdModeEditOutline className="hidden hover:inline-flex text-xl justify-start ml-1 mb-0.5" />
+                            <span className="text-sm text-slate-600">
+                                # {userPublicID()}
+                            </span>
 
                         </div>
-
 
                         <div className="flex items-center gap-2">
                             {userDetails && userDetails?.country ? (

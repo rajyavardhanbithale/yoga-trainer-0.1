@@ -22,11 +22,18 @@ export async function middleware(request: NextRequest) {
 
 
     const updateUserDatabase = async () => {
-       
+        const userID = user && CryptoJS.MD5(user.id).toString()
+        const userPublicID = () => {
+            const userIDThreshold = 3
+            const publicHash = userID &&  userID.slice(0, userIDThreshold)
+                + userID.slice(userID.length - userIDThreshold, userID.length)
+            return publicHash
+        }
         const dataUser = user && {
-            "userID": CryptoJS.MD5(user.id).toString(),
+            "userID": userID,
             "name": user.user_metadata.name,
-            "profile_pic": user.user_metadata.avatar_url
+            "profile_pic": user.user_metadata.avatar_url,
+            "user_public_id": userPublicID()
         }
 
         const { data, error } = await supabase
