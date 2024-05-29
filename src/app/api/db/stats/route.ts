@@ -1,13 +1,11 @@
 
 
 import { NextRequest, NextResponse } from "next/server";
-import { poseInfo } from "../../pose/poseApiData";
-import { YogaPoseAPI, DBFetchSupabase } from "../../../../../types";
 import CryptoJS from 'crypto-js';
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { createFetch } from "@/app/utils/supabase/cache";
-import { useMemo } from "react";
+
 
 const poseAnalysis = process.env.NEXT_PUBLIC_SUPABASE_DATABASE_POSE_ANALYSIS!
 
