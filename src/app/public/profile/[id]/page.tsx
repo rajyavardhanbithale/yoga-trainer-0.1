@@ -39,7 +39,7 @@ export default async function Page({ params }: any) {
     const details = {
         id: newData?.user_public_id,
         name: newData?.name,
-        avatar: !isValidURL(newData?.profile_pic) ? `${newData?.profile_pic.split('.')[0].split('-')[0]}/${newData?.profile_pic}.webp` : newData?.profile_pic,
+        avatar: !isValidURL(newData?.profile_pic) ? `/avatar/${newData?.profile_pic.split('.')[0].split('-')[0]}/${newData?.profile_pic}.webp` : newData?.profile_pic,
         country: newData?.country,
         achievements: newData?.achievements,
         gender: 'men'
@@ -55,7 +55,7 @@ export default async function Page({ params }: any) {
         return { date, year, month, monthName }
     }
 
-    const filterAchievements = AchievementsData.filter(item => details.achievements.includes(item.id))
+    const filterAchievements = details.achievements && AchievementsData.filter(item => details.achievements.includes(item.id)) || null
 
 
     return (
@@ -65,7 +65,7 @@ export default async function Page({ params }: any) {
                     <div className="col-span-1 flex flex-col justify-center gap-3">
                         <div className="flex m-4 w-fit mx-auto cursor-pointer overflow-hidden rounded-xl shadow-2xl">
                             <img
-                                src={`/avatar/${details && details.avatar}`}
+                                src={`${details && details.avatar}`}
                                 alt="avatar"
                                 className="w-52 h-52 object-cover object-top rounded-xl shadow-2xl transition-transform  hover:scale-110 duration-700"
                             />
@@ -116,51 +116,51 @@ export default async function Page({ params }: any) {
                             Member since  {joinedTime().date} {joinedTime().monthName} {joinedTime().year}
                         </span>
 
+                        {filterAchievements &&
+                            <div className="flex flex-wrap mt-8">
 
-                        <div className="flex flex-wrap mt-8">
+                                <span className="flex w-full text-2xl text-slate-800 font-semibold">
+                                    Achievements
+                                </span>
+                                {filterAchievements.map((item: achievementsData, key: number) => (
+                                    <div
+                                        data-tooltip-id={`tooltip-${key}`}
+                                        key={key}
+                                        className="w-[4.5rem] h-fit overflow-hidden m-2 span-5 rounded-full cursor-pointer"
+                                    >
+                                        <img
+                                            src={`/achievements/${item.icon}-${details.gender}.jpg`}
+                                            alt={item.name}
+                                            className="rounded-full object-cover shadow-lg hover:scale-105 hover:brightness-105 hover:shadow-2xl duration-500" />
 
-                            <span className="flex w-full text-2xl text-slate-800 font-semibold">
-                                Achievements
-                            </span>
-                            {filterAchievements && filterAchievements.map((item: achievementsData, key: number) => (
-                                <div
-                                    data-tooltip-id={`tooltip-${key}`}
-                                    key={key}
-                                    className="w-[4.5rem] h-fit overflow-hidden m-2 span-5 rounded-full cursor-pointer"
-                                >
-                                    <img
-                                        src={`/achievements/${item.icon}-${details.gender}.jpg`}
-                                        alt={item.name}
-                                        className="rounded-full object-cover shadow-lg hover:scale-105 hover:brightness-105 hover:shadow-2xl duration-500" />
-
-                                    <Tooltip id={`tooltip-${key}`} className="place-tooltip animate-fade-up">
-                                        <div className="flex flex-col m-2 span-2">
-                                            <span className="font-bold text-slate-900 text-xl">{item.name}</span>
-                                            <span className="text-slate-800 text-lg">{item.description}</span>
-                                            <div className="flex flex-col justify-between text-slate-700 mt-2 capitalize">
-                                                <div className="flex gap-2 items-center">
-                                                    <span className="font-bold text-lg">
-                                                        Level -
-                                                    </span>
-                                                    <span className="font-semibold text-base">
-                                                        {item.level}
-                                                    </span>
-                                                </div>
-                                                <div className="flex gap-2 items-center">
-                                                    <span className="font-bold text-lg">
-                                                        Rarity -
-                                                    </span>
-                                                    <span className="font-semibold text-base">
-                                                        {item.rarity}
-                                                    </span>
+                                        <Tooltip id={`tooltip-${key}`} className="place-tooltip animate-fade-up">
+                                            <div className="flex flex-col m-2 span-2">
+                                                <span className="font-bold text-slate-900 text-xl">{item.name}</span>
+                                                <span className="text-slate-800 text-lg">{item.description}</span>
+                                                <div className="flex flex-col justify-between text-slate-700 mt-2 capitalize">
+                                                    <div className="flex gap-2 items-center">
+                                                        <span className="font-bold text-lg">
+                                                            Level -
+                                                        </span>
+                                                        <span className="font-semibold text-base">
+                                                            {item.level}
+                                                        </span>
+                                                    </div>
+                                                    <div className="flex gap-2 items-center">
+                                                        <span className="font-bold text-lg">
+                                                            Rarity -
+                                                        </span>
+                                                        <span className="font-semibold text-base">
+                                                            {item.rarity}
+                                                        </span>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </Tooltip>
-                                </div>
-                            ))}
-                        </div>
-
+                                        </Tooltip>
+                                    </div>
+                                ))}
+                            </div>
+                        }
                     </div>
                 </div>
             </div>

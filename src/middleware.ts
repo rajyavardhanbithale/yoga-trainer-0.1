@@ -49,9 +49,9 @@ export async function middleware(request: NextRequest) {
 
     if (user && path === '/') {
         const timeCreation = new Date(user.created_at)
-        const timeNow = new Date()
+        const timeAdded = new Date(timeCreation.getTime() + INSERTION_CHECK_TIME * 1000);
 
-        const timeDiff = timeNow.getTime() - timeCreation.getTime() 
+        const timeDiff = timeAdded.getTime() - timeCreation.getTime() 
 
         if (secondsToEpoch(INSERTION_CHECK_TIME)>=timeDiff){
             updateUserDatabase()

@@ -38,7 +38,7 @@ export default function Achievements() {
                 </div>
 
                 <div className="flex flex-wrap justify-center w-11/12">
-                    {completed && achievements.map((item: achievementsData, key) => (
+                    {achievements.map((item: achievementsData, key) => (
                         <div
                             data-tooltip-id={`tooltip-${key}`}
                             key={key}

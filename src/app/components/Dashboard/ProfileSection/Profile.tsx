@@ -81,7 +81,7 @@ export default function Profile(props: any) {
             const profile_type = data && data[0]?.profile_type
 
             if (!isValidURL(pic)) {
-                const file = `${pic.split('.')[0].split('-')[0]}/${pic}.webp`
+                const file = `/avatar/${pic.split('.')[0].split('-')[0]}/${pic}.webp`
                 setUserDetails({ ...userDetails, avatar: file, name: name, country: country })
 
 
@@ -114,7 +114,7 @@ export default function Profile(props: any) {
     }
 
     useEffect(() => {
-        updateProfileType(isChecked === false ? 'public' : 'private')
+        updateProfileType(isChecked === true ? 'public' : 'private')
     }, [isChecked, setIsChecked])
 
     const userPublicID = () => {
@@ -134,7 +134,7 @@ export default function Profile(props: any) {
                     <div className="col-span-1 flex flex-col justify-center gap-3">
                         <div className="flex m-4 w-fit mx-auto cursor-pointer overflow-hidden rounded-xl shadow-2xl">
                             <img
-                                src={`/avatar/${userDetails && userDetails.avatar}`}
+                                src={`${userDetails && userDetails.avatar}`}
                                 alt="avatar"
                                 className="w-36 h-36 object-cover object-top rounded-xl shadow-2xl transition-transform  hover:scale-110 duration-700"
                             />
